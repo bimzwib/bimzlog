@@ -46,6 +46,11 @@ export default async function handler(req, res) {
 
     console.log(JSON.stringify(data));
 
+const reply =
+data?.candidates?.[0]?.content?.parts?.[0]?.text
+|| JSON.stringify(data)
+|| "AI did not return a valid response.";
+
 const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
 || data?.candidates?.[0]?.output
 || "AI did not return a valid response.";
