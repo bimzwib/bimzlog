@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'openchat/openchat-7b:free',
+          model: 'google/gemma-7b-it:free',
           messages: [
             {
               role: 'user',
