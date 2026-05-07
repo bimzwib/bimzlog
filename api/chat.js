@@ -44,10 +44,11 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text
-      || 'No response';
+    console.log(JSON.stringify(data));
 
+const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
+|| data?.candidates?.[0]?.output
+|| "AI did not return a valid response.";
     return res.status(200).json({
       content: [
         {
