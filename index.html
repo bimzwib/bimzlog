@@ -18,7 +18,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{ font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t1);overflow-x:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);overflow-x:hidden;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
@@ -26,20 +26,20 @@ body{ font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t1
 
 /* CURSOR */
 #cur,#curR{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;}
-#cur{width:8px;height:8px;background:var(--teal);mix-blend-mode:screen;}
-#curR{width:32px;height:32px;border:1px solid rgba(56,189,248,.4);transition:width .2s,height .2s;}
+#cur{width:8px;height:8px;background:var(--teal);mix-blend-mode:screen;transition:transform .05s;}
+#curR{width:32px;height:32px;border:1px solid rgba(56,189,248,.4);transition:width .25s,height .25s,border-color .25s;}
+#curR.hover{width:52px;height:52px;border-color:rgba(56,189,248,.7);}
 
 /* BG */
-#bgCanvas{position:fixed;inset:0;z-index:0;opacity:.55;}
-.grid-bg{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:50px 50px;}
+#bgCanvas{position:fixed;inset:0;z-index:0;}
+.grid-bg{display:none;}
 
 /* NAV */
-nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(5,8,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
-.logo-box{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,#0d1e3a,#0c1525);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;}
-.logo-box svg{width:22px;height:22px;}
-.logo-wm{font-family:Arial,Helvetica,sans-serif;font-size:1.15rem;font-weight:800;letter-spacing:.02em;color:var(--t1);}
-.logo-wm em{color:var(--teal);font-style:normal;}
+nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(5,8,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
+nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.logo-z{width:38px;height:38px;border-radius:10px;border:1px solid rgba(56,189,248,.25);background:#081122;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;background-image:linear-gradient(135deg,#38bdf8,#8b5cf6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;box-shadow:0 0 10px rgba(56,189,248,.12);}
+.logo-txt{font-size:30px;font-weight:900;letter-spacing:1px;color:#38bdf8;font-family:var(--display);}
 .nav-links{display:flex;gap:1.8rem;list-style:none;}
 .nav-links a{text-decoration:none;color:var(--t2);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:color .2s;position:relative;}
 .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--teal);transition:width .3s;}
@@ -52,44 +52,52 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .btn-nav{background:var(--teal);color:#fff;padding:7px 16px;border-radius:7px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 20px rgba(56,189,248,.2);}
 .btn-nav:hover{background:#7dd3fc;transform:translateY(-1px);}
 
-/* HERO */
+/* ── HERO ── */
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;max-width:1280px;margin:0 auto;gap:4rem;}
 .hero-l{flex:1;}
 .hero-r{flex:1;display:flex;justify-content:center;align-items:center;}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);border-radius:100px;padding:5px 14px;margin-bottom:1.75rem;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);animation:fadeUp .5s ease both;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);border-radius:100px;padding:5px 14px;margin-bottom:1.75rem;font-size:.68rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);opacity:0;animation:fadeUp .6s .1s ease forwards;}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s ease infinite;}
 @keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--green);}50%{opacity:.3;box-shadow:none;}}
-.hero h1{font-family:var(--display);font-size:clamp(3rem,7vw,6.5rem);font-weight:800;line-height:.95;margin-bottom:1.5rem;animation:fadeUp .5s .08s ease both;}
+.hero h1{font-family:var(--display);font-size:clamp(3rem,7vw,6.5rem);font-weight:800;line-height:.95;margin-bottom:1.5rem;opacity:0;animation:fadeUp .6s .2s ease forwards;}
 .h1-dim{color:var(--t2);display:block;font-size:.6em;}
 .h1-main{display:block;background:linear-gradient(120deg,var(--teal),#818cf8,var(--teal));background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:shim 4s linear infinite;}
 @keyframes shim{0%{background-position:0% center;}100%{background-position:200% center;}}
-.hero-desc{font-size:1rem;color:var(--t2);line-height:1.75;max-width:480px;margin-bottom:2rem;animation:fadeUp .5s .16s ease both;}
-.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .5s .24s ease both;}
+.hero-desc{font-size:1rem;color:var(--t2);line-height:1.75;max-width:480px;margin-bottom:2rem;opacity:0;animation:fadeUp .6s .3s ease forwards;}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap;opacity:0;animation:fadeUp .6s .4s ease forwards;}
 .btn-p{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;padding:13px 26px;border-radius:9px;font-weight:700;font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:all .25s;box-shadow:0 0 32px rgba(56,189,248,.3);}
 .btn-p:hover{background:#7dd3fc;transform:translateY(-2px);box-shadow:0 0 50px rgba(56,189,248,.5);}
 .btn-o{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--t1);padding:13px 26px;border-radius:9px;border:1px solid var(--border);font-weight:600;font-size:.82rem;letter-spacing:.07em;text-transform:uppercase;text-decoration:none;transition:all .25s;}
 .btn-o:hover{border-color:var(--border2);color:var(--teal);background:rgba(56,189,248,.04);}
-.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);animation:fadeUp .5s .32s ease both;}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border);opacity:0;animation:fadeUp .6s .5s ease forwards;}
 .sn{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--t1);line-height:1;}
 .sn span{color:var(--teal);}
 .sl2{font-size:.68rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
 
 /* HERO 3D CARD */
-.bimz-vis{width:320px;height:380px;position:relative;animation:fadeUp .7s .4s ease both;}
-.card3d{width:100%;height:100%;background:linear-gradient(140deg,#0e1e38,#091220);border:1px solid var(--border2);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 60px rgba(56,189,248,.07);transform:perspective(1000px) rotateY(-8deg) rotateX(4deg);transition:transform .5s ease;}
+.bimz-vis{width:320px;height:380px;position:relative;opacity:0;animation:fadeUp .8s .6s ease forwards;}
+.card3d{width:100%;height:100%;background:linear-gradient(140deg,#0e1e38,#091220);border:1px solid var(--border2);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 60px rgba(56,189,248,.07);transform:perspective(1000px) rotateY(-8deg) rotateX(4deg);transition:transform .6s ease;}
 .card3d:hover{transform:perspective(1000px) rotateY(-2deg) rotateX(1deg);}
 .card3d::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.card3d::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(56,189,248,.05),transparent 60%);pointer-events:none;}
 .bc-lbl{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;}
 .bc-big{font-family:var(--display);font-size:3.5rem;font-weight:800;background:linear-gradient(135deg,var(--teal),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:.4rem;}
 .bc-sub{font-size:.78rem;color:var(--t2);margin-bottom:1.75rem;}
 .bc-tools{display:flex;flex-direction:column;gap:.5rem;}
-.bct{display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:7px;padding:.55rem .85rem;font-size:.75rem;font-weight:500;transition:all .2s;cursor:default;}
-.bct:hover{border-color:var(--border2);background:rgba(56,189,248,.04);}
+.bct{display:flex;align-items:center;gap:.65rem;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:7px;padding:.55rem .85rem;font-size:.75rem;font-weight:500;transition:all .25s;cursor:default;}
+.bct:hover{border-color:var(--border2);background:rgba(56,189,248,.04);transform:translateX(4px);}
 .bd{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .bb{margin-left:auto;font-size:.58rem;font-weight:700;padding:2px 7px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase;}
 .bb-f{background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2);}
 .bb-n{background:rgba(56,189,248,.1);color:var(--teal);border:1px solid rgba(56,189,248,.2);}
 .bb-a{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
+
+/* FLOATING ELEMENTS */
+.float-el{position:absolute;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--teal);white-space:nowrap;}
+.fe1{top:-20px;right:-30px;animation:floatA 3s ease-in-out infinite;}
+.fe2{bottom:30px;left:-40px;animation:floatB 3.5s ease-in-out infinite;}
+@keyframes floatA{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes floatB{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
 
 /* SECTION WRAPPER */
 .sw{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:5rem 2rem;}
@@ -100,9 +108,9 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .sd{color:var(--t2);font-size:.95rem;line-height:1.7;max-width:460px;margin-bottom:2.5rem;}
 
 /* SEARCH + FILTERS */
-.search-wrap{display:flex;align-items:center;gap:.75rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;max-width:600px;margin-bottom:1.25rem;transition:border-color .2s;}
+.search-wrap{display:flex;align-items:center;gap:.75rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;max-width:600px;margin-bottom:1.25rem;transition:border-color .2s,box-shadow .2s;}
 .search-wrap:focus-within{border-color:var(--border2);box-shadow:0 0 0 3px rgba(56,189,248,.07);}
-.search-wrap input{flex:1;background:none;border:none;outline:none;color:var(--t1);font-family:Arial,Helvetica,sans-serif;font-size:.9rem;}
+.search-wrap input{flex:1;background:none;border:none;outline:none;color:var(--t1);font-family:var(--sans);font-size:.9rem;}
 .search-wrap input::placeholder{color:var(--t3);}
 .ftags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
 .ftag{background:var(--card);border:1px solid var(--border);border-radius:100px;padding:5px 14px;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);cursor:pointer;transition:all .2s;}
@@ -110,10 +118,10 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 
 /* TOOLS GRID */
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;}
-.tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;position:relative;overflow:hidden;text-decoration:none;color:inherit;transition:all .3s cubic-bezier(.34,1.56,.64,1);display:block;cursor:pointer;}
-.tc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(56,189,248,.06),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
+.tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;position:relative;overflow:hidden;text-decoration:none;color:inherit;transition:all .35s cubic-bezier(.34,1.56,.64,1);display:block;cursor:pointer;}
+.tc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(56,189,248,.07),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
 .tc:hover::after{opacity:1;}
-.tc:hover{background:var(--card2);border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.tc:hover{background:var(--card2);border-color:var(--border2);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.45),0 0 0 1px rgba(56,189,248,.08);}
 .tc.sp2{grid-column:span 2;}
 .tc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
 .tc-icon{width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
@@ -128,7 +136,7 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .tc-meta{display:flex;align-items:center;justify-content:space-between;}
 .tc-stars{display:flex;align-items:center;gap:4px;font-size:.75rem;color:var(--orange);}
 .tc-dl{font-size:.7rem;color:var(--t3);}
-.tc-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.tc-bar{position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--blue));transform:scaleX(0);transform-origin:left;transition:transform .35s;}
 .tc:hover .tc-bar{transform:scaleX(1);}
 .tc-code{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1rem;font-family:var(--mono);font-size:.7rem;color:var(--teal);line-height:1.8;overflow:hidden;}
 .cc{color:var(--t3);}.cf{color:#c084fc;}.cs{color:#86efac;}.ck{color:var(--teal);}
@@ -138,21 +146,23 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .cmp-tbl th{background:var(--card2);padding:1rem;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);border-bottom:2px solid var(--border);}
 .cmp-tbl th.ct{color:var(--teal);}
 .cmp-tbl th.cb{color:var(--blue);}
-.cmp-tbl td{padding:.85rem 1rem;border-bottom:1px solid var(--border);color:var(--t2);vertical-align:top;}
+.cmp-tbl td{padding:.85rem 1rem;border-bottom:1px solid var(--border);color:var(--t2);vertical-align:top;transition:background .2s;}
 .cmp-tbl td:first-child{color:var(--t1);font-weight:500;}
-.cmp-tbl tr:hover td{background:rgba(255,255,255,.015);}
+.cmp-tbl tr:hover td{background:rgba(56,189,248,.02);}
 .c-y{color:var(--green);}.c-n{color:var(--t3);}.c-p{color:var(--orange);}
 
-/* AI SECTION */
+/* ── AI SECTION ── */
 .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .ai-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;position:relative;overflow:hidden;transition:all .3s;}
-.ai-card:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-3px);}
+.ai-card:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
 .ai-card.w2{grid-column:span 2;}
 .ai-card::before{content:'';position:absolute;top:-50px;right:-50px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(168,85,247,.07),transparent 70%);}
 .ai-icon{font-size:1.8rem;margin-bottom:.9rem;}
 .ai-title{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:.4rem;}
 .ai-desc{font-size:.8rem;color:var(--t2);line-height:1.6;margin-bottom:1.1rem;}
-.bot-chat{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.7rem;}
+
+/* CHAT */
+.bot-chat{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.7rem;max-height:320px;overflow-y:auto;}
 .cm{display:flex;gap:.6rem;align-items:flex-start;}
 .cm.right{flex-direction:row-reverse;}
 .cav{width:26px;height:26px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;}
@@ -161,16 +171,29 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .cb2{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:.55rem .85rem;font-size:.77rem;color:var(--t1);line-height:1.6;max-width:85%;}
 .cb2.bot{border-color:rgba(168,85,247,.2);}
 .cb2.user{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.2);}
+.cb2.typing{display:flex;gap:4px;align-items:center;padding:.7rem .85rem;}
+.dot-t{width:6px;height:6px;border-radius:50%;background:var(--t2);animation:dotPulse 1.2s ease infinite;}
+.dot-t:nth-child(2){animation-delay:.2s;}
+.dot-t:nth-child(3){animation-delay:.4s;}
+@keyframes dotPulse{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
 .chat-inp{display:flex;gap:.5rem;margin-top:.25rem;}
-.chat-inp input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:.5rem .85rem;color:var(--t1);font-family:var(--sans);font-size:.77rem;outline:none;}
-.chat-inp button{background:var(--teal);color:#fff;border:none;border-radius:7px;padding:.5rem .9rem;font-size:.77rem;font-weight:600;cursor:pointer;transition:background .2s;}
+.chat-inp input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:.5rem .85rem;color:var(--t1);font-family:var(--sans);font-size:.77rem;outline:none;transition:border-color .2s;}
+.chat-inp input:focus{border-color:var(--border2);}
+.chat-inp button{background:var(--teal);color:#fff;border:none;border-radius:7px;padding:.5rem .9rem;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .2s;}
 .chat-inp button:hover{background:#7dd3fc;}
+.chat-inp button:disabled{opacity:.5;cursor:not-allowed;}
+
+/* CHIP BUTTONS */
+.chip-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
+.chip{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:100px;padding:4px 12px;font-size:.65rem;font-weight:600;color:var(--teal);cursor:pointer;transition:all .2s;letter-spacing:.05em;}
+.chip:hover{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.35);}
 
 /* LEARNING */
 .lg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-.lc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .3s;text-decoration:none;color:inherit;}
-.lc:hover{border-color:var(--border2);transform:translateY(-3px);}
-.lc-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;}
+.lc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .35s;text-decoration:none;color:inherit;}
+.lc:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.lc-thumb{height:110px;display:flex;align-items:center;justify-content:center;font-size:2.8rem;transition:transform .3s;}
+.lc:hover .lc-thumb{transform:scale(1.1);}
 .lc-body{padding:1.25rem;}
 .lc-lvl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem;}
 .beg{color:var(--green);}.mid{color:var(--orange);}.adv{color:var(--red);}
@@ -178,14 +201,14 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 .lc-desc{font-size:.77rem;color:var(--t2);line-height:1.6;margin-bottom:.9rem;}
 .lc-foot{font-size:.68rem;color:var(--t3);}
 .lc-prog{height:3px;background:var(--border);border-radius:2px;margin-top:.6rem;}
-.lc-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--blue));}
+.lc-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--blue));width:0%;transition:width 1s ease;}
 
 /* ROADMAP */
 .rm{position:relative;padding-left:50px;}
 .rm-line{position:absolute;left:16px;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--teal),transparent);}
 .rm-items{display:flex;flex-direction:column;gap:2rem;}
 .rm-item{position:relative;}
-.rm-dot{position:absolute;left:-42px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--border);}
+.rm-dot{position:absolute;left:-42px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--border);transition:all .3s;}
 .rm-dot.done{background:var(--teal);border-color:var(--teal);}
 .rm-dot.now{background:var(--teal);border-color:var(--teal);box-shadow:0 0 14px rgba(56,189,248,.7);animation:glp 2s ease infinite;}
 @keyframes glp{0%,100%{box-shadow:0 0 14px rgba(56,189,248,.7);}50%{box-shadow:0 0 4px rgba(56,189,248,.2);}}
@@ -201,14 +224,14 @@ nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-i
 /* CONTACT */
 .cg{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start;}
 .c-info{display:flex;flex-direction:column;gap:.75rem;}
-.ci{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;text-decoration:none;color:inherit;transition:all .2s;}
-.ci:hover{border-color:var(--border2);}
+.ci{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;text-decoration:none;color:inherit;transition:all .25s;}
+.ci:hover{border-color:var(--border2);transform:translateX(4px);}
 .ci-icon{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);}
 .ci-l{font-size:.62rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;}
 .ci-v{font-size:.87rem;font-weight:600;margin-top:2px;}
 .c-form{display:flex;flex-direction:column;gap:.9rem;}
 label.fl{display:block;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px;}
-.fi{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 15px;color:var(--t1);font-family:var(--sans);font-size:.88rem;outline:none;transition:border-color .2s;}
+.fi{width:100%;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:11px 15px;color:var(--t1);font-family:var(--sans);font-size:.88rem;outline:none;transition:border-color .2s,box-shadow .2s;}
 .fi:focus{border-color:var(--border2);box-shadow:0 0 0 3px rgba(56,189,248,.07);}
 textarea.fi{min-height:110px;resize:none;}
 select.fi{cursor:pointer;}
@@ -222,7 +245,8 @@ select.fi{cursor:pointer;}
 /* COMMAND PALETTE */
 #cmd{position:fixed;inset:0;z-index:800;background:rgba(5,8,15,.85);backdrop-filter:blur(16px);display:none;align-items:flex-start;justify-content:center;padding-top:14vh;}
 #cmd.open{display:flex;}
-.cmd-box{width:100%;max-width:580px;background:var(--card2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7);}
+.cmd-box{width:100%;max-width:580px;background:var(--card2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7);animation:slideDown .2s ease;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:none;}}
 .cmd-iw{display:flex;align-items:center;gap:.75rem;padding:1rem 1.25rem;border-bottom:1px solid var(--border);}
 .cmd-i{flex:1;background:none;border:none;outline:none;color:var(--t1);font-size:1rem;font-family:var(--sans);}
 .cmd-i::placeholder{color:var(--t3);}
@@ -237,7 +261,7 @@ select.fi{cursor:pointer;}
 /* FOOTER */
 footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:1280px;margin:0 auto;padding:3rem 2rem 2rem;}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem;}
-.foot-brand .logo-wm{font-size:1.3rem;margin-bottom:.75rem;display:block;}
+.foot-brand .logo-wm{font-family:var(--display);font-size:1.3rem;font-weight:800;margin-bottom:.75rem;display:block;color:var(--teal);}
 .foot-desc{font-size:.8rem;color:var(--t2);line-height:1.7;max-width:260px;}
 .fh{font-size:.67rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--t3);margin-bottom:.75rem;}
 .flinks{display:flex;flex-direction:column;gap:.4rem;}
@@ -249,11 +273,26 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 .fl2 a{font-size:.72rem;color:var(--t3);text-decoration:none;}
 .fl2 a:hover{color:var(--teal);}
 
-/* REVEAL ANIMATION */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+/* ── REVEAL ANIMATION ── */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.in{opacity:1;transform:none;}
-.rd1{transition-delay:.08s;}.rd2{transition-delay:.16s;}.rd3{transition-delay:.24s;}.rd4{transition-delay:.32s;}
+.rd1{transition-delay:.1s;}.rd2{transition-delay:.2s;}.rd3{transition-delay:.3s;}.rd4{transition-delay:.4s;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+/* TYPING CURSOR */
+.type-cursor{display:inline-block;width:3px;height:.85em;background:var(--teal);margin-left:2px;animation:curBlink .8s ease infinite;vertical-align:middle;}
+@keyframes curBlink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+/* COUNTER */
+.stat-num{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--t1);line-height:1;}
+.stat-num span{color:var(--teal);}
+
+/* PULSE RING on AI card */
+.pulse-ring{position:absolute;top:1.5rem;right:1.5rem;width:10px;height:10px;}
+.pulse-ring::before,.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--green);}
+.pulse-ring::after{animation:pulseOut 2s ease infinite;opacity:0;}
+@keyframes pulseOut{0%{transform:scale(1);opacity:.6;}100%{transform:scale(3);opacity:0;}}
+.pulse-ring::before{width:10px;height:10px;}
 
 /* RESPONSIVE */
 @media(max-width:900px){
@@ -309,39 +348,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 <div id="toast"><span id="toastMsg">Done!</span></div>
 
 <!-- NAV -->
-<nav>
-  <a href="#" class="nav-logo" style="text-decoration:none;display:flex;align-items:center;gap:12px;">
-
-    <div style="
-    width:38px;
-    height:38px;
-    border-radius:10px;
-    border:1px solid rgba(56,189,248,.25);
-    background:#081122;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:900;
-    background-image:linear-gradient(135deg,#38bdf8,#8b5cf6);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    box-shadow:0 0 10px rgba(56,189,248,.12);
-    ">
-    Z
-    </div>
-
-    <div style="
-    font-size:30px;
-    font-weight:900;
-    letter-spacing:1px;
-    color:#38bdf8;
-    ">
-    BIMZ
-    </div>
-
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <div class="logo-z">Z</div>
+    <div class="logo-txt">BIMZ</div>
   </a>
-
   <ul class="nav-links">
     <li><a href="#tools">Tools</a></li>
     <li><a href="#ai">AI</a></li>
@@ -349,13 +360,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-
   <div class="nav-r">
     <div class="nav-search" onclick="openPal()">
       <span>🔍</span><span>Search...</span><kbd>⌘K</kbd>
     </div>
-
-    <button class="btn-nav" onclick="login()">Login</button>
+    <button class="btn-nav" id="loginBtn" onclick="login()">Login</button>
   </div>
 </nav>
 
@@ -364,7 +373,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 <div class="hero">
   <div class="hero-l">
     <div class="eyebrow"><div class="live-dot"></div>AI-Powered BIM Platform · Free Forever</div>
-    <h1><span class="h1-dim">Welcome to</span><span class="h1-main">BIMZ</span></h1>
+    <h1>
+      <span class="h1-dim">Welcome to</span>
+      <span class="h1-main" id="heroTitle">BIMZ</span>
+    </h1>
     <p class="hero-desc">The #1 smart platform for BIM & CAD engineers. Free LISP scripts, Dynamo workflows, Revit families, AI assistant, and structured learning — all in one place.</p>
     <div class="hero-actions">
       <a href="#tools" class="btn-p">
@@ -377,13 +389,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       </a>
     </div>
     <div class="hero-stats">
-      <div><div class="sn">80<span>+</span></div><div class="sl2">Tools</div></div>
-      <div><div class="sn">12<span>k</span></div><div class="sl2">Downloads</div></div>
-      <div><div class="sn">100<span>%</span></div><div class="sl2">Free</div></div>
+      <div><div class="stat-num"><span id="cnt1">0</span><span>+</span></div><div class="sl2">Tools</div></div>
+      <div><div class="stat-num"><span id="cnt2">0</span><span>k</span></div><div class="sl2">Downloads</div></div>
+      <div><div class="stat-num"><span id="cnt3">0</span><span>%</span></div><div class="sl2">Free</div></div>
     </div>
   </div>
   <div class="hero-r">
-    <div class="bimz-vis">
+    <div class="bimz-vis" style="position:relative;">
+      <div class="float-el fe1">⚡ AutoCAD LISP</div>
+      <div class="float-el fe2">🤖 AI Assistant</div>
       <div class="card3d">
         <div class="bc-lbl">Platform Overview</div>
         <div class="bc-big">BIMZ</div>
@@ -408,7 +422,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
   <div class="sl reveal">Tools Library</div>
   <h2 class="sh reveal rd1">Professional BIM &<br/>CAD Tools</h2>
   <p class="sd reveal rd2">Download tested scripts, nodes, and resources. Rated and reviewed by real engineers.</p>
-
   <div class="search-wrap reveal rd2">
     <span style="color:var(--t3)">🔍</span>
     <input type="text" placeholder="Search tools, scripts, families..." id="toolSearch"/>
@@ -422,7 +435,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
     <div class="ftag" onclick="ft(this,'arch')">Architecture</div>
     <div class="ftag" onclick="ft(this,'ai')">AI Tools</div>
   </div>
-
   <div class="tg" id="toolsContainer">
     <!-- FEATURED -->
     <div class="tc sp2 reveal" data-cat="autocad mep">
@@ -439,8 +451,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
             <div class="tc-dl">↓ 8.2k</div>
           </div>
           <div style="margin-top:1rem;display:flex;gap:.5rem;">
-            <button onclick="showToast('⬇️ Downloading LISP Pack...')" style="background:var(--teal);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:.74rem;font-weight:700;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;">Download All ↓</button>
-            <button onclick="showToast('⭐ Added to Favorites!')" style="background:var(--card2);color:var(--t2);border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-size:.74rem;cursor:pointer;">♡ Save</button>
+            <button onclick="showToast('⬇️ Downloading LISP Pack...')" style="background:var(--teal);color:#fff;border:none;border-radius:7px;padding:8px 16px;font-size:.74rem;font-weight:700;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;transition:all .2s;">Download All ↓</button>
+            <button onclick="showToast('⭐ Added to Favorites!')" style="background:var(--card2);color:var(--t2);border:1px solid var(--border);border-radius:7px;padding:8px 12px;font-size:.74rem;cursor:pointer;transition:all .2s;">♡ Save</button>
           </div>
         </div>
         <div class="tc-code">
@@ -456,23 +468,20 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       </div>
       <div class="tc-bar"></div>
     </div>
-
-    <div class="tc reveal" data-cat="revit dynamo mep" onclick="window.location.href='dynamo.html'">
+    <div class="tc reveal" data-cat="revit dynamo mep">
       <div class="tc-top"><div class="tc-icon" style="background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);">🔷</div><div class="tc-badges"><span class="badge b-new">New</span><span class="badge b-free">Free</span></div></div>
       <div class="tc-name">Dynamo Scripts</div>
       <div class="tc-desc">Visual programming for Revit — automate families, parameters, MEP schedules, and clash workflows.</div>
       <div class="tc-meta"><div class="tc-stars">★★★★½ <span style="color:var(--t3);margin-left:4px;">4.7</span></div><div class="tc-dl">↓ 4.1k</div></div>
       <div class="tc-bar"></div>
     </div>
-
-    <div class="tc reveal rd1" data-cat="revit mep" onclick="window.location.href='revit.html'">
+    <div class="tc reveal rd1" data-cat="revit mep">
       <div class="tc-top"><div class="tc-icon" style="background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2);">🏠</div><div class="tc-badges"><span class="badge b-free">Free</span></div></div>
       <div class="tc-name">Revit Families</div>
       <div class="tc-desc">Parametric MEP families — HVAC diffusers, pipe fittings, valve schedules, pumps, and equipment.</div>
       <div class="tc-meta"><div class="tc-stars">★★★★★ <span style="color:var(--t3);margin-left:4px;">4.8</span></div><div class="tc-dl">↓ 3.3k</div></div>
       <div class="tc-bar"></div>
     </div>
-
     <div class="tc reveal rd2" data-cat="autocad">
       <div class="tc-top"><div class="tc-icon" style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.2);">🔤</div><div class="tc-badges"><span class="badge b-free">Free</span></div></div>
       <div class="tc-name">AutoCAD Fonts</div>
@@ -480,7 +489,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       <div class="tc-meta"><div class="tc-stars">★★★★ <span style="color:var(--t3);margin-left:4px;">4.5</span></div><div class="tc-dl">↓ 6.8k</div></div>
       <div class="tc-bar"></div>
     </div>
-
     <div class="tc reveal rd3" data-cat="autocad">
       <div class="tc-top"><div class="tc-icon" style="background:rgba(244,63,94,.1);border:1px solid rgba(244,63,94,.2);">🎨</div><div class="tc-badges"><span class="badge b-free">Free</span></div></div>
       <div class="tc-name">Plot Styles</div>
@@ -488,7 +496,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       <div class="tc-meta"><div class="tc-stars">★★★★½ <span style="color:var(--t3);margin-left:4px;">4.6</span></div><div class="tc-dl">↓ 5.1k</div></div>
       <div class="tc-bar"></div>
     </div>
-
     <div class="tc reveal rd4" data-cat="revit ai">
       <div class="tc-top"><div class="tc-icon" style="background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.2);">🌿</div><div class="tc-badges"><span class="badge b-new">New</span><span class="badge b-ai">AI</span></div></div>
       <div class="tc-name">Enscape Tools</div>
@@ -531,37 +538,48 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 <div class="sw" id="ai">
   <div class="sl reveal">Smart Features</div>
   <h2 class="sh reveal rd1">AI & Smart<br/>Engineering Tools</h2>
-  <p class="sd reveal rd2">Powered by large language models trained on BIM, LISP, and Dynamo workflows.</p>
+  <p class="sd reveal rd2">Powered by Claude AI — trained for BIM, LISP, Dynamo, and MEP engineering workflows.</p>
   <div class="ai-grid">
-    <!-- BOT WIDE -->
-    <div class="ai-card w2 reveal">
+    <!-- BOT WIDE — LIVE -->
+    <div class="ai-card w2 reveal" style="position:relative;">
+      <div class="pulse-ring"></div>
       <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start;">
         <div>
           <div class="ai-icon">🤖</div>
           <div class="ai-title">BIMZ Bot — AI Assistant</div>
-          <div class="ai-desc">Ask anything about AutoCAD LISP syntax, Revit parameters, Dynamo nodes, MEP system design, or clash resolution. Engineer-grade answers in seconds.</div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <div class="ai-desc">Ask anything about AutoCAD LISP syntax, Revit parameters, Dynamo nodes, MEP system design, or clash resolution. Engineer-grade answers powered by Claude AI.</div>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;">
             <span class="badge b-ai">LISP Help</span>
             <span class="badge b-new">Dynamo Debug</span>
             <span class="badge b-free">MEP Q&A</span>
+            <span class="badge" style="background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2);">✓ LIVE</span>
+          </div>
+          <div class="chip-row">
+            <div class="chip" onclick="quickAsk('How do I create a LISP command for layer management?')">Layer Setup LISP</div>
+            <div class="chip" onclick="quickAsk('What Dynamo nodes are best for MEP duct routing?')">Dynamo MEP</div>
+            <div class="chip" onclick="quickAsk('How to detect clashes between HVAC and structural in Navisworks?')">Clash Detection</div>
+            <div class="chip" onclick="quickAsk('What are standard layer names for MEP shop drawings?')">MEP Standards</div>
           </div>
         </div>
-        <div class="bot-chat">
-          <div class="cm">
-            <div class="cav user">👤</div>
-            <div class="cb2 user">How do I rotate all text to match UCS in LISP?</div>
+        <div>
+          <div class="bot-chat" id="botChat">
+            <div class="cm">
+              <div class="cav user">👤</div>
+              <div class="cb2 user">How do I rotate all text to match UCS in LISP?</div>
+            </div>
+            <div class="cm">
+              <div class="cav bot">⚡</div>
+              <div class="cb2 bot">Use <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(entmod)</code> with group code <strong>50</strong> for angle. Loop through all TEXT with <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(ssget "X" '((0 . "TEXT")))</code> and set angle to 0 relative to current UCS.</div>
+            </div>
           </div>
-          <div class="cm">
-            <div class="cav bot">⚡</div>
-            <div class="cb2 bot">Use <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(entmod)</code> with group code <strong>50</strong> for angle. Loop through all TEXT with <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(ssget "X" '((0 . "TEXT")))</code> and set angle to 0 relative to current UCS...</div>
-          </div>
-          <div class="chat-inp">
-            <input placeholder="Ask BIMZ Bot..." id="botIn"/>
-            <button onclick="sendBot()">Send →</button>
+          <div class="chat-inp" style="margin-top:.5rem;">
+            <input placeholder="Ask about LISP, Dynamo, MEP, Revit..." id="botIn"/>
+            <button onclick="sendBot()" id="botSend">Send →</button>
           </div>
         </div>
       </div>
     </div>
+
     <div class="ai-card reveal"><div class="ai-icon">⚡</div><div class="ai-title">LISP Generator</div><div class="ai-desc">Describe what you need in plain English — BIMZ generates ready-to-use LISP code with comments and error handling.</div><span class="badge b-ai">Coming Soon</span></div>
     <div class="ai-card reveal rd1"><div class="ai-icon">🔷</div><div class="ai-title">Dynamo Optimizer</div><div class="ai-desc">Paste your Dynamo script — AI analyzes it, finds bottlenecks, and suggests optimized node sequences.</div><span class="badge b-ai">Coming Soon</span></div>
     <div class="ai-card reveal rd2"><div class="ai-icon">🔍</div><div class="ai-title">Problem → Solution Engine</div><div class="ai-desc">Describe your site issue or clash. The engine matches it against known solutions and generates a structured resolution report.</div><span class="badge b-ai">Coming Soon</span></div>
@@ -577,12 +595,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
   <h2 class="sh reveal rd1">Courses &<br/>Learning Paths</h2>
   <p class="sd reveal rd2">Structured content for every level — beginner to advanced BIM automation.</p>
   <div class="lg">
-    <a href="#" class="lc reveal"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(59,130,246,.04));">⚡</div><div class="lc-body"><div class="lc-lvl beg">Beginner</div><div class="lc-title">LISP Scripting Fundamentals</div><div class="lc-desc">Start from zero — syntax, basic commands, and your first AutoCAD automation routine.</div><div class="lc-foot">12 lessons · 3.5 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
-    <a href="#" class="lc reveal rd1"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(168,85,247,.04));">🔷</div><div class="lc-body"><div class="lc-lvl mid">Intermediate</div><div class="lc-title">Dynamo for MEP Engineers</div><div class="lc-desc">Practical Dynamo workflows — HVAC duct routing, piping, equipment scheduling.</div><div class="lc-foot">18 lessons · 5 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
-    <a href="#" class="lc reveal rd2"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(244,63,94,.04));">🏗️</div><div class="lc-body"><div class="lc-lvl adv">Advanced</div><div class="lc-title">Revit BIM Coordination</div><div class="lc-desc">Shop drawings, clash detection, and multi-discipline coordination using Navisworks + Revit.</div><div class="lc-foot">22 lessons · 7 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
-    <a href="#" class="lc reveal rd3"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(56,189,248,.04));">🌿</div><div class="lc-body"><div class="lc-lvl beg">Beginner</div><div class="lc-title">Enscape Quick Start</div><div class="lc-desc">Render settings, lighting, materials — professional renders from Revit in under an hour.</div><div class="lc-foot">8 lessons · 2 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
-    <a href="#" class="lc reveal rd4"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(244,63,94,.04));">📋</div><div class="lc-body"><div class="lc-lvl mid">Intermediate</div><div class="lc-title">Drawing Standards & QA</div><div class="lc-desc">Layer naming, annotation styles, and QA checklist for professional engineering drawings.</div><div class="lc-foot">10 lessons · 2.5 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
-    <a href="#" class="lc reveal"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(244,63,94,.08),rgba(168,85,247,.04));">🤖</div><div class="lc-body"><div class="lc-lvl adv">Advanced</div><div class="lc-title">AI Tools for Engineers</div><div class="lc-desc">Use AI assistants, LISP generators, and Dynamo optimizers to 10x your productivity.</div><div class="lc-foot">15 lessons · 4 hrs</div><div class="lc-prog"><div class="lc-bar" style="width:0%"></div></div></div></a>
+    <a href="#" class="lc reveal"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(56,189,248,.08),rgba(59,130,246,.04));">⚡</div><div class="lc-body"><div class="lc-lvl beg">Beginner</div><div class="lc-title">LISP Scripting Fundamentals</div><div class="lc-desc">Start from zero — syntax, basic commands, and your first AutoCAD automation routine.</div><div class="lc-foot">12 lessons · 3.5 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
+    <a href="#" class="lc reveal rd1"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(168,85,247,.04));">🔷</div><div class="lc-body"><div class="lc-lvl mid">Intermediate</div><div class="lc-title">Dynamo for MEP Engineers</div><div class="lc-desc">Practical Dynamo workflows — HVAC duct routing, piping, equipment scheduling.</div><div class="lc-foot">18 lessons · 5 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
+    <a href="#" class="lc reveal rd2"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(168,85,247,.08),rgba(244,63,94,.04));">🏗️</div><div class="lc-body"><div class="lc-lvl adv">Advanced</div><div class="lc-title">Revit BIM Coordination</div><div class="lc-desc">Shop drawings, clash detection, and multi-discipline coordination using Navisworks + Revit.</div><div class="lc-foot">22 lessons · 7 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
+    <a href="#" class="lc reveal rd3"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(56,189,248,.04));">🌿</div><div class="lc-body"><div class="lc-lvl beg">Beginner</div><div class="lc-title">Enscape Quick Start</div><div class="lc-desc">Render settings, lighting, materials — professional renders from Revit in under an hour.</div><div class="lc-foot">8 lessons · 2 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
+    <a href="#" class="lc reveal rd4"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(244,63,94,.04));">📋</div><div class="lc-body"><div class="lc-lvl mid">Intermediate</div><div class="lc-title">Drawing Standards & QA</div><div class="lc-desc">Layer naming, annotation styles, and QA checklist for professional engineering drawings.</div><div class="lc-foot">10 lessons · 2.5 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
+    <a href="#" class="lc reveal"><div class="lc-thumb" style="background:linear-gradient(135deg,rgba(244,63,94,.08),rgba(168,85,247,.04));">🤖</div><div class="lc-body"><div class="lc-lvl adv">Advanced</div><div class="lc-title">AI Tools for Engineers</div><div class="lc-desc">Use AI assistants, LISP generators, and Dynamo optimizers to 10x your productivity.</div><div class="lc-foot">15 lessons · 4 hrs</div><div class="lc-prog"><div class="lc-bar"></div></div></div></a>
   </div>
 </div>
 
@@ -600,9 +618,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
         <div class="rm-item"><div class="rm-dot done"></div><div class="rm-phase">Phase 1 — Completed</div><div class="rm-title">Core Tools Launch</div><div class="rm-desc">LISP scripts, AutoCAD fonts pack, Plot styles — all available for free download.</div><span class="rb rb-done">✓ Done</span></div>
         <div class="rm-item"><div class="rm-dot done"></div><div class="rm-phase">Phase 2 — Completed</div><div class="rm-title">Dynamo & Revit Library</div><div class="rm-desc">Dynamo scripts, Revit families, Enscape presets, and MEP workflows.</div><span class="rb rb-done">✓ Done</span></div>
         <div class="rm-item"><div class="rm-dot now"></div><div class="rm-phase">Phase 3 — In Progress</div><div class="rm-title">BIMZ Platform Launch</div><div class="rm-desc">Full BIMZ website, structured learning center, comparison guides, and tool ratings system.</div><span class="rb rb-now">⬤ Active</span></div>
-        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 4 — Q3 2025</div><div class="rm-title">BIMZ Bot — AI Assistant</div><div class="rm-desc">AI chatbot for LISP, Dynamo & Revit. LISP Generator and Dynamo Optimizer tools.</div><span class="rb rb-soon">Coming Soon</span></div>
-        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 5 — Q4 2025</div><div class="rm-title">User Accounts & Dashboard</div><div class="rm-desc">Favorites, download history, personal workspace, tool request system, and community.</div><span class="rb rb-plan">Planned</span></div>
-        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 6 — 2026</div><div class="rm-title">Multi-Language & Mobile App</div><div class="rm-desc">8 languages: Arabic, English, Hindi, French, Spanish, German, Italian, Chinese + PWA app.</div><span class="rb rb-plan">Planned</span></div>
+        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 4 — Q2 2026</div><div class="rm-title">BIMZ Bot — AI Assistant</div><div class="rm-desc">Full AI chatbot integration for LISP, Dynamo & Revit. LISP Generator and Dynamo Optimizer.</div><span class="rb rb-soon">In Development</span></div>
+        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 5 — Q3 2026</div><div class="rm-title">User Accounts & Dashboard</div><div class="rm-desc">Favorites, download history, personal workspace, tool request system, and community.</div><span class="rb rb-plan">Planned</span></div>
+        <div class="rm-item"><div class="rm-dot"></div><div class="rm-phase">Phase 6 — 2027</div><div class="rm-title">Multi-Language & Mobile App</div><div class="rm-desc">8 languages: Arabic, English, Hindi, French, Spanish, German, Italian, Chinese + PWA app.</div><span class="rb rb-plan">Planned</span></div>
       </div>
     </div>
   </div>
@@ -624,11 +642,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       <div class="ci"><div class="ci-icon">🌐</div><div><div class="ci-l">Platform</div><div class="ci-v">bimz.tech (Coming Soon)</div></div></div>
     </div>
     <div class="c-form reveal rd3">
-      <div><label class="fl">Your Name</label><input class="fi" type="text" placeholder="Eng. Mohamed Ali"/></div>
-      <div><label class="fl">Email</label><input class="fi" type="email" placeholder="your@email.com"/></div>
-      <div><label class="fl">Request Type</label><select class="fi"><option>🔧 Tool Request</option><option>🐛 Bug Report</option><option>🤝 Collaboration</option><option>💬 General Question</option><option>🎓 Learning Feedback</option></select></div>
-      <div><label class="fl">Message</label><textarea class="fi" placeholder="Describe what you need in detail..."></textarea></div>
-      <button class="btn-send" onclick="showToast('✅ Message sent! Reply within 24 hrs.')">Send Message →</button>
+      <div><label class="fl">Your Name</label><input class="fi" type="text" id="cName" placeholder="Eng. Mohamed Ali"/></div>
+      <div><label class="fl">Email</label><input class="fi" type="email" id="cEmail" placeholder="your@email.com"/></div>
+      <div><label class="fl">Request Type</label><select class="fi" id="cType"><option>🔧 Tool Request</option><option>🐛 Bug Report</option><option>🤝 Collaboration</option><option>💬 General Question</option><option>🎓 Learning Feedback</option></select></div>
+      <div><label class="fl">Message</label><textarea class="fi" id="cMsg" placeholder="Describe what you need in detail..."></textarea></div>
+      <button class="btn-send" onclick="submitContact()">Send Message →</button>
     </div>
   </div>
 </div>
@@ -638,76 +656,219 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 <footer>
   <div class="fg">
     <div class="foot-brand">
-      <span class="logo-wm"><em>BIM</em>Z</span>
+      <span class="logo-wm">BIMZ</span>
       <p class="foot-desc">The #1 AI-powered platform for BIM & CAD engineers. Free tools, smart automation, and structured learning — built by engineers, for engineers.</p>
     </div>
     <div><div class="fh">Tools</div><div class="flinks"><a href="#tools">LISP Scripts</a><a href="#tools">Dynamo Nodes</a><a href="#tools">Revit Families</a><a href="#tools">AutoCAD Fonts</a><a href="#tools">Plot Styles</a></div></div>
     <div><div class="fh">Platform</div><div class="flinks"><a href="#learning">Learning Center</a><a href="#ai">BIMZ Bot</a><a href="#roadmap">Roadmap</a><a href="#contact">Request Tool</a><a href="#contact">Contact</a></div></div>
-    <div><div class="fh">About</div><div class="flinks"><a href="#">About Ziad</a><a href="#">DIRECT Consulting</a><a href="mailto:ziadanter101@gmail.com">Email Us</a><a href="https://wa.me/201030718566">WhatsApp</a></div></div>
+    <div><div class="fh">About</div><div class="flinks"><a href="#contact">About Ziad</a><a href="#contact">DIRECT Consulting</a><a href="mailto:ziadanter101@gmail.com">Email Us</a><a href="https://wa.me/201030718566">WhatsApp</a></div></div>
   </div>
   <div class="fb">
-    <div class="fc">© 2025 BIMZ · By Ziad Technology · DIRECT Consulting · All tools free to use</div>
+    <div class="fc">© 2026 BIMZ · By Ziad Anter · DIRECT Consulting · All tools free to use</div>
     <div class="fl2"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></div>
   </div>
 </footer>
 
 <script>
-// CURSOR
+/* ── CURSOR ── */
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-4}px,${my-4}px)`;});
-(function a(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{curR.style.width='46px';curR.style.height='46px';});
-  el.addEventListener('mouseleave',()=>{curR.style.width='32px';curR.style.height='32px';});
+(function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.chip').forEach(el=>{
+  el.addEventListener('mouseenter',()=>curR.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>curR.classList.remove('hover'));
 });
 
-// CANVAS PARTICLES
-const cv=document.getElementById('bgCanvas'),ctx=cv.getContext('2d');
-let W,H,pts=[];
-function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-rsz();window.addEventListener('resize',rsz);
-class P{constructor(){this.x=Math.random()*W;this.y=Math.random()*H;this.r=Math.random()*1+.2;this.vx=(Math.random()-.5)*.2;this.vy=(Math.random()-.5)*.2;this.o=Math.random()*.35+.08;}
-  draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(56,189,248,${this.o})`;ctx.fill();}
-  upd(){this.x+=this.vx;this.y+=this.vy;if(this.x<0)this.x=W;if(this.x>W)this.x=0;if(this.y<0)this.y=H;if(this.y>H)this.y=0;}}
-for(let i=0;i<80;i++)pts.push(new P());
-function loop(){ctx.clearRect(0,0,W,H);pts.forEach(p=>{p.upd();p.draw();});
-  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
-    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
-    if(d<110){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle=`rgba(56,189,248,${(1-d/110)*.07})`;ctx.stroke();}
-  }
-  requestAnimationFrame(loop);}
-loop();
+/* ── THREE.JS 3D BACKGROUND ── */
+(function initThreeBG(){
+  const script=document.createElement('script');
+  script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  script.onload=function(){
+    const canvas=document.getElementById('bgCanvas');
+    const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+    renderer.setSize(window.innerWidth,window.innerHeight);
+    renderer.setClearColor(0x05080f,1);
 
-// CARD GLOW
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,.1,1000);
+    camera.position.set(0,0,28);
+
+    /* ── FLOATING WIREFRAME CUBES (BIM boxes) ── */
+    const cubes=[];
+    const cubeGeo=new THREE.BoxGeometry(1,1,1);
+    const cubeMats=[
+      new THREE.MeshBasicMaterial({color:0x38bdf8,wireframe:true,opacity:.18,transparent:true}),
+      new THREE.MeshBasicMaterial({color:0x3b82f6,wireframe:true,opacity:.12,transparent:true}),
+      new THREE.MeshBasicMaterial({color:0xa855f7,wireframe:true,opacity:.1,transparent:true}),
+    ];
+    for(let i=0;i<22;i++){
+      const s=Math.random()*2.5+.5;
+      const geo=new THREE.BoxGeometry(s,s*( .5+Math.random()),s*(.5+Math.random()));
+      const mat=cubeMats[Math.floor(Math.random()*cubeMats.length)].clone();
+      const mesh=new THREE.Mesh(geo,mat);
+      mesh.position.set((Math.random()-.5)*60,(Math.random()-.5)*40,(Math.random()-.5)*20-5);
+      mesh.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
+      mesh.userData={
+        rx:(Math.random()-.5)*.003,
+        ry:(Math.random()-.5)*.004,
+        rz:(Math.random()-.5)*.002,
+        fy:( Math.random()-.5)*.008,
+        oy:mesh.position.y,
+        t:Math.random()*Math.PI*2
+      };
+      scene.add(mesh);cubes.push(mesh);
+    }
+
+    /* ── LARGE SLOW ROTATING WIREFRAME TORUS (engineering ring) ── */
+    const torusGeo=new THREE.TorusGeometry(14,0.08,8,80);
+    const torusMat=new THREE.MeshBasicMaterial({color:0x38bdf8,opacity:.06,transparent:true});
+    const torus=new THREE.Mesh(torusGeo,torusMat);
+    torus.rotation.x=Math.PI/3;
+    scene.add(torus);
+
+    const torusGeo2=new THREE.TorusGeometry(20,0.05,6,100);
+    const torusMat2=new THREE.MeshBasicMaterial({color:0x3b82f6,opacity:.04,transparent:true});
+    const torus2=new THREE.Mesh(torusGeo2,torusMat2);
+    torus2.rotation.x=Math.PI/5;torus2.rotation.y=Math.PI/6;
+    scene.add(torus2);
+
+    /* ── GRID PLANE (blueprint floor) ── */
+    const gridHelper=new THREE.GridHelper(80,30,0x1a2540,0x1a2540);
+    gridHelper.position.y=-12;
+    gridHelper.material.opacity=0.25;
+    gridHelper.material.transparent=true;
+    scene.add(gridHelper);
+
+    /* ── FLOATING DOTS (particles) ── */
+    const dotCount=180;
+    const dotGeo=new THREE.BufferGeometry();
+    const positions=new Float32Array(dotCount*3);
+    for(let i=0;i<dotCount;i++){
+      positions[i*3]=(Math.random()-.5)*80;
+      positions[i*3+1]=(Math.random()-.5)*50;
+      positions[i*3+2]=(Math.random()-.5)*30-5;
+    }
+    dotGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
+    const dotMat=new THREE.PointsMaterial({color:0x38bdf8,size:.12,opacity:.4,transparent:true});
+    const dots=new THREE.Points(dotGeo,dotMat);
+    scene.add(dots);
+
+    /* ── CONNECTING LINES (wireframe edges) ── */
+    const lineGroup=new THREE.Group();
+    const lineMat=new THREE.LineBasicMaterial({color:0x38bdf8,opacity:.04,transparent:true});
+    for(let i=0;i<18;i++){
+      const pts=[];
+      const ox=(Math.random()-.5)*50;const oy=(Math.random()-.5)*35;const oz=(Math.random()-.5)*15;
+      for(let j=0;j<4;j++) pts.push(new THREE.Vector3(ox+(Math.random()-.5)*8,oy+(Math.random()-.5)*8,oz+(Math.random()-.5)*4));
+      pts.push(pts[0]);
+      const lineGeo=new THREE.BufferGeometry().setFromPoints(pts);
+      lineGroup.add(new THREE.Line(lineGeo,lineMat.clone()));
+    }
+    scene.add(lineGroup);
+
+    /* ── MOUSE PARALLAX ── */
+    let mouseX=0,mouseY=0,targetX=0,targetY=0;
+    document.addEventListener('mousemove',e=>{
+      mouseX=(e.clientX/window.innerWidth-.5)*2;
+      mouseY=(e.clientY/window.innerHeight-.5)*2;
+    });
+
+    /* ── RESIZE ── */
+    window.addEventListener('resize',()=>{
+      camera.aspect=window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth,window.innerHeight);
+    });
+
+    /* ── RENDER LOOP ── */
+    let t=0;
+    function animate(){
+      requestAnimationFrame(animate);
+      t+=0.008;
+
+      targetX+=(mouseX*.8-targetX)*.04;
+      targetY+=(mouseY*.5-targetY)*.04;
+      scene.rotation.y=targetX*.15;
+      scene.rotation.x=targetY*.08;
+
+      torus.rotation.z+=0.0015;
+      torus2.rotation.z-=0.001;
+      torus2.rotation.y+=0.0008;
+
+      dots.rotation.y+=0.0003;
+      dots.rotation.x+=0.0001;
+
+      gridHelper.rotation.y+=0.0005;
+
+      cubes.forEach(c=>{
+        c.rotation.x+=c.userData.rx;
+        c.rotation.y+=c.userData.ry;
+        c.rotation.z+=c.userData.rz;
+        c.userData.t+=0.008;
+        c.position.y=c.userData.oy+Math.sin(c.userData.t)*1.2;
+      });
+
+      lineGroup.rotation.y+=0.0006;
+
+      renderer.render(scene,camera);
+    }
+    animate();
+  };
+  document.head.appendChild(script);
+})();
+
+/* ── CARD GLOW ── */
 document.querySelectorAll('.tc').forEach(c=>{
   c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
 });
 
-// SCROLL REVEAL
+/* ── SCROLL REVEAL ── */
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-// COMMAND PALETTE
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* ── COUNTER ANIMATION ── */
+function animCount(el,target,suffix,duration){
+  let start=null;
+  const step=ts=>{if(!start)start=ts;const prog=Math.min((ts-start)/duration,1);const val=Math.floor(prog*target);el.textContent=val;if(prog<1)requestAnimationFrame(step);else el.textContent=target;};
+  requestAnimationFrame(step);
+}
+const statsObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    animCount(document.getElementById('cnt1'),80,'',1800);
+    animCount(document.getElementById('cnt2'),12,'',2000);
+    animCount(document.getElementById('cnt3'),100,'',1600);
+    statsObs.disconnect();
+  }});
+},{threshold:.5});
+statsObs.observe(document.querySelector('.hero-stats'));
+
+/* ── COMMAND PALETTE ── */
 function openPal(){document.getElementById('cmd').classList.add('open');document.getElementById('cmdIn').focus();}
 function closePal(){document.getElementById('cmd').classList.remove('open');}
 function navTo(id){closePal();document.querySelector(id)?.scrollIntoView({behavior:'smooth'});}
 document.getElementById('cmd').addEventListener('click',e=>{if(e.target===e.currentTarget)closePal();});
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openPal();}if(e.key==='Escape')closePal();});
 
-// TOAST
-function showToast(msg){const t=document.getElementById('toast'),m=document.getElementById('toastMsg');m.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
+/* ── TOAST ── */
+function showToast(msg){const t=document.getElementById('toast'),m=document.getElementById('toastMsg');m.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
 
-// FILTER TOOLS
+/* ── FILTER TOOLS ── */
 function ft(el,cat){
   document.querySelectorAll('.ftag').forEach(t=>t.classList.remove('on'));el.classList.add('on');
   document.querySelectorAll('.tc[data-cat]').forEach(c=>{
     const show=cat==='all'||c.dataset.cat.includes(cat);
-    c.style.opacity=show?'1':'.2';c.style.transform=show?'':'scale(.97)';
+    c.style.opacity=show?'1':'.15';c.style.transform=show?'':'scale(.97)';c.style.transition='opacity .3s,transform .3s';
   });
 }
 
-// SEARCH
+/* ── SEARCH ── */
 document.getElementById('toolSearch').addEventListener('input',function(){
   const q=this.value.toLowerCase();
   document.querySelectorAll('.tc').forEach(c=>{
@@ -717,124 +878,184 @@ document.getElementById('toolSearch').addEventListener('input',function(){
   });
 });
 
-// BOT
-function sendBot(){const i=document.getElementById('botIn');if(!i.value.trim())return;showToast('🤖 BIMZ Bot coming in Phase 4!');i.value='';}
-document.getElementById('botIn').addEventListener('keydown',e=>{if(e.key==='Enter')sendBot();});
-</script>
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getFirestore, collection, getDocs, doc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD4qL5kQjBWNZg1JqDvYoRal3d_EODmoA4",
-  authDomain: "bimz-439c4.firebaseapp.com",
-  projectId: "bimz-439c4",
-  storageBucket: "bimz-439c4.firebasestorage.app",
-  messagingSenderId: "755613694385",
-  appId: "1:755613694385:web:3e4390196df61f45732590"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-// تحميل الأدوات
-async function loadTools(){
-
-  const container = document.getElementById("toolsContainer");
-
-  const snapshot = await getDocs(collection(db,"tools"));
-
-  snapshot.forEach(docSnap=>{
-    const t = docSnap.data();
-    const id = docSnap.id;
-
-    const card = document.createElement("div");
-    ccard.className = "tc";
-
-    card.innerHTML = `
-      <div class="tc-top">
-        <div class="tc-icon">⚡</div>
-        <div class="tc-badges">
-          <span class="badge b-free">Free</span>
-        </div>
-      </div>
-
-      <div class="tc-name">${t.name || "No Name"}</div>
-      <div class="tc-desc">${t.type || "Tool"}</div>
-
-      <div class="tc-meta">
-        <div class="tc-stars">★★★★★</div>
-        <div class="tc-dl">↓ ${t.downloads || 0}</div>
-      </div>
-
-      <button onclick="downloadTool('${id}','${t.download}')"
-      style="margin-top:10px;background:#38bdf8;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;">
-      Download
-      </button>
-    `;
-
-    container.appendChild(card);
-  });
+/* ── CONTACT FORM ── */
+function submitContact(){
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const msg=document.getElementById('cMsg').value.trim();
+  if(!name||!email||!msg){showToast('⚠️ Please fill in all fields.');return;}
+  const subject=encodeURIComponent(`BIMZ Contact: ${document.getElementById('cType').value}`);
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${msg}`);
+  window.open(`mailto:ziadanter101@gmail.com?subject=${subject}&body=${body}`);
+  showToast('✅ Opening email client...');
 }
 
-// تحميل + عداد
-window.downloadTool = async (id,link)=>{
-  await updateDoc(doc(db,"tools",id),{
-    downloads: increment(1)
-  });
+/* ══════════════════════════════════════════
+   BIMZ BOT — LIVE AI (Claude API)
+══════════════════════════════════════════ */
+const SYSTEM_PROMPT=`You are BIMZ Bot, an expert AI assistant for BIM and CAD engineers. You specialize in:
+- AutoCAD LISP scripting (syntax, commands, automation routines)
+- Dynamo visual programming for Revit
+- Revit families, parameters, and BIM workflows
+- MEP engineering (HVAC, Plumbing, Firefighting systems)
+- Clash detection using Navisworks
+- Shop drawing production standards
+- MEP coordination between disciplines
 
-  window.open(link,"_blank");
-};
+Always provide practical, engineer-grade answers. Use code blocks for LISP/Dynamo examples. Be concise but complete. When writing LISP code, include comments. Format your response clearly.`;
 
-loadTools();
+let chatHistory=[];
+let isBotTyping=false;
 
-</script>
-<script type="module">
+function addMsg(role,text,isHTML){
+  const chat=document.getElementById('botChat');
+  const wrap=document.createElement('div');
+  wrap.className=`cm${role==='user'?' right':''}`;
+  const av=document.createElement('div');
+  av.className=`cav ${role==='bot'?'bot':'user'}`;
+  av.textContent=role==='bot'?'⚡':'👤';
+  const bubble=document.createElement('div');
+  bubble.className=`cb2 ${role==='bot'?'bot':'user'}`;
+  if(isHTML)bubble.innerHTML=text;
+  else bubble.textContent=text;
+  wrap.appendChild(av);wrap.appendChild(bubble);
+  chat.appendChild(wrap);
+  chat.scrollTop=chat.scrollHeight;
+  return bubble;
+}
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+function addTyping(){
+  const chat=document.getElementById('botChat');
+  const wrap=document.createElement('div');wrap.className='cm';wrap.id='typingWrap';
+  const av=document.createElement('div');av.className='cav bot';av.textContent='⚡';
+  const bubble=document.createElement('div');bubble.className='cb2 bot typing';
+  bubble.innerHTML='<div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>';
+  wrap.appendChild(av);wrap.appendChild(bubble);
+  chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
+}
 
-const firebaseConfig = {
-  apiKey: "AIzaSyD4qL5kQjBWNZg1JqDvYoRal3d_EODmoA4",
-  authDomain: "bimz-439c4.firebaseapp.com",
-  projectId: "bimz-439c4",
-  storageBucket: "bimz-439c4.firebasestorage.app",
-  messagingSenderId: "755613694385",
-  appId: "1:755613694385:web:3e4390196df61f45732590"
-};
+function removeTyping(){document.getElementById('typingWrap')?.remove();}
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+function formatBotResponse(text){
+  return text
+    .replace(/```(\w*)\n?([\s\S]*?)```/g,'<pre style="background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:6px;padding:.75rem;margin:.5rem 0;font-family:var(--mono);font-size:.72rem;color:var(--teal);overflow-x:auto;white-space:pre;"><code>$2</code></pre>')
+    .replace(/`([^`]+)`/g,'<code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;font-family:var(--mono);">$1</code>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\n/g,'<br/>');
+}
 
-// 🔥 Login
-window.login = async function(){
+async function sendBot(){
+  if(isBotTyping)return;
+  const inp=document.getElementById('botIn');
+  const q=inp.value.trim();
+  if(!q)return;
+  inp.value='';
+  addMsg('user',q);
+  chatHistory.push({role:'user',content:q});
+  isBotTyping=true;
+  document.getElementById('botSend').disabled=true;
+  addTyping();
   try{
-    await signInWithPopup(auth, provider);
-  }catch(e){
-    console.log(e);
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:SYSTEM_PROMPT,
+        messages:chatHistory
+      })
+    });
+    const data=await res.json();
+    removeTyping();
+    if(data.content&&data.content[0]){
+      const reply=data.content[0].text;
+      chatHistory.push({role:'assistant',content:reply});
+      addMsg('bot',formatBotResponse(reply),true);
+    }else{
+      addMsg('bot','⚠️ Could not get a response. Please try again.',false);
+    }
+  }catch(err){
+    removeTyping();
+    addMsg('bot','⚠️ Connection error. Check your network and try again.',false);
   }
+  isBotTyping=false;
+  document.getElementById('botSend').disabled=false;
+}
+
+function quickAsk(q){
+  document.getElementById('botIn').value=q;
+  sendBot();
+  document.getElementById('ai').scrollIntoView({behavior:'smooth'});
+}
+
+document.getElementById('botIn').addEventListener('keydown',e=>{if(e.key==='Enter')sendBot();});
+</script>
+
+<!-- Firebase — single init -->
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+import{getFirestore,collection,getDocs,doc,updateDoc,increment}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
+import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
+
+const cfg={
+  apiKey:"AIzaSyD4qL5kQjBWNZg1JqDvYoRal3d_EODmoA4",
+  authDomain:"bimz-439c4.firebaseapp.com",
+  projectId:"bimz-439c4",
+  storageBucket:"bimz-439c4.firebasestorage.app",
+  messagingSenderId:"755613694385",
+  appId:"1:755613694385:web:3e4390196df61f45732590"
 };
+const app=initializeApp(cfg);
+const db=getFirestore(app);
+const auth=getAuth(app);
+const provider=new GoogleAuthProvider();
 
-// 🔥 Logout
-window.logout = async function(){
-  await signOut(auth);
-};
-
-// 🔥 تغيير شكل الزر
-onAuthStateChanged(auth, (user) => {
-  const btn = document.querySelector(".btn-nav");
-
-  if(user){
-    btn.innerText = user.displayName;
-    btn.onclick = logout;
-  }else{
-    btn.innerText = "Login";
-    btn.onclick = login;
-  }
+/* Auth */
+window.login=async()=>{try{await signInWithPopup(auth,provider);}catch(e){console.log(e);}};
+window.logout=async()=>{await signOut(auth);};
+onAuthStateChanged(auth,user=>{
+  const btn=document.getElementById('loginBtn');
+  if(user){btn.textContent=user.displayName?.split(' ')[0]||'Account';btn.onclick=window.logout;}
+  else{btn.textContent='Login';btn.onclick=window.login;}
 });
 
+/* Load dynamic tools from Firestore */
+window.downloadTool=async(id,link)=>{
+  try{await updateDoc(doc(db,'tools',id),{downloads:increment(1)});}catch(e){}
+  window.open(link,'_blank');
+};
+async function loadTools(){
+  try{
+    const snap=await getDocs(collection(db,'tools'));
+    const container=document.getElementById('toolsContainer');
+    snap.forEach(docSnap=>{
+      const t=docSnap.data();const id=docSnap.id;
+      if(!t.name||!t.download)return;
+      const card=document.createElement('div');
+      card.className='tc reveal';
+      card.dataset.cat=t.category||'all';
+      card.innerHTML=`
+        <div class="tc-top">
+          <div class="tc-icon" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);">${t.icon||'⚡'}</div>
+          <div class="tc-badges"><span class="badge b-free">Free</span></div>
+        </div>
+        <div class="tc-name">${t.name}</div>
+        <div class="tc-desc">${t.description||t.type||''}</div>
+        <div class="tc-meta">
+          <div class="tc-stars">★★★★★</div>
+          <div class="tc-dl">↓ ${t.downloads||0}</div>
+        </div>
+        <button onclick="downloadTool('${id}','${t.download}')" style="margin-top:10px;background:var(--teal);color:#fff;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;">Download ↓</button>
+        <div class="tc-bar"></div>
+      `;
+      container.appendChild(card);
+      const obsNew=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obsNew.unobserve(e.target);}});},{threshold:.1});
+      obsNew.observe(card);
+    });
+  }catch(e){console.log('Firestore load error:',e);}
+}
+loadTools();
 </script>
 </body>
 </html>
