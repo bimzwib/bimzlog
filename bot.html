@@ -473,31 +473,62 @@ async function sendMessage() {
     .map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }));
   // Remove last user msg duplicate (already added above)
 
-  try {
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: apiMessages, system: SYSTEM_PROMPT })
-    });
-    const data = await res.json();
-    removeTypingIndicator();
+ try {
 
-    if (data.content && data.content[0] && data.content[0].text) {
-      const reply = data.content[0].text;
-      const botMsg = { role: 'assistant', content: reply, ts: Date.now() };
-      session.messages.push(botMsg);
-      session.updatedAt = Date.now();
-      saveSessions();
-      addMsgToDOM(botMsg);
-    } else if (data.error) {
-      addErrorMsg(`API Error: ${data.error.message || 'Unknown error'}`);
-    } else {
-      addErrorMsg('No response received. Please try again.');
-    }
-  } catch (err) {
-    removeTypingIndicator();
-    addErrorMsg('Connection error. Check your internet connection.');
+  const res = await fetch('/api/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      messages: apiMessages,
+      system: SYSTEM_PROMPT
+    })
+  });
+
+  const data = await res.json();
+
+  console.log(data);
+
+  removeTypingIndicator();
+
+  if (data.content?.[0]?.text) {
+
+    const reply = data.content[0].text;
+
+    const botMsg = {
+      role: 'assistant',
+      content: reply,
+      ts: Date.now()
+    };
+
+    session.messages.push(botMsg);
+
+    session.updatedAt = Date.now();
+
+    saveSessions();
+
+    addMsgToDOM(botMsg);
+
+  } else if (data.error) {
+
+    addErrorMsg(`API Error: ${data.error}`);
+
+  } else {
+
+    addErrorMsg('No response received. Please try again.');
+
   }
+
+} catch (err) {
+
+  console.error(err);
+
+  removeTypingIndicator();
+
+  addErrorMsg('Connection error. Check your internet connection.');
+
+}
 
   isTyping = false;
   document.getElementById('sendBtn').disabled = false;
