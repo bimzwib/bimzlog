@@ -21,22 +21,46 @@ export default async function handler(req, res) {
     const userMessage =
       messages?.[messages.length - 1]?.content || 'Hello';
 
+    const SYSTEM_PROMPT = `
+You are BIMZ AI Engineer.
+
+You specialize in:
+- Revit
+- Dynamo
+- AutoCAD Lisp
+- BIM
+- MEP Coordination
+
+Rules:
+- Reply professionally
+- Generate complete code
+- Explain clearly
+- Reply in Arabic or English depending on user language
+- Focus on engineering workflows
+`;
+
     const response = await fetch(
-      'https://openrouter.ai/api/v1/chat/completions',
+      'https://api.groq.com/openai/v1/chat/completions',
       {
         method: 'POST',
         headers: {
-          'Authorization': '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',
+          'Authorization': 'Bearer gsk_ضع_مفتاحك_هنا',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'meta-llama/llama-3.1-8b-instruct',
+          model: 'llama-3.3-70b-versatile',
           messages: [
+            {
+              role: 'system',
+              content: SYSTEM_PROMPT
+            },
             {
               role: 'user',
               content: userMessage
             }
-          ]
+          ],
+          temperature: 0.7,
+          max_tokens: 2000
         })
       }
     );
