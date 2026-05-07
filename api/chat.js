@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'google/gemma-7b-it:free',
+          model: 'meta-llama/llama-3.1-8b-instruct',
           messages: [
             {
               role: 'user',
