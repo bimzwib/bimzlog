@@ -44,7 +44,7 @@ Rules:
       {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer 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',
+          'Authorization': 'Bearer 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',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
