@@ -44,7 +44,7 @@ Rules:
       {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer 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',
+          'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
