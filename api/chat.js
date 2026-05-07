@@ -30,7 +30,7 @@ export default async function handler(req, res) {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'openai/gpt-3.5-turbo',
+          model: 'meta-llama/llama-3-8b-instruct:free',
           messages: [
             {
               role: 'user',
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
 
     const reply =
       data?.choices?.[0]?.message?.content
-      || 'No response';
+      || JSON.stringify(data);
 
     return res.status(200).json({
       content: [
