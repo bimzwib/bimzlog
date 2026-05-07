@@ -6,35 +6,44 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta name="description" content="BIMZ AI — Premium AI assistant for BIM & CAD engineers."/>
 <title>BIMZ AI — Engineering Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 /* ═══════════════════════════════
-   THEME TOKENS
+   THEME TOKENS — synced with BIMZ main
 ═══════════════════════════════ */
 :root{
-  --bg:#03060e;--bg2:#060a14;--bg3:#080d1a;
-  --card:#0b1220;--card2:#0f1828;--card3:#131e32;
-  --border:#1a2540;--border2:rgba(56,189,248,.2);--border3:rgba(168,85,247,.18);
-  --teal:#38bdf8;--teal2:#0ea5e9;--blue:#3b82f6;
-  --green:#10b981;--orange:#f59e0b;--purple:#a855f7;--red:#f43f5e;
-  --t1:#eef2ff;--t2:#7a8faa;--t3:#2e4060;
+  --bg:#020508;--bg2:#03070e;--bg3:#060d18;
+  --card:#080f1e;--card2:#0c1528;--card3:#0f1a2e;
+  --border:#111d35;--border2:rgba(0,240,255,.18);--border3:rgba(0,240,255,.35);
+  --cyan:#00f0ff;--teal:#00f0ff;--teal2:#0af;--blue:#1e6fff;--blue2:#3b82f6;
+  --purple:#8b5cf6;--purple2:#a855f7;--green:#00ff9d;--orange:#ff9500;--red:#ff3366;
+  --t1:#e8f4ff;--t2:#a8c4e0;--t3:#5a7aa0;
   --mono:'JetBrains Mono',monospace;
-  --sans:'DM Sans',sans-serif;
+  --sans:'Inter',sans-serif;
   --display:'Syne',sans-serif;
+  --condense:'Barlow Condensed',sans-serif;
+  --arabic:'Cairo',sans-serif;
   --sidebar:280px;--topbar:58px;
   --shadow-sm:0 2px 12px rgba(0,0,0,.4);
   --shadow-md:0 8px 32px rgba(0,0,0,.5);
   --shadow-lg:0 20px 60px rgba(0,0,0,.6);
   --radius:12px;--radius-sm:8px;
   --transition:.2s cubic-bezier(.4,0,.2,1);
+  --glow-cyan:0 0 40px rgba(0,240,255,.25),0 0 80px rgba(0,240,255,.1);
+  --wa-green:#25d366;
 }
+/* ── LIGHT MODE ── */
 [data-theme="light"]{
-  --bg:#f0f4f8;--bg2:#e8edf5;--bg3:#dde3ee;
-  --card:#ffffff;--card2:#f5f8fc;--card3:#ecf1f8;
-  --border:#d1dbe8;--border2:rgba(14,165,233,.25);--border3:rgba(139,92,246,.2);
-  --t1:#0f172a;--t2:#475569;--t3:#94a3b8;
-  --teal:#0ea5e9;--teal2:#0284c7;--purple:#7c3aed;
+  --bg:#eef3fa;--bg2:#e4ecf7;--bg3:#d8e6f5;--card:#ffffff;--card2:#f0f6ff;--card3:#e8f2ff;
+  --border:#c5d8ef;--border2:rgba(0,120,200,.25);--border3:rgba(0,120,200,.45);
+  --cyan:#006fcc;--teal:#006fcc;--teal2:#0088dd;--blue:#1a56db;--blue2:#2563eb;
+  --purple:#6d28d9;--purple2:#7c3aed;--green:#059669;--orange:#d97706;--red:#dc2626;
+  --t1:#0d1f3c;--t2:#2d4a6e;--t3:#6b8db5;
+  --glow-cyan:0 0 30px rgba(0,111,204,.15),0 0 60px rgba(0,111,204,.08);
 }
+/* ── RTL / ARABIC ── */
+html[dir="rtl"]{direction:rtl;}
+html[dir="rtl"] body{font-family:var(--arabic),var(--sans);}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
@@ -485,9 +494,101 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);transition:bac
   .welcome-title{font-size:1.5rem;}
   .cap-row{display:none;}
 }
+
+/* ═══════════════════════════════
+   CUSTOM CURSOR — from main page
+═══════════════════════════════ */
+#cursor{position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:screen;}
+#cursor-dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;position:absolute;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--cyan),0 0 20px rgba(0,240,255,.5);transition:transform .05s;}
+#cursor-ring{width:40px;height:40px;border:1px solid rgba(0,240,255,.4);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s,border-color .2s,transform .05s;}
+html.cursor-hover #cursor-ring{width:60px;height:60px;border-color:rgba(0,240,255,.7);}
+html.cursor-click #cursor-dot{transform:translate(-50%,-50%) scale(2);}
+/* DAY MODE CURSOR */
+[data-theme="light"] #cursor{mix-blend-mode:normal;}
+[data-theme="light"] #cursor-dot{background:#0d2a4a;box-shadow:0 0 6px rgba(0,80,160,.5);}
+[data-theme="light"] #cursor-ring{border-color:rgba(0,80,160,.55);}
+[data-theme="light"] html.cursor-hover #cursor-ring{border-color:rgba(0,80,160,.85);}
+.trail{position:fixed;pointer-events:none;z-index:9998;border-radius:50%;background:var(--cyan);mix-blend-mode:screen;animation:trailFade .6s ease forwards;}
+@keyframes trailFade{0%{opacity:.4;transform:scale(1);}100%{opacity:0;transform:scale(0);}}
+[data-theme="light"] .trail{background:#0d2a4a;mix-blend-mode:normal;opacity:.25;}
+
+/* ═══════════════════════════════
+   NAVBAR — exact copy from main page
+═══════════════════════════════ */
+body{cursor:none;}
+a,button,[onclick]{cursor:none;}
+nav.bot-nav{position:fixed;top:0;width:100%;z-index:600;transition:all .4s ease;}
+.bot-nav-inner{max-width:1400px;margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(2,5,8,.7);backdrop-filter:blur(30px) saturate(180%);border-bottom:1px solid var(--border);transition:all .4s;}
+nav.bot-nav.scrolled .bot-nav-inner{height:56px;background:rgba(2,5,8,.92);border-bottom-color:var(--border2);}
+[data-theme="light"] .bot-nav-inner{background:rgba(238,243,250,.9);}
+[data-theme="light"] nav.bot-nav.scrolled .bot-nav-inner{background:rgba(238,243,250,.97);}
+.bot-nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;cursor:none;}
+.bot-logo-mark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,rgba(0,240,255,.15),rgba(139,92,246,.15));border:1px solid rgba(0,240,255,.25);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.bot-logo-mark span{font-family:var(--display);font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;position:relative;z-index:1;}
+.bot-logo-name{font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--t1);letter-spacing:.05em;}
+.bot-logo-name .logo-z{background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.bot-nav-links{display:flex;gap:.25rem;align-items:center;}
+.bot-nav-link{color:var(--t2);text-decoration:none;font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;padding:7px 14px;border-radius:6px;transition:all .2s;position:relative;cursor:none;font-family:'JetBrains Mono',monospace;}
+.bot-nav-link:hover{color:var(--t1);background:rgba(0,240,255,.05);}
+.bot-nav-link.active{color:var(--cyan);}
+.bot-nav-link::after{content:'';position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--cyan);transition:width .3s;}
+.bot-nav-link:hover::after,.bot-nav-link.active::after{width:60%;}
+.bot-nav-right{display:flex;align-items:center;gap:.75rem;}
+.bot-lang-toggle{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:5px 10px;cursor:none;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--t2);transition:all .3s;font-family:'JetBrains Mono',monospace;}
+.bot-lang-toggle:hover{border-color:var(--border2);color:var(--cyan);}
+.bot-theme-toggle{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:20px;padding:5px 10px;cursor:none;font-size:.9rem;transition:all .3s;display:flex;align-items:center;gap:6px;color:var(--t2);}
+.bot-theme-toggle:hover{border-color:var(--border2);background:rgba(0,240,255,.08);}
+.bot-wa-btn{display:flex;align-items:center;gap:6px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.3);border-radius:6px;padding:5px 10px;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#25d366;cursor:none;text-decoration:none;transition:all .3s;font-family:'JetBrains Mono',monospace;}
+.bot-wa-btn:hover{background:rgba(37,211,102,.2);box-shadow:0 0 20px rgba(37,211,102,.3);}
+.bot-wa-pulse{width:6px;height:6px;border-radius:50%;background:#25d366;animation:waPulse 1.5s ease infinite;}
+@keyframes waPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(37,211,102,.5);}50%{transform:scale(1.2);box-shadow:0 0 0 6px rgba(37,211,102,0);}}
+.bot-status-badge{display:flex;align-items:center;gap:6px;font-size:.6rem;color:var(--green);letter-spacing:.15em;text-transform:uppercase;opacity:.8;font-family:'JetBrains Mono',monospace;}
+.bot-status-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green);animation:blink2 2s ease infinite;}
+@keyframes blink2{0%,100%{opacity:1;}50%{opacity:.3;}}
+.bot-ai-btn{cursor:none;display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(0,240,255,.1));border:1px solid rgba(139,92,246,.4);border-radius:8px;padding:6px 14px;text-decoration:none;position:relative;overflow:hidden;transition:all .3s;}
+.bot-ai-btn:hover{box-shadow:0 0 25px rgba(139,92,246,.5),0 0 50px rgba(0,240,255,.2);border-color:rgba(0,240,255,.6);}
+@keyframes aiIconPulse{0%,100%{transform:scale(1) rotate(0deg);filter:drop-shadow(0 0 6px rgba(139,92,246,.8));}50%{transform:scale(1.3) rotate(180deg);filter:drop-shadow(0 0 14px rgba(0,240,255,1));}}
+
+/* push app content below the navbar */
+.app{padding-top:68px;}
 </style>
 </head>
 <body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor">
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="bot-nav" id="botNav">
+  <div class="bot-nav-inner">
+    <a href="index.html" class="bot-nav-logo">
+      <div class="bot-logo-mark"><span>Z</span></div>
+      <div class="bot-logo-name">BIM<span class="logo-z">Z</span></div>
+    </a>
+    <div class="bot-nav-links">
+      <a href="index.html#tools" class="bot-nav-link" data-en="Tools" data-ar="الأدوات">Tools</a>
+      <a href="index.html#ai" class="bot-nav-link active" data-en="BIMZ AI" data-ar="الذكاء">BIMZ AI</a>
+      <a href="index.html#navisworks" class="bot-nav-link" data-en="Navisworks" data-ar="نافيسووركس">Navisworks</a>
+      <a href="index.html#acc" class="bot-nav-link" data-en="ACC" data-ar="ACC">ACC</a>
+      <a href="index.html#learning" class="bot-nav-link" data-en="Learn" data-ar="تعلم">Learn</a>
+      <a href="index.html#academy" class="bot-nav-link" data-en="Academy" data-ar="الأكاديمية">Academy</a>
+      <a href="index.html#contact" class="bot-nav-link" data-en="Contact" data-ar="تواصل">Contact</a>
+    </div>
+    <div class="bot-nav-right">
+      <div class="bot-status-badge"><div class="bot-status-dot"></div><span data-en="AI Online" data-ar="الذكاء متصل">AI Online</span></div>
+      <a href="https://wa.me/201030718566" target="_blank" class="bot-wa-btn">
+        <div class="bot-wa-pulse"></div>💬
+      </a>
+      <button class="bot-lang-toggle" onclick="toggleBotLang()" id="botLangBtn">AR</button>
+      <button class="bot-theme-toggle" onclick="toggleTheme()">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </div>
+</nav>
 
 <div class="ambient">
   <div class="amb-orb o1"></div>
@@ -619,9 +720,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);transition:bac
           <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           <span id="contextCount">0</span> msgs
         </div>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Day/Night">
-          <span id="themeIcon">☀️</span>
-        </button>
       </div>
       <a href="index.html" class="topbar-back">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
@@ -1025,14 +1123,78 @@ function toggleTheme(){
   const isDark=html.getAttribute('data-theme')==='dark';
   html.setAttribute('data-theme',isDark?'light':'dark');
   document.getElementById('themeIcon').textContent=isDark?'🌙':'☀️';
-  try{localStorage.setItem('bimz_theme',isDark?'light':'dark');}catch(e){}
+  try{localStorage.setItem('bimz-theme',isDark?'light':'dark');}catch(e){}
 }
 function loadTheme(){
   try{
-    const t=localStorage.getItem('bimz_theme');
+    const t=localStorage.getItem('bimz-theme');
     if(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('themeIcon').textContent=t==='light'?'🌙':'☀️';}
   }catch(e){}
 }
+
+/* ══════════════════════════════════════
+   LANGUAGE SYSTEM
+══════════════════════════════════════ */
+let botLang='en';
+function toggleBotLang(){
+  botLang=botLang==='en'?'ar':'en';
+  applyBotLang();
+  localStorage.setItem('bimz-lang',botLang);
+  document.getElementById('botLangBtn').textContent=botLang==='en'?'AR':'EN';
+}
+function applyBotLang(){
+  const isAr=botLang==='ar';
+  document.documentElement.setAttribute('lang',botLang);
+  document.documentElement.setAttribute('dir',isAr?'rtl':'ltr');
+  document.querySelectorAll('[data-en][data-ar]').forEach(el=>{
+    const val=isAr?el.dataset.ar:el.dataset.en;
+    if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=val;
+    else el.textContent=val;
+  });
+}
+(function(){
+  const saved=localStorage.getItem('bimz-lang')||'en';
+  botLang=saved;
+  document.getElementById('botLangBtn').textContent=saved==='en'?'AR':'EN';
+  if(saved!=='en')applyBotLang();
+})();
+
+/* ══════════════════════════════════════
+   CUSTOM CURSOR
+══════════════════════════════════════ */
+const cursorEl=document.getElementById('cursor');
+const curDot=document.getElementById('cursor-dot');
+const curRing=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  curDot.style.left=mx+'px'; curDot.style.top=my+'px';
+  createBotTrail(mx,my);
+});
+function animateBotCursor(){
+  rx+=(mx-rx)*.12; ry+=(my-ry)*.12;
+  curRing.style.left=rx+'px'; curRing.style.top=ry+'px';
+  requestAnimationFrame(animateBotCursor);
+}
+animateBotCursor();
+document.querySelectorAll('a,button,[onclick]').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.documentElement.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave',()=>document.documentElement.classList.remove('cursor-hover'));
+});
+document.addEventListener('mousedown',()=>document.documentElement.classList.add('cursor-click'));
+document.addEventListener('mouseup',()=>document.documentElement.classList.remove('cursor-click'));
+function createBotTrail(x,y){
+  const t=document.createElement('div');
+  t.className='trail';
+  t.style.cssText=`left:${x}px;top:${y}px;width:4px;height:4px;`;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),600);
+}
+
+/* ── NAVBAR SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('botNav').classList.toggle('scrolled',window.scrollY>10);
+},{ passive:true });
 
 /* ══════════════════════════════════════
    HELPERS
