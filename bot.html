@@ -1,1 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="BIMZ Bot — AI assistant for BIM & CAD engineers. Ask about AutoCAD LISP, Dynamo, Revit, and MEP systems."/>
+<title>BIMZ Bot — AI Engineering Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#05080f;--bg2:#080d18;--bg3:#0c1220;
+  --card:#0e1525;--card2:#121c30;--card3:#0a1220;
+  --border:#1a2540;--border2:rgba(56,189,248,.22);--border3:rgba(168,85,247,.2);
+  --teal:#38bdf8;--blue:#3b82f6;--green:#10b981;--orange:#f59e0b;--purple:#a855f7;--red:#f43f5e;
+  --t1:#eef2ff;--t2:#8899bb;--t3:#3d5080;
+  --mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;--display:'Syne',sans-serif;
+  --sidebar:280px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:var(--sans);background:var(--bg);color:var(--t1);}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--teal);}
 
+/* ── LAYOUT ── */
+.app{display:flex;height:100vh;width:100vw;overflow:hidden;}
+
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;transition:transform .3s ease;}
+.sidebar-head{padding:1rem;border-bottom:1px solid var(--border);}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:1rem;}
+.brand-icon{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,rgba(56,189,248,.2),rgba(168,85,247,.2));border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:.9rem;}
+.brand-name{font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--teal);}
+.brand-sub{font-size:.6rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;}
+.new-chat-btn{width:100%;display:flex;align-items:center;gap:.6rem;background:var(--teal);color:#fff;border:none;border-radius:8px;padding:.65rem 1rem;font-family:var(--sans);font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.04em;}
+.new-chat-btn:hover{background:#7dd3fc;transform:translateY(-1px);}
+.new-chat-btn svg{flex-shrink:0;}
+
+.sidebar-body{flex:1;overflow-y:auto;padding:.75rem;}
+.sessions-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--t3);padding:.25rem .25rem .6rem;}
+.session-item{display:flex;align-items:center;gap:.5rem;padding:.55rem .7rem;border-radius:7px;cursor:pointer;transition:background .15s;margin-bottom:2px;border:1px solid transparent;}
+.session-item:hover{background:rgba(56,189,248,.04);border-color:var(--border);}
+.session-item.active{background:rgba(56,189,248,.07);border-color:var(--border2);}
+.session-icon{font-size:.85rem;flex-shrink:0;}
+.session-info{flex:1;min-width:0;}
+.session-title{font-size:.78rem;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.session-meta{font-size:.63rem;color:var(--t3);margin-top:1px;}
+.session-del{opacity:0;background:none;border:none;color:var(--t3);cursor:pointer;padding:2px 4px;border-radius:4px;font-size:.75rem;transition:all .15s;flex-shrink:0;}
+.session-item:hover .session-del{opacity:1;}
+.session-del:hover{color:var(--red);background:rgba(244,63,94,.1);}
+.no-sessions{text-align:center;padding:2rem 1rem;color:var(--t3);font-size:.78rem;line-height:1.6;}
+
+.sidebar-foot{padding:.75rem;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:.5rem;}
+.foot-link{display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;border-radius:7px;font-size:.78rem;color:var(--t2);text-decoration:none;cursor:pointer;border:none;background:none;width:100%;text-align:left;transition:all .15s;}
+.foot-link:hover{background:rgba(56,189,248,.04);color:var(--teal);}
+.foot-link svg{flex-shrink:0;opacity:.6;}
+
+/* ── MAIN CHAT ── */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;position:relative;overflow:hidden;}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;gap:.75rem;padding:.75rem 1.25rem;border-bottom:1px solid var(--border);background:rgba(5,8,15,.9);backdrop-filter:blur(16px);flex-shrink:0;}
+.topbar-menu{background:none;border:none;color:var(--t2);cursor:pointer;padding:4px;border-radius:6px;display:flex;align-items:center;transition:color .15s;}
+.topbar-menu:hover{color:var(--t1);}
+.topbar-title{font-family:var(--display);font-size:.95rem;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.topbar-model{display:flex;align-items:center;gap:5px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2);border-radius:100px;padding:4px 10px;font-size:.65rem;font-weight:700;color:var(--purple);letter-spacing:.08em;text-transform:uppercase;}
+.topbar-live{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s ease infinite;}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 6px var(--green);}50%{opacity:.3;box-shadow:none;}}
+.topbar-back{display:flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);border-radius:7px;padding:5px 10px;font-size:.72rem;color:var(--t2);cursor:pointer;text-decoration:none;transition:all .15s;}
+.topbar-back:hover{border-color:var(--border2);color:var(--teal);}
+
+/* CHAT AREA */
+.chat-area{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1rem;}
+
+/* WELCOME */
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;padding:3rem 2rem;gap:1.5rem;}
+.welcome-icon{width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(168,85,247,.1));border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 0 40px rgba(56,189,248,.1);}
+.welcome-title{font-family:var(--display);font-size:1.8rem;font-weight:800;background:linear-gradient(120deg,var(--teal),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.welcome-sub{color:var(--t2);font-size:.9rem;line-height:1.7;max-width:420px;}
+.welcome-chips{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-top:.5rem;}
+.wchip{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.6rem 1rem;font-size:.78rem;color:var(--t2);cursor:pointer;transition:all .2s;text-align:left;line-height:1.4;}
+.wchip:hover{border-color:var(--border2);color:var(--teal);background:rgba(56,189,248,.04);transform:translateY(-2px);}
+.wchip-icon{font-size:1rem;margin-bottom:.3rem;display:block;}
+
+/* MESSAGES */
+.msg-group{display:flex;flex-direction:column;gap:.35rem;}
+.msg-row{display:flex;gap:.75rem;align-items:flex-start;max-width:800px;}
+.msg-row.user{flex-direction:row-reverse;margin-left:auto;}
+.msg-av{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;margin-top:2px;}
+.msg-av.bot{background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(168,85,247,.1));border:1px solid var(--border2);}
+.msg-av.user{background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.25);}
+.msg-bubble{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.8rem 1.1rem;font-size:.85rem;line-height:1.7;color:var(--t1);position:relative;}
+.msg-bubble.bot{border-color:rgba(56,189,248,.1);}
+.msg-bubble.user{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.2);border-radius:12px 4px 12px 12px;}
+.msg-bubble pre{background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:8px;padding:.85rem 1rem;margin:.6rem 0;font-family:var(--mono);font-size:.72rem;color:var(--teal);overflow-x:auto;white-space:pre;}
+.msg-bubble code{color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;font-family:var(--mono);font-size:.82em;}
+.msg-bubble pre code{background:none;padding:0;color:inherit;}
+.msg-bubble strong{color:var(--t1);font-weight:600;}
+.msg-time{font-size:.62rem;color:var(--t3);padding:0 .5rem;}
+
+/* TYPING */
+.typing-bubble{display:flex;gap:5px;align-items:center;padding:.7rem 1rem;}
+.dot-t{width:6px;height:6px;border-radius:50%;background:var(--t2);animation:dotPulse 1.2s ease infinite;}
+.dot-t:nth-child(2){animation-delay:.2s;}
+.dot-t:nth-child(3){animation-delay:.4s;}
+@keyframes dotPulse{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
+
+/* INPUT AREA */
+.input-area{padding:1rem 1.25rem;border-top:1px solid var(--border);background:rgba(5,8,15,.95);flex-shrink:0;}
+.input-wrap{display:flex;align-items:flex-end;gap:.65rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.65rem .75rem;transition:border-color .2s,box-shadow .2s;}
+.input-wrap:focus-within{border-color:var(--border2);box-shadow:0 0 0 3px rgba(56,189,248,.06);}
+.chat-input{flex:1;background:none;border:none;outline:none;color:var(--t1);font-family:var(--sans);font-size:.9rem;resize:none;max-height:160px;min-height:24px;line-height:1.5;}
+.chat-input::placeholder{color:var(--t3);}
+.send-btn{width:36px;height:36px;border-radius:9px;background:var(--teal);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;align-self:flex-end;}
+.send-btn:hover{background:#7dd3fc;transform:scale(1.05);}
+.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.input-hint{text-align:center;font-size:.65rem;color:var(--t3);margin-top:.5rem;letter-spacing:.02em;}
+
+/* CHIPS ROW */
+.chip-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.6rem;}
+.chip{background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.12);border-radius:100px;padding:4px 12px;font-size:.68rem;font-weight:600;color:var(--t2);cursor:pointer;transition:all .2s;white-space:nowrap;}
+.chip:hover{background:rgba(56,189,248,.12);border-color:var(--border2);color:var(--teal);}
+
+/* COPY BUTTON on bot messages */
+.copy-btn{position:absolute;top:.5rem;right:.5rem;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:5px;padding:3px 7px;font-size:.6rem;color:var(--t3);cursor:pointer;opacity:0;transition:all .15s;font-family:var(--sans);}
+.msg-bubble:hover .copy-btn{opacity:1;}
+.copy-btn:hover{color:var(--teal);border-color:var(--border2);}
+
+/* TOAST */
+#toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:900;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:.75rem 1.1rem;display:flex;align-items:center;gap:.6rem;font-size:.8rem;box-shadow:0 10px 40px rgba(0,0,0,.5);transform:translateY(120%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);}
+#toast.show{transform:none;}
+
+/* MOBILE OVERLAY */
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(5,8,15,.7);z-index:40;backdrop-filter:blur(4px);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar{position:fixed;left:0;top:0;bottom:0;z-index:50;transform:translateX(-100%);}
+  .sidebar.open{transform:none;}
+  .sidebar-overlay.open{display:block;}
+  .topbar-back span{display:none;}
+  .wchip{font-size:.72rem;}
+}
+</style>
+</head>
+<body>
+
+<div id="toast"><span id="toastMsg"></span></div>
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">⚡</div>
+        <div>
+          <div class="brand-name">BIMZ</div>
+          <div class="brand-sub">AI Bot</div>
+        </div>
+      </a>
+      <button class="new-chat-btn" onclick="newChat()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        New Conversation
+      </button>
+    </div>
+
+    <div class="sidebar-body">
+      <div class="sessions-label">Recent Chats</div>
+      <div id="sessionsList">
+        <div class="no-sessions">No conversations yet.<br/>Start a new chat! 👆</div>
+      </div>
+    </div>
+
+    <div class="sidebar-foot">
+      <a href="index.html" class="foot-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Back to BIMZ Platform
+      </a>
+      <button class="foot-link" onclick="clearAllHistory()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+        Clear All History
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <button class="topbar-menu" onclick="toggleSidebar()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="topbar-title" id="topbarTitle">BIMZ Bot — AI Assistant</div>
+      <div class="topbar-model">
+        <div class="topbar-live"></div>
+        Claude AI
+      </div>
+      <a href="index.html" class="topbar-back">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        <span>Platform</span>
+      </a>
+    </div>
+
+    <!-- CHAT AREA -->
+    <div class="chat-area" id="chatArea">
+      <!-- WELCOME SCREEN -->
+      <div class="welcome" id="welcomeScreen">
+        <div class="welcome-icon">🤖</div>
+        <div class="welcome-title">BIMZ Bot</div>
+        <div class="welcome-sub">Your AI assistant for AutoCAD LISP, Dynamo, Revit, and MEP engineering. Ask anything — get engineer-grade answers.</div>
+        <div class="welcome-chips">
+          <div class="wchip" onclick="quickAsk('How do I create a LISP command to set up MEP layers in AutoCAD?')">
+            <span class="wchip-icon">⚡</span>MEP Layer Setup LISP
+          </div>
+          <div class="wchip" onclick="quickAsk('What are the best Dynamo nodes for automating HVAC duct routing in Revit?')">
+            <span class="wchip-icon">🔷</span>Dynamo HVAC Nodes
+          </div>
+          <div class="wchip" onclick="quickAsk('How to detect clashes between HVAC ducts and structural beams in Navisworks?')">
+            <span class="wchip-icon">🔍</span>Clash Detection Guide
+          </div>
+          <div class="wchip" onclick="quickAsk('What are standard MEP layer naming conventions for shop drawings?')">
+            <span class="wchip-icon">📋</span>MEP Layer Standards
+          </div>
+          <div class="wchip" onclick="quickAsk('How do I use Revit parameters to control pipe sizing in MEP families?')">
+            <span class="wchip-icon">🏠</span>Revit MEP Parameters
+          </div>
+          <div class="wchip" onclick="quickAsk('Write a LISP script that automatically numbers room tags in AutoCAD')">
+            <span class="wchip-icon">🔢</span>Auto-Number Rooms LISP
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <div class="input-area">
+      <div class="chip-row" id="chipRow">
+        <div class="chip" onclick="quickAsk('Explain Dynamo Python node syntax')">Dynamo Python</div>
+        <div class="chip" onclick="quickAsk('AutoCAD LISP error handling best practices')">LISP Errors</div>
+        <div class="chip" onclick="quickAsk('MEP coordination checklist for HVAC')">MEP Checklist</div>
+        <div class="chip" onclick="quickAsk('Revit family shared parameters guide')">Revit Parameters</div>
+        <div class="chip" onclick="quickAsk('BIM 360 vs Navisworks for clash detection')">BIM 360 vs Navisworks</div>
+      </div>
+      <div class="input-wrap">
+        <textarea
+          class="chat-input"
+          id="chatInput"
+          placeholder="Ask about LISP, Dynamo, Revit, MEP, Navisworks..."
+          rows="1"
+        ></textarea>
+        <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="input-hint">Enter to send · Shift+Enter for new line · Powered by Claude AI</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════
+   BIMZ BOT — STATE & STORAGE
+══════════════════════════════════════ */
+const SYSTEM_PROMPT = `You are BIMZ Bot, an expert AI assistant for BIM and CAD engineers. You specialize in:
+- AutoCAD LISP scripting (syntax, commands, automation routines, error handling)
+- Dynamo visual programming for Revit (nodes, packages, Python scripting)
+- Revit families, parameters, schedules, and BIM coordination workflows
+- MEP engineering (HVAC, Plumbing, Firefighting systems design and coordination)
+- Clash detection using Navisworks and BIM 360
+- Shop drawing production standards and MEP layer naming conventions
+- IFC, COBie, and BIM data exchange standards
+
+Always provide practical, engineer-grade answers. Use fenced code blocks (\`\`\`) for LISP, Python, or Dynamo examples. Be concise but thorough. When writing LISP code, include explanatory comments. Format clearly with headers when needed. If you write code, explain what it does after the block.`;
+
+let sessions = [];
+let currentSessionId = null;
+let isTyping = false;
+
+/* ── LOCAL STORAGE ── */
+function saveSessions() {
+  try { localStorage.setItem('bimz_sessions', JSON.stringify(sessions)); } catch(e) {}
+}
+function loadSessions() {
+  try {
+    const raw = localStorage.getItem('bimz_sessions');
+    if (raw) sessions = JSON.parse(raw);
+  } catch(e) { sessions = []; }
+}
+function getSession(id) { return sessions.find(s => s.id === id); }
+
+/* ── SESSION MANAGEMENT ── */
+function createSession(firstMsg) {
+  const id = 'sess_' + Date.now();
+  const title = firstMsg.length > 40 ? firstMsg.slice(0, 40) + '...' : firstMsg;
+  const session = { id, title, messages: [], createdAt: Date.now(), updatedAt: Date.now() };
+  sessions.unshift(session);
+  saveSessions();
+  return session;
+}
+
+function newChat() {
+  currentSessionId = null;
+  renderMessages([]);
+  document.getElementById('welcomeScreen') && showWelcome();
+  document.getElementById('topbarTitle').textContent = 'BIMZ Bot — AI Assistant';
+  renderSessions();
+  closeSidebar();
+  document.getElementById('chatInput').focus();
+}
+
+function loadSession(id) {
+  const session = getSession(id);
+  if (!session) return;
+  currentSessionId = id;
+  document.getElementById('topbarTitle').textContent = session.title;
+  renderMessages(session.messages);
+  renderSessions();
+  closeSidebar();
+}
+
+function deleteSession(id, e) {
+  e.stopPropagation();
+  sessions = sessions.filter(s => s.id !== id);
+  saveSessions();
+  if (currentSessionId === id) newChat();
+  renderSessions();
+}
+
+function clearAllHistory() {
+  if (!confirm('Clear all conversation history?')) return;
+  sessions = [];
+  saveSessions();
+  newChat();
+  showToast('🗑️ All history cleared');
+}
+
+/* ── RENDER SIDEBAR ── */
+function renderSessions() {
+  const list = document.getElementById('sessionsList');
+  if (sessions.length === 0) {
+    list.innerHTML = '<div class="no-sessions">No conversations yet.<br/>Start a new chat! 👆</div>';
+    return;
+  }
+  list.innerHTML = sessions.map(s => `
+    <div class="session-item${s.id === currentSessionId ? ' active' : ''}" onclick="loadSession('${s.id}')">
+      <span class="session-icon">💬</span>
+      <div class="session-info">
+        <div class="session-title">${escHtml(s.title)}</div>
+        <div class="session-meta">${timeAgo(s.updatedAt)} · ${s.messages.filter(m=>m.role==='user').length} messages</div>
+      </div>
+      <button class="session-del" onclick="deleteSession('${s.id}', event)" title="Delete">✕</button>
+    </div>
+  `).join('');
+}
+
+/* ── RENDER MESSAGES ── */
+function showWelcome() {
+  const area = document.getElementById('chatArea');
+  area.innerHTML = `
+    <div class="welcome" id="welcomeScreen">
+      <div class="welcome-icon">🤖</div>
+      <div class="welcome-title">BIMZ Bot</div>
+      <div class="welcome-sub">Your AI assistant for AutoCAD LISP, Dynamo, Revit, and MEP engineering. Ask anything — get engineer-grade answers.</div>
+      <div class="welcome-chips">
+        <div class="wchip" onclick="quickAsk('How do I create a LISP command to set up MEP layers in AutoCAD?')"><span class="wchip-icon">⚡</span>MEP Layer Setup LISP</div>
+        <div class="wchip" onclick="quickAsk('What are the best Dynamo nodes for automating HVAC duct routing in Revit?')"><span class="wchip-icon">🔷</span>Dynamo HVAC Nodes</div>
+        <div class="wchip" onclick="quickAsk('How to detect clashes between HVAC ducts and structural beams in Navisworks?')"><span class="wchip-icon">🔍</span>Clash Detection Guide</div>
+        <div class="wchip" onclick="quickAsk('What are standard MEP layer naming conventions for shop drawings?')"><span class="wchip-icon">📋</span>MEP Layer Standards</div>
+        <div class="wchip" onclick="quickAsk('How do I use Revit parameters to control pipe sizing in MEP families?')"><span class="wchip-icon">🏠</span>Revit MEP Parameters</div>
+        <div class="wchip" onclick="quickAsk('Write a LISP script that automatically numbers room tags in AutoCAD')"><span class="wchip-icon">🔢</span>Auto-Number Rooms LISP</div>
+      </div>
+    </div>`;
+}
+
+function renderMessages(messages) {
+  const area = document.getElementById('chatArea');
+  if (messages.length === 0) { showWelcome(); return; }
+  area.innerHTML = messages.map((m, i) => renderMsg(m, i)).join('');
+  scrollBottom();
+}
+
+function renderMsg(msg, idx) {
+  const isUser = msg.role === 'user';
+  const time = msg.ts ? new Date(msg.ts).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}) : '';
+  const content = isUser ? escHtml(msg.content) : formatResponse(msg.content);
+  return `
+    <div class="msg-group">
+      <div class="msg-row ${isUser ? 'user' : ''}">
+        <div class="msg-av ${isUser ? 'user' : 'bot'}">${isUser ? '👤' : '⚡'}</div>
+        <div class="msg-bubble ${isUser ? 'user' : 'bot'}">
+          ${!isUser ? `<button class="copy-btn" onclick="copyMsg(this)">Copy</button>` : ''}
+          ${content}
+        </div>
+      </div>
+      ${time ? `<div class="msg-time" style="${isUser?'text-align:right;padding-right:2.5rem;':''}">${time}</div>` : ''}
+    </div>`;
+}
+
+function addMsgToDOM(msg) {
+  const area = document.getElementById('chatArea');
+  const welcome = document.getElementById('welcomeScreen');
+  if (welcome) welcome.remove();
+  const div = document.createElement('div');
+  div.innerHTML = renderMsg(msg, -1);
+  area.appendChild(div.firstElementChild);
+  scrollBottom();
+}
+
+function addTypingIndicator() {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.className = 'msg-group'; div.id = 'typingGroup';
+  div.innerHTML = `<div class="msg-row"><div class="msg-av bot">⚡</div><div class="msg-bubble bot"><div class="typing-bubble"><div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div></div></div></div>`;
+  area.appendChild(div);
+  scrollBottom();
+}
+function removeTypingIndicator() { document.getElementById('typingGroup')?.remove(); }
+
+/* ── FORMAT RESPONSE ── */
+function formatResponse(text) {
+  // Code blocks
+  text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) =>
+    `<pre><code>${escHtml(code.trim())}</code></pre>`);
+  // Inline code
+  text = text.replace(/`([^`\n]+)`/g, '<code>$1</code>');
+  // Bold
+  text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  // Headers
+  text = text.replace(/^### (.+)$/gm, '<strong style="display:block;margin:.6rem 0 .2rem;font-size:.9rem;color:var(--teal);">$1</strong>');
+  text = text.replace(/^## (.+)$/gm, '<strong style="display:block;margin:.8rem 0 .3rem;font-size:.95rem;color:var(--teal);">$1</strong>');
+  // Lists
+  text = text.replace(/^- (.+)$/gm, '<span style="display:flex;gap:.4rem;margin:.15rem 0;"><span style="color:var(--teal);flex-shrink:0;">•</span><span>$1</span></span>');
+  text = text.replace(/^\d+\. (.+)$/gm, '<span style="display:block;margin:.15rem 0;">$1</span>');
+  // Line breaks
+  text = text.replace(/\n/g, '<br/>');
+  return text;
+}
+
+/* ── SEND MESSAGE ── */
+async function sendMessage() {
+  if (isTyping) return;
+  const inp = document.getElementById('chatInput');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = ''; inp.style.height = 'auto';
+
+  // Create session if first message
+  if (!currentSessionId) {
+    const session = createSession(text);
+    currentSessionId = session.id;
+    document.getElementById('topbarTitle').textContent = session.title;
+  }
+
+  const session = getSession(currentSessionId);
+  const userMsg = { role: 'user', content: text, ts: Date.now() };
+  session.messages.push(userMsg);
+  session.updatedAt = Date.now();
+  saveSessions();
+
+  addMsgToDOM(userMsg);
+  renderSessions();
+
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+  addTypingIndicator();
+
+  // Build messages array for API (no timestamps)
+  const apiMessages = session.messages
+    .filter(m => m.role !== 'error')
+    .map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: m.content }));
+  // Remove last user msg duplicate (already added above)
+
+  try {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: apiMessages, system: SYSTEM_PROMPT })
+    });
+    const data = await res.json();
+    removeTypingIndicator();
+
+    if (data.content && data.content[0] && data.content[0].text) {
+      const reply = data.content[0].text;
+      const botMsg = { role: 'assistant', content: reply, ts: Date.now() };
+      session.messages.push(botMsg);
+      session.updatedAt = Date.now();
+      saveSessions();
+      addMsgToDOM(botMsg);
+    } else if (data.error) {
+      addErrorMsg(`API Error: ${data.error.message || 'Unknown error'}`);
+    } else {
+      addErrorMsg('No response received. Please try again.');
+    }
+  } catch (err) {
+    removeTypingIndicator();
+    addErrorMsg('Connection error. Check your internet connection.');
+  }
+
+  isTyping = false;
+  document.getElementById('sendBtn').disabled = false;
+  renderSessions();
+  document.getElementById('chatInput').focus();
+}
+
+function addErrorMsg(txt) {
+  const area = document.getElementById('chatArea');
+  const div = document.createElement('div');
+  div.innerHTML = `<div class="msg-group"><div class="msg-row"><div class="msg-av bot" style="background:rgba(244,63,94,.1);border-color:rgba(244,63,94,.2);">⚠️</div><div class="msg-bubble bot" style="border-color:rgba(244,63,94,.15);color:var(--t2);">${escHtml(txt)}</div></div></div>`;
+  area.appendChild(div.firstElementChild);
+  scrollBottom();
+}
+
+function quickAsk(q) {
+  document.getElementById('chatInput').value = q;
+  sendMessage();
+}
+
+/* ── COPY MESSAGE ── */
+function copyMsg(btn) {
+  const bubble = btn.parentElement;
+  const text = bubble.innerText.replace('Copy','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+/* ── HELPERS ── */
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function scrollBottom() {
+  const area = document.getElementById('chatArea');
+  setTimeout(() => area.scrollTop = area.scrollHeight, 50);
+}
+function timeAgo(ts) {
+  const diff = Date.now() - ts;
+  if (diff < 60000) return 'Just now';
+  if (diff < 3600000) return Math.floor(diff/60000) + 'm ago';
+  if (diff < 86400000) return Math.floor(diff/3600000) + 'h ago';
+  return Math.floor(diff/86400000) + 'd ago';
+}
+function showToast(msg) {
+  const t = document.getElementById('toast'), m = document.getElementById('toastMsg');
+  m.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── SIDEBAR TOGGLE ── */
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+}
+
+/* ── AUTO-RESIZE TEXTAREA ── */
+document.getElementById('chatInput').addEventListener('input', function() {
+  this.style.height = 'auto';
+  this.style.height = Math.min(this.scrollHeight, 160) + 'px';
+});
+
+/* ── KEYBOARD SHORTCUTS ── */
+document.getElementById('chatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
+/* ── INIT ── */
+loadSessions();
+renderSessions();
+// Load last session if exists
+if (sessions.length > 0) {
+  loadSession(sessions[0].id);
+} else {
+  showWelcome();
+}
+</script>
+</body>
+</html>
