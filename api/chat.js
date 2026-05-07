@@ -44,7 +44,7 @@ Rules:
       {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer gsk_ضع_مفتاحك_هنا',
+          'Authorization': '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',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
