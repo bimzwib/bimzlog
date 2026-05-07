@@ -24,17 +24,13 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);overflow-x:hid
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
 ::-webkit-scrollbar-thumb:hover{background:var(--teal);}
 
-/* CURSOR */
 #cur,#curR{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;}
 #cur{width:8px;height:8px;background:var(--teal);mix-blend-mode:screen;transition:transform .05s;}
 #curR{width:32px;height:32px;border:1px solid rgba(56,189,248,.4);transition:width .25s,height .25s,border-color .25s;}
 #curR.hover{width:52px;height:52px;border-color:rgba(56,189,248,.7);}
 
-/* BG */
 #bgCanvas{position:fixed;inset:0;z-index:0;}
-.grid-bg{display:none;}
 
-/* NAV */
 nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(5,8,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
 nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
@@ -52,7 +48,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .btn-nav{background:var(--teal);color:#fff;padding:7px 16px;border-radius:7px;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all .2s;box-shadow:0 0 20px rgba(56,189,248,.2);}
 .btn-nav:hover{background:#7dd3fc;transform:translateY(-1px);}
 
-/* ── HERO ── */
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:7rem 2rem 4rem;max-width:1280px;margin:0 auto;gap:4rem;}
 .hero-l{flex:1;}
 .hero-r{flex:1;display:flex;justify-content:center;align-items:center;}
@@ -74,7 +69,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .sn span{color:var(--teal);}
 .sl2{font-size:.68rem;color:var(--t3);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
 
-/* HERO 3D CARD */
 .bimz-vis{width:320px;height:380px;position:relative;opacity:0;animation:fadeUp .8s .6s ease forwards;}
 .card3d{width:100%;height:100%;background:linear-gradient(140deg,#0e1e38,#091220);border:1px solid var(--border2);border-radius:20px;padding:1.75rem;position:relative;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.6),0 0 60px rgba(56,189,248,.07);transform:perspective(1000px) rotateY(-8deg) rotateX(4deg);transition:transform .6s ease;}
 .card3d:hover{transform:perspective(1000px) rotateY(-2deg) rotateX(1deg);}
@@ -92,14 +86,12 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .bb-n{background:rgba(56,189,248,.1);color:var(--teal);border:1px solid rgba(56,189,248,.2);}
 .bb-a{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.2);}
 
-/* FLOATING ELEMENTS */
 .float-el{position:absolute;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--card2);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;color:var(--teal);white-space:nowrap;}
 .fe1{top:-20px;right:-30px;animation:floatA 3s ease-in-out infinite;}
 .fe2{bottom:30px;left:-40px;animation:floatB 3.5s ease-in-out infinite;}
 @keyframes floatA{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 @keyframes floatB{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
 
-/* SECTION WRAPPER */
 .sw{position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:5rem 2rem;}
 .section-hr{border:none;height:1px;background:var(--border);max-width:1280px;margin:0 auto;position:relative;z-index:1;}
 .sl{display:flex;align-items:center;gap:10px;margin-bottom:.6rem;font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);}
@@ -107,7 +99,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .sh{font-family:var(--display);font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:800;line-height:1.05;margin-bottom:.75rem;}
 .sd{color:var(--t2);font-size:.95rem;line-height:1.7;max-width:460px;margin-bottom:2.5rem;}
 
-/* SEARCH + FILTERS */
 .search-wrap{display:flex;align-items:center;gap:.75rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.75rem 1.25rem;max-width:600px;margin-bottom:1.25rem;transition:border-color .2s,box-shadow .2s;}
 .search-wrap:focus-within{border-color:var(--border2);box-shadow:0 0 0 3px rgba(56,189,248,.07);}
 .search-wrap input{flex:1;background:none;border:none;outline:none;color:var(--t1);font-family:var(--sans);font-size:.9rem;}
@@ -116,7 +107,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .ftag{background:var(--card);border:1px solid var(--border);border-radius:100px;padding:5px 14px;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t2);cursor:pointer;transition:all .2s;}
 .ftag:hover,.ftag.on{background:rgba(56,189,248,.1);border-color:var(--border2);color:var(--teal);}
 
-/* TOOLS GRID */
 .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem;}
 .tc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;position:relative;overflow:hidden;text-decoration:none;color:inherit;transition:all .35s cubic-bezier(.34,1.56,.64,1);display:block;cursor:pointer;}
 .tc::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(56,189,248,.07),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none;}
@@ -141,7 +131,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .tc-code{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1rem;font-family:var(--mono);font-size:.7rem;color:var(--teal);line-height:1.8;overflow:hidden;}
 .cc{color:var(--t3);}.cf{color:#c084fc;}.cs{color:#86efac;}.ck{color:var(--teal);}
 
-/* COMPARE TABLE */
 .cmp-tbl{width:100%;border-collapse:collapse;font-size:.82rem;}
 .cmp-tbl th{background:var(--card2);padding:1rem;text-align:left;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);border-bottom:2px solid var(--border);}
 .cmp-tbl th.ct{color:var(--teal);}
@@ -151,7 +140,7 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .cmp-tbl tr:hover td{background:rgba(56,189,248,.02);}
 .c-y{color:var(--green);}.c-n{color:var(--t3);}.c-p{color:var(--orange);}
 
-/* ── AI SECTION ── */
+/* ══ AI SECTION — BOT PREVIEW CARD ══ */
 .ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
 .ai-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.75rem;position:relative;overflow:hidden;transition:all .3s;}
 .ai-card:hover{border-color:var(--border2);background:var(--card2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
@@ -161,34 +150,56 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .ai-title{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:.4rem;}
 .ai-desc{font-size:.8rem;color:var(--t2);line-height:1.6;margin-bottom:1.1rem;}
 
-/* CHAT */
-.bot-chat{background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:1rem;display:flex;flex-direction:column;gap:.7rem;max-height:320px;overflow-y:auto;}
-.cm{display:flex;gap:.6rem;align-items:flex-start;}
-.cm.right{flex-direction:row-reverse;}
-.cav{width:26px;height:26px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;}
-.cav.bot{background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.3);}
-.cav.user{background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.25);}
-.cb2{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:.55rem .85rem;font-size:.77rem;color:var(--t1);line-height:1.6;max-width:85%;}
-.cb2.bot{border-color:rgba(168,85,247,.2);}
-.cb2.user{background:rgba(56,189,248,.06);border-color:rgba(56,189,248,.2);}
-.cb2.typing{display:flex;gap:4px;align-items:center;padding:.7rem .85rem;}
-.dot-t{width:6px;height:6px;border-radius:50%;background:var(--t2);animation:dotPulse 1.2s ease infinite;}
-.dot-t:nth-child(2){animation-delay:.2s;}
-.dot-t:nth-child(3){animation-delay:.4s;}
-@keyframes dotPulse{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1);}}
-.chat-inp{display:flex;gap:.5rem;margin-top:.25rem;}
-.chat-inp input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:.5rem .85rem;color:var(--t1);font-family:var(--sans);font-size:.77rem;outline:none;transition:border-color .2s;}
-.chat-inp input:focus{border-color:var(--border2);}
-.chat-inp button{background:var(--teal);color:#fff;border:none;border-radius:7px;padding:.5rem .9rem;font-size:.77rem;font-weight:600;cursor:pointer;transition:all .2s;}
-.chat-inp button:hover{background:#7dd3fc;}
-.chat-inp button:disabled{opacity:.5;cursor:not-allowed;}
+/* BOT PREVIEW CARD */
+.bot-preview-card{background:var(--card);border:1px solid var(--border2);border-radius:var(--r);padding:2.5rem;position:relative;overflow:hidden;grid-column:span 2;cursor:pointer;text-decoration:none;color:inherit;display:block;transition:all .4s cubic-bezier(.34,1.56,.64,1);}
+.bot-preview-card:hover{transform:translateY(-6px);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(56,189,248,.15),0 0 60px rgba(56,189,248,.08);border-color:rgba(56,189,248,.5);}
+.bot-preview-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(168,85,247,.06),transparent 60%);}
+.bot-preview-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),var(--purple),transparent);opacity:0;transition:opacity .3s;}
+.bot-preview-card:hover::after{opacity:1;}
 
-/* CHIP BUTTONS */
-.chip-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
-.chip{background:rgba(56,189,248,.06);border:1px solid rgba(56,189,248,.15);border-radius:100px;padding:4px 12px;font-size:.65rem;font-weight:600;color:var(--teal);cursor:pointer;transition:all .2s;letter-spacing:.05em;}
-.chip:hover{background:rgba(56,189,248,.15);border-color:rgba(56,189,248,.35);}
+.bpc-inner{display:grid;grid-template-columns:1fr 1.4fr;gap:3rem;align-items:center;position:relative;z-index:1;}
+.bpc-left{}
+.bpc-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.3);border-radius:100px;padding:4px 12px;font-size:.63rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--purple);margin-bottom:1.25rem;}
+.bpc-title{font-family:var(--display);font-size:2rem;font-weight:800;margin-bottom:.75rem;line-height:1.1;}
+.bpc-desc{font-size:.87rem;color:var(--t2);line-height:1.7;margin-bottom:1.75rem;max-width:380px;}
+.bpc-features{display:flex;flex-direction:column;gap:.5rem;margin-bottom:2rem;}
+.bpc-feat{display:flex;align-items:center;gap:.6rem;font-size:.8rem;color:var(--t2);}
+.bpc-feat::before{content:'✓';color:var(--teal);font-weight:700;font-size:.75rem;width:18px;height:18px;border-radius:50%;background:rgba(56,189,248,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bpc-cta{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--teal),var(--blue));color:#fff;padding:14px 28px;border-radius:10px;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 0 40px rgba(56,189,248,.3);transition:all .25s;}
+.bot-preview-card:hover .bpc-cta{box-shadow:0 0 60px rgba(56,189,248,.5);transform:translateX(4px);}
+.bpc-arrow{font-size:1.1rem;transition:transform .25s;}
+.bot-preview-card:hover .bpc-arrow{transform:translateX(5px);}
 
-/* LEARNING */
+/* MOCK CHAT PREVIEW */
+.bpc-right{position:relative;}
+.mock-chat{background:rgba(5,8,15,.8);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.mock-chat-header{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem;background:rgba(14,21,37,.8);border-bottom:1px solid var(--border);}
+.mock-dot{width:8px;height:8px;border-radius:50%;background:var(--purple);}
+.mock-dot-pulse{animation:glp 2s ease infinite;}
+.mock-chat-title{font-size:.72rem;font-weight:600;color:var(--t2);}
+.mock-msgs{padding:1rem;display:flex;flex-direction:column;gap:.7rem;}
+.mock-msg{display:flex;gap:.5rem;align-items:flex-start;}
+.mock-msg.right{flex-direction:row-reverse;}
+.mock-av{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0;}
+.mock-av.bot{background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.3);}
+.mock-av.user{background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.25);}
+.mock-bubble{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:.5rem .8rem;font-size:.72rem;color:var(--t1);line-height:1.5;max-width:85%;}
+.mock-bubble.bot{border-color:rgba(168,85,247,.2);}
+.mock-bubble.user{background:rgba(56,189,248,.05);border-color:rgba(56,189,248,.2);}
+.mock-code{background:rgba(0,0,0,.5);border:1px solid var(--border);border-radius:6px;padding:.5rem .7rem;font-family:var(--mono);font-size:.63rem;color:var(--teal);margin-top:.35rem;line-height:1.6;}
+.mock-inp{display:flex;gap:.5rem;padding:.75rem 1rem;border-top:1px solid var(--border);background:rgba(8,13,24,.5);}
+.mock-inp-box{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:.4rem .7rem;font-size:.7rem;color:var(--t3);}
+.mock-send{background:var(--teal);color:#fff;border:none;border-radius:6px;padding:.4rem .7rem;font-size:.7rem;font-weight:600;cursor:pointer;}
+
+/* FLOATING OPEN BUTTON */
+.bot-open-hint{position:absolute;top:-12px;right:20px;background:linear-gradient(135deg,var(--teal),var(--purple));border-radius:100px;padding:6px 14px;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#fff;box-shadow:0 4px 20px rgba(56,189,248,.4);animation:floatA 3s ease-in-out infinite;}
+
+.pulse-ring{position:absolute;top:1.5rem;right:1.5rem;width:10px;height:10px;}
+.pulse-ring::before,.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--green);}
+.pulse-ring::after{animation:pulseOut 2s ease infinite;opacity:0;}
+@keyframes pulseOut{0%{transform:scale(1);opacity:.6;}100%{transform:scale(3);opacity:0;}}
+.pulse-ring::before{width:10px;height:10px;}
+
 .lg{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
 .lc{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:all .35s;text-decoration:none;color:inherit;}
 .lc:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4);}
@@ -203,7 +214,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .lc-prog{height:3px;background:var(--border);border-radius:2px;margin-top:.6rem;}
 .lc-bar{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--blue));width:0%;transition:width 1s ease;}
 
-/* ROADMAP */
 .rm{position:relative;padding-left:50px;}
 .rm-line{position:absolute;left:16px;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--teal),transparent);}
 .rm-items{display:flex;flex-direction:column;gap:2rem;}
@@ -221,7 +231,6 @@ nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
 .rb-soon{background:rgba(245,158,11,.1);color:var(--orange);border:1px solid rgba(245,158,11,.25);}
 .rb-plan{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.25);}
 
-/* CONTACT */
 .cg{display:grid;grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start;}
 .c-info{display:flex;flex-direction:column;gap:.75rem;}
 .ci{display:flex;align-items:center;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.9rem 1.2rem;text-decoration:none;color:inherit;transition:all .25s;}
@@ -238,11 +247,9 @@ select.fi{cursor:pointer;}
 .btn-send{background:var(--teal);color:#fff;border:none;border-radius:8px;padding:13px 28px;font-family:var(--display);font-size:.82rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;transition:all .25s;box-shadow:0 0 25px rgba(56,189,248,.25);}
 .btn-send:hover{background:#7dd3fc;transform:translateY(-2px);box-shadow:0 0 40px rgba(56,189,248,.45);}
 
-/* TOAST */
 #toast{position:fixed;bottom:2rem;right:2rem;z-index:900;background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:.9rem 1.2rem;display:flex;align-items:center;gap:.7rem;font-size:.82rem;box-shadow:0 20px 50px rgba(0,0,0,.5);transform:translateY(120%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
 #toast.show{transform:none;}
 
-/* COMMAND PALETTE */
 #cmd{position:fixed;inset:0;z-index:800;background:rgba(5,8,15,.85);backdrop-filter:blur(16px);display:none;align-items:flex-start;justify-content:center;padding-top:14vh;}
 #cmd.open{display:flex;}
 .cmd-box{width:100%;max-width:580px;background:var(--card2);border:1px solid var(--border2);border-radius:14px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.7);animation:slideDown .2s ease;}
@@ -258,7 +265,6 @@ select.fi{cursor:pointer;}
 .cmd-hint{padding:.7rem 1.2rem;border-top:1px solid var(--border);font-size:.67rem;color:var(--t3);display:flex;gap:1rem;}
 .cmd-hint kbd{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1px 6px;font-family:var(--mono);font-size:.63rem;}
 
-/* FOOTER */
 footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:1280px;margin:0 auto;padding:3rem 2rem 2rem;}
 .fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem;}
 .foot-brand .logo-wm{font-family:var(--display);font-size:1.3rem;font-weight:800;margin-bottom:.75rem;display:block;color:var(--teal);}
@@ -273,34 +279,22 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 .fl2 a{font-size:.72rem;color:var(--t3);text-decoration:none;}
 .fl2 a:hover{color:var(--teal);}
 
-/* ── REVEAL ANIMATION ── */
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease;}
 .reveal.in{opacity:1;transform:none;}
 .rd1{transition-delay:.1s;}.rd2{transition-delay:.2s;}.rd3{transition-delay:.3s;}.rd4{transition-delay:.4s;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
 
-/* TYPING CURSOR */
-.type-cursor{display:inline-block;width:3px;height:.85em;background:var(--teal);margin-left:2px;animation:curBlink .8s ease infinite;vertical-align:middle;}
-@keyframes curBlink{0%,100%{opacity:1;}50%{opacity:0;}}
-
-/* COUNTER */
 .stat-num{font-family:var(--display);font-size:2rem;font-weight:800;color:var(--t1);line-height:1;}
 .stat-num span{color:var(--teal);}
 
-/* PULSE RING on AI card */
-.pulse-ring{position:absolute;top:1.5rem;right:1.5rem;width:10px;height:10px;}
-.pulse-ring::before,.pulse-ring::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--green);}
-.pulse-ring::after{animation:pulseOut 2s ease infinite;opacity:0;}
-@keyframes pulseOut{0%{transform:scale(1);opacity:.6;}100%{transform:scale(3);opacity:0;}}
-.pulse-ring::before{width:10px;height:10px;}
-
-/* RESPONSIVE */
 @media(max-width:900px){
   .hero{flex-direction:column;gap:3rem;text-align:center;}
   .hero-actions{justify-content:center;}
   .hero-stats{flex-wrap:wrap;justify-content:center;}
   .ai-grid{grid-template-columns:1fr;}
-  .ai-card.w2{grid-column:span 1;}
+  .ai-card.w2,.bot-preview-card{grid-column:span 1;}
+  .bpc-inner{grid-template-columns:1fr;}
+  .bpc-right{display:none;}
   .lg{grid-template-columns:1fr 1fr;}
   .cg{grid-template-columns:1fr;}
   .fg{grid-template-columns:1fr 1fr;}
@@ -321,9 +315,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 <div id="cur"></div>
 <div id="curR"></div>
 <canvas id="bgCanvas"></canvas>
-<div class="grid-bg"></div>
 
-<!-- COMMAND PALETTE -->
 <div id="cmd">
   <div class="cmd-box">
     <div class="cmd-iw">
@@ -335,7 +327,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       <div class="cmd-item" onclick="navTo('#tools')"><div class="cmd-ico">⚡</div>LISP Scripts<span class="cmd-cat">Tools</span></div>
       <div class="cmd-item" onclick="navTo('#tools')"><div class="cmd-ico">🔷</div>Dynamo Scripts<span class="cmd-cat">Tools</span></div>
       <div class="cmd-item" onclick="navTo('#tools')"><div class="cmd-ico">🏠</div>Revit Families<span class="cmd-cat">Tools</span></div>
-      <div class="cmd-item" onclick="navTo('#ai')"><div class="cmd-ico">🤖</div>BIMZ Bot — AI<span class="cmd-cat">AI</span></div>
+      <div class="cmd-item" onclick="window.open('bot.html','_blank')"><div class="cmd-ico">🤖</div>BIMZ Bot — AI<span class="cmd-cat">AI</span></div>
       <div class="cmd-item" onclick="navTo('#learning')"><div class="cmd-ico">🎓</div>Learning Center<span class="cmd-cat">Learn</span></div>
       <div class="cmd-item" onclick="navTo('#roadmap')"><div class="cmd-ico">🗺️</div>Roadmap<span class="cmd-cat">Info</span></div>
       <div class="cmd-item" onclick="navTo('#contact')"><div class="cmd-ico">✉️</div>Contact<span class="cmd-cat">Info</span></div>
@@ -344,10 +336,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
   </div>
 </div>
 
-<!-- TOAST -->
 <div id="toast"><span id="toastMsg">Done!</span></div>
 
-<!-- NAV -->
 <nav id="mainNav">
   <a href="#" class="nav-logo">
     <div class="logo-z">Z</div>
@@ -368,14 +358,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
   </div>
 </nav>
 
-<!-- ══════ HERO ══════ -->
+<!-- HERO -->
 <div style="position:relative;z-index:1;max-width:1280px;margin:0 auto;">
 <div class="hero">
   <div class="hero-l">
     <div class="eyebrow"><div class="live-dot"></div>AI-Powered BIM Platform · Free Forever</div>
     <h1>
       <span class="h1-dim">Welcome to</span>
-      <span class="h1-main" id="heroTitle">BIMZ</span>
+      <span class="h1-main">BIMZ</span>
     </h1>
     <p class="hero-desc">The #1 smart platform for BIM & CAD engineers. Free LISP scripts, Dynamo workflows, Revit families, AI assistant, and structured learning — all in one place.</p>
     <div class="hero-actions">
@@ -383,7 +373,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Explore Tools
       </a>
-      <a href="#ai" class="btn-o">
+      <a href="bot.html" target="_blank" class="btn-o">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
         BIMZ Bot
       </a>
@@ -417,7 +407,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ TOOLS ══════ -->
+<!-- TOOLS -->
 <div class="sw" id="tools">
   <div class="sl reveal">Tools Library</div>
   <h2 class="sh reveal rd1">Professional BIM &<br/>CAD Tools</h2>
@@ -436,7 +426,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
     <div class="ftag" onclick="ft(this,'ai')">AI Tools</div>
   </div>
   <div class="tg" id="toolsContainer">
-    <!-- FEATURED -->
     <div class="tc sp2 reveal" data-cat="autocad mep">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
         <div>
@@ -508,7 +497,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ COMPARE ══════ -->
+<!-- COMPARE -->
 <div class="sw">
   <div class="sl reveal">Decision Guide</div>
   <h2 class="sh reveal rd1">LISP vs Dynamo —<br/>When to Use What</h2>
@@ -534,51 +523,69 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ AI ══════ -->
+<!-- AI SECTION — BOT PREVIEW CARD -->
 <div class="sw" id="ai">
   <div class="sl reveal">Smart Features</div>
   <h2 class="sh reveal rd1">AI & Smart<br/>Engineering Tools</h2>
   <p class="sd reveal rd2">Powered by Claude AI — trained for BIM, LISP, Dynamo, and MEP engineering workflows.</p>
   <div class="ai-grid">
-    <!-- BOT WIDE — LIVE -->
-    <div class="ai-card w2 reveal" style="position:relative;">
+
+    <!-- BOT PREVIEW CARD — OPENS bot.html -->
+    <a href="bot.html" target="_blank" class="bot-preview-card reveal">
       <div class="pulse-ring"></div>
-      <div style="display:grid;grid-template-columns:1fr 1.2fr;gap:2rem;align-items:start;">
-        <div>
-          <div class="ai-icon">🤖</div>
-          <div class="ai-title">BIMZ Bot — AI Assistant</div>
-          <div class="ai-desc">Ask anything about AutoCAD LISP syntax, Revit parameters, Dynamo nodes, MEP system design, or clash resolution. Engineer-grade answers powered by Claude AI.</div>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;">
-            <span class="badge b-ai">LISP Help</span>
-            <span class="badge b-new">Dynamo Debug</span>
-            <span class="badge b-free">MEP Q&A</span>
-            <span class="badge" style="background:rgba(16,185,129,.1);color:var(--green);border:1px solid rgba(16,185,129,.2);">✓ LIVE</span>
+      <div class="bot-open-hint">↗ Open Bot</div>
+      <div class="bpc-inner">
+        <div class="bpc-left">
+          <div class="bpc-badge">🤖 Live AI · Powered by Claude</div>
+          <div class="bpc-title">BIMZ Bot<br/>AI Assistant</div>
+          <div class="bpc-desc">Ask anything about AutoCAD LISP, Revit parameters, Dynamo nodes, MEP system design, or clash resolution. Engineer-grade answers, instantly.</div>
+          <div class="bpc-features">
+            <div class="bpc-feat">LISP syntax & code generation</div>
+            <div class="bpc-feat">Dynamo node debugging</div>
+            <div class="bpc-feat">MEP system design Q&A</div>
+            <div class="bpc-feat">Chat history saved locally</div>
+            <div class="bpc-feat">Multiple conversation sessions</div>
           </div>
-          <div class="chip-row">
-            <div class="chip" onclick="quickAsk('How do I create a LISP command for layer management?')">Layer Setup LISP</div>
-            <div class="chip" onclick="quickAsk('What Dynamo nodes are best for MEP duct routing?')">Dynamo MEP</div>
-            <div class="chip" onclick="quickAsk('How to detect clashes between HVAC and structural in Navisworks?')">Clash Detection</div>
-            <div class="chip" onclick="quickAsk('What are standard layer names for MEP shop drawings?')">MEP Standards</div>
+          <div class="bpc-cta">
+            Open BIMZ Bot
+            <span class="bpc-arrow">→</span>
           </div>
         </div>
-        <div>
-          <div class="bot-chat" id="botChat">
-            <div class="cm">
-              <div class="cav user">👤</div>
-              <div class="cb2 user">How do I rotate all text to match UCS in LISP?</div>
+        <div class="bpc-right">
+          <div class="mock-chat">
+            <div class="mock-chat-header">
+              <div class="mock-dot mock-dot-pulse"></div>
+              <div class="mock-chat-title">BIMZ Bot — BIM & CAD Assistant</div>
             </div>
-            <div class="cm">
-              <div class="cav bot">⚡</div>
-              <div class="cb2 bot">Use <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(entmod)</code> with group code <strong>50</strong> for angle. Loop through all TEXT with <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;">(ssget "X" '((0 . "TEXT")))</code> and set angle to 0 relative to current UCS.</div>
+            <div class="mock-msgs">
+              <div class="mock-msg right">
+                <div class="mock-av user">👤</div>
+                <div class="mock-bubble user">How do I rotate all text to match UCS in LISP?</div>
+              </div>
+              <div class="mock-msg">
+                <div class="mock-av bot">⚡</div>
+                <div class="mock-bubble bot">
+                  Use <code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 4px;border-radius:3px;font-family:var(--mono);">(entmod)</code> with group code <strong>50</strong> for angle:
+                  <div class="mock-code">(ssget "X" '((0 . "TEXT")))<br/>;; loop → set angle to 0</div>
+                </div>
+              </div>
+              <div class="mock-msg right">
+                <div class="mock-av user">👤</div>
+                <div class="mock-bubble user">What Dynamo nodes for HVAC duct routing?</div>
+              </div>
+              <div class="mock-msg">
+                <div class="mock-av bot">⚡</div>
+                <div class="mock-bubble bot">Use <strong>MEPover</strong> package — DuctType.ByName + Duct.ByCurve nodes...</div>
+              </div>
             </div>
-          </div>
-          <div class="chat-inp" style="margin-top:.5rem;">
-            <input placeholder="Ask about LISP, Dynamo, MEP, Revit..." id="botIn"/>
-            <button onclick="sendBot()" id="botSend">Send →</button>
+            <div class="mock-inp">
+              <div class="mock-inp-box">Ask about LISP, Dynamo, MEP...</div>
+              <button class="mock-send">Send →</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </a>
 
     <div class="ai-card reveal"><div class="ai-icon">⚡</div><div class="ai-title">LISP Generator</div><div class="ai-desc">Describe what you need in plain English — BIMZ generates ready-to-use LISP code with comments and error handling.</div><span class="badge b-ai">Coming Soon</span></div>
     <div class="ai-card reveal rd1"><div class="ai-icon">🔷</div><div class="ai-title">Dynamo Optimizer</div><div class="ai-desc">Paste your Dynamo script — AI analyzes it, finds bottlenecks, and suggests optimized node sequences.</div><span class="badge b-ai">Coming Soon</span></div>
@@ -589,7 +596,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ LEARNING ══════ -->
+<!-- LEARNING -->
 <div class="sw" id="learning">
   <div class="sl reveal">Learning Center</div>
   <h2 class="sh reveal rd1">Courses &<br/>Learning Paths</h2>
@@ -606,7 +613,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ ROADMAP ══════ -->
+<!-- ROADMAP -->
 <div class="sw" id="roadmap">
   <div class="sl reveal">Development Plan</div>
   <h2 class="sh reveal rd1">BIMZ Platform<br/>Roadmap</h2>
@@ -628,7 +635,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 
 <hr class="section-hr"/>
 
-<!-- ══════ CONTACT ══════ -->
+<!-- CONTACT -->
 <div class="sw" id="contact">
   <div class="sl reveal">Get in Touch</div>
   <h2 class="sh reveal rd1">Contact &<br/>Tool Requests</h2>
@@ -651,7 +658,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
   </div>
 </div>
 
-<!-- ══════ FOOTER ══════ -->
 <hr class="section-hr"/>
 <footer>
   <div class="fg">
@@ -660,7 +666,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
       <p class="foot-desc">The #1 AI-powered platform for BIM & CAD engineers. Free tools, smart automation, and structured learning — built by engineers, for engineers.</p>
     </div>
     <div><div class="fh">Tools</div><div class="flinks"><a href="#tools">LISP Scripts</a><a href="#tools">Dynamo Nodes</a><a href="#tools">Revit Families</a><a href="#tools">AutoCAD Fonts</a><a href="#tools">Plot Styles</a></div></div>
-    <div><div class="fh">Platform</div><div class="flinks"><a href="#learning">Learning Center</a><a href="#ai">BIMZ Bot</a><a href="#roadmap">Roadmap</a><a href="#contact">Request Tool</a><a href="#contact">Contact</a></div></div>
+    <div><div class="fh">Platform</div><div class="flinks"><a href="#learning">Learning Center</a><a href="bot.html" target="_blank">BIMZ Bot</a><a href="#roadmap">Roadmap</a><a href="#contact">Request Tool</a><a href="#contact">Contact</a></div></div>
     <div><div class="fh">About</div><div class="flinks"><a href="#contact">About Ziad</a><a href="#contact">DIRECT Consulting</a><a href="mailto:ziadanter101@gmail.com">Email Us</a><a href="https://wa.me/201030718566">WhatsApp</a></div></div>
   </div>
   <div class="fb">
@@ -670,17 +676,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
 </footer>
 
 <script>
-/* ── CURSOR ── */
+/* CURSOR */
 const cur=document.getElementById('cur'),curR=document.getElementById('curR');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.transform=`translate(${mx-4}px,${my-4}px)`;});
 (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(a);})();
-document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.chip').forEach(el=>{
+document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.bot-preview-card').forEach(el=>{
   el.addEventListener('mouseenter',()=>curR.classList.add('hover'));
   el.addEventListener('mouseleave',()=>curR.classList.remove('hover'));
 });
 
-/* ── THREE.JS 3D BACKGROUND ── */
+/* THREE.JS BG */
 (function initThreeBG(){
   const script=document.createElement('script');
   script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
@@ -690,14 +696,10 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.chip').forEach(e
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
     renderer.setSize(window.innerWidth,window.innerHeight);
     renderer.setClearColor(0x05080f,1);
-
     const scene=new THREE.Scene();
     const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,.1,1000);
     camera.position.set(0,0,28);
-
-    /* ── FLOATING WIREFRAME CUBES (BIM boxes) ── */
     const cubes=[];
-    const cubeGeo=new THREE.BoxGeometry(1,1,1);
     const cubeMats=[
       new THREE.MeshBasicMaterial({color:0x38bdf8,wireframe:true,opacity:.18,transparent:true}),
       new THREE.MeshBasicMaterial({color:0x3b82f6,wireframe:true,opacity:.12,transparent:true}),
@@ -705,113 +707,36 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.chip').forEach(e
     ];
     for(let i=0;i<22;i++){
       const s=Math.random()*2.5+.5;
-      const geo=new THREE.BoxGeometry(s,s*( .5+Math.random()),s*(.5+Math.random()));
+      const geo=new THREE.BoxGeometry(s,s*(.5+Math.random()),s*(.5+Math.random()));
       const mat=cubeMats[Math.floor(Math.random()*cubeMats.length)].clone();
       const mesh=new THREE.Mesh(geo,mat);
       mesh.position.set((Math.random()-.5)*60,(Math.random()-.5)*40,(Math.random()-.5)*20-5);
       mesh.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
-      mesh.userData={
-        rx:(Math.random()-.5)*.003,
-        ry:(Math.random()-.5)*.004,
-        rz:(Math.random()-.5)*.002,
-        fy:( Math.random()-.5)*.008,
-        oy:mesh.position.y,
-        t:Math.random()*Math.PI*2
-      };
+      mesh.userData={rx:(Math.random()-.5)*.003,ry:(Math.random()-.5)*.004,rz:(Math.random()-.5)*.002,oy:mesh.position.y,t:Math.random()*Math.PI*2};
       scene.add(mesh);cubes.push(mesh);
     }
-
-    /* ── LARGE SLOW ROTATING WIREFRAME TORUS (engineering ring) ── */
     const torusGeo=new THREE.TorusGeometry(14,0.08,8,80);
-    const torusMat=new THREE.MeshBasicMaterial({color:0x38bdf8,opacity:.06,transparent:true});
-    const torus=new THREE.Mesh(torusGeo,torusMat);
-    torus.rotation.x=Math.PI/3;
-    scene.add(torus);
-
-    const torusGeo2=new THREE.TorusGeometry(20,0.05,6,100);
-    const torusMat2=new THREE.MeshBasicMaterial({color:0x3b82f6,opacity:.04,transparent:true});
-    const torus2=new THREE.Mesh(torusGeo2,torusMat2);
-    torus2.rotation.x=Math.PI/5;torus2.rotation.y=Math.PI/6;
-    scene.add(torus2);
-
-    /* ── GRID PLANE (blueprint floor) ── */
+    const torus=new THREE.Mesh(torusGeo,new THREE.MeshBasicMaterial({color:0x38bdf8,opacity:.06,transparent:true}));
+    torus.rotation.x=Math.PI/3;scene.add(torus);
+    const torus2=new THREE.Mesh(new THREE.TorusGeometry(20,0.05,6,100),new THREE.MeshBasicMaterial({color:0x3b82f6,opacity:.04,transparent:true}));
+    torus2.rotation.x=Math.PI/5;torus2.rotation.y=Math.PI/6;scene.add(torus2);
     const gridHelper=new THREE.GridHelper(80,30,0x1a2540,0x1a2540);
-    gridHelper.position.y=-12;
-    gridHelper.material.opacity=0.25;
-    gridHelper.material.transparent=true;
-    scene.add(gridHelper);
-
-    /* ── FLOATING DOTS (particles) ── */
-    const dotCount=180;
-    const dotGeo=new THREE.BufferGeometry();
-    const positions=new Float32Array(dotCount*3);
-    for(let i=0;i<dotCount;i++){
-      positions[i*3]=(Math.random()-.5)*80;
-      positions[i*3+1]=(Math.random()-.5)*50;
-      positions[i*3+2]=(Math.random()-.5)*30-5;
-    }
+    gridHelper.position.y=-12;gridHelper.material.opacity=0.25;gridHelper.material.transparent=true;scene.add(gridHelper);
+    const dotCount=180,dotGeo=new THREE.BufferGeometry(),positions=new Float32Array(dotCount*3);
+    for(let i=0;i<dotCount;i++){positions[i*3]=(Math.random()-.5)*80;positions[i*3+1]=(Math.random()-.5)*50;positions[i*3+2]=(Math.random()-.5)*30-5;}
     dotGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
-    const dotMat=new THREE.PointsMaterial({color:0x38bdf8,size:.12,opacity:.4,transparent:true});
-    const dots=new THREE.Points(dotGeo,dotMat);
+    const dots=new THREE.Points(dotGeo,new THREE.PointsMaterial({color:0x38bdf8,size:.12,opacity:.4,transparent:true}));
     scene.add(dots);
-
-    /* ── CONNECTING LINES (wireframe edges) ── */
-    const lineGroup=new THREE.Group();
-    const lineMat=new THREE.LineBasicMaterial({color:0x38bdf8,opacity:.04,transparent:true});
-    for(let i=0;i<18;i++){
-      const pts=[];
-      const ox=(Math.random()-.5)*50;const oy=(Math.random()-.5)*35;const oz=(Math.random()-.5)*15;
-      for(let j=0;j<4;j++) pts.push(new THREE.Vector3(ox+(Math.random()-.5)*8,oy+(Math.random()-.5)*8,oz+(Math.random()-.5)*4));
-      pts.push(pts[0]);
-      const lineGeo=new THREE.BufferGeometry().setFromPoints(pts);
-      lineGroup.add(new THREE.Line(lineGeo,lineMat.clone()));
-    }
-    scene.add(lineGroup);
-
-    /* ── MOUSE PARALLAX ── */
     let mouseX=0,mouseY=0,targetX=0,targetY=0;
-    document.addEventListener('mousemove',e=>{
-      mouseX=(e.clientX/window.innerWidth-.5)*2;
-      mouseY=(e.clientY/window.innerHeight-.5)*2;
-    });
-
-    /* ── RESIZE ── */
-    window.addEventListener('resize',()=>{
-      camera.aspect=window.innerWidth/window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth,window.innerHeight);
-    });
-
-    /* ── RENDER LOOP ── */
-    let t=0;
+    document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+    window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
     function animate(){
       requestAnimationFrame(animate);
-      t+=0.008;
-
-      targetX+=(mouseX*.8-targetX)*.04;
-      targetY+=(mouseY*.5-targetY)*.04;
-      scene.rotation.y=targetX*.15;
-      scene.rotation.x=targetY*.08;
-
-      torus.rotation.z+=0.0015;
-      torus2.rotation.z-=0.001;
-      torus2.rotation.y+=0.0008;
-
-      dots.rotation.y+=0.0003;
-      dots.rotation.x+=0.0001;
-
-      gridHelper.rotation.y+=0.0005;
-
-      cubes.forEach(c=>{
-        c.rotation.x+=c.userData.rx;
-        c.rotation.y+=c.userData.ry;
-        c.rotation.z+=c.userData.rz;
-        c.userData.t+=0.008;
-        c.position.y=c.userData.oy+Math.sin(c.userData.t)*1.2;
-      });
-
-      lineGroup.rotation.y+=0.0006;
-
+      targetX+=(mouseX*.8-targetX)*.04;targetY+=(mouseY*.5-targetY)*.04;
+      scene.rotation.y=targetX*.15;scene.rotation.x=targetY*.08;
+      torus.rotation.z+=0.0015;torus2.rotation.z-=0.001;torus2.rotation.y+=0.0008;
+      dots.rotation.y+=0.0003;gridHelper.rotation.y+=0.0005;
+      cubes.forEach(c=>{c.rotation.x+=c.userData.rx;c.rotation.y+=c.userData.ry;c.rotation.z+=c.userData.rz;c.userData.t+=0.008;c.position.y=c.userData.oy+Math.sin(c.userData.t)*1.2;});
       renderer.render(scene,camera);
     }
     animate();
@@ -819,66 +744,46 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.chip').forEach(e
   document.head.appendChild(script);
 })();
 
-/* ── CARD GLOW ── */
+/* CARD GLOW */
 document.querySelectorAll('.tc').forEach(c=>{
   c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
 });
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:.1});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
-/* ── NAV SCROLL ── */
-window.addEventListener('scroll',()=>{
-  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);
-});
+/* NAV SCROLL */
+window.addEventListener('scroll',()=>{document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>60);});
 
-/* ── COUNTER ANIMATION ── */
-function animCount(el,target,suffix,duration){
-  let start=null;
-  const step=ts=>{if(!start)start=ts;const prog=Math.min((ts-start)/duration,1);const val=Math.floor(prog*target);el.textContent=val;if(prog<1)requestAnimationFrame(step);else el.textContent=target;};
-  requestAnimationFrame(step);
-}
-const statsObs=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){
-    animCount(document.getElementById('cnt1'),80,'',1800);
-    animCount(document.getElementById('cnt2'),12,'',2000);
-    animCount(document.getElementById('cnt3'),100,'',1600);
-    statsObs.disconnect();
-  }});
-},{threshold:.5});
+/* COUNTER */
+function animCount(el,target,duration){let start=null;const step=ts=>{if(!start)start=ts;const prog=Math.min((ts-start)/duration,1);el.textContent=Math.floor(prog*target);if(prog<1)requestAnimationFrame(step);else el.textContent=target;};requestAnimationFrame(step);}
+const statsObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){animCount(document.getElementById('cnt1'),80,1800);animCount(document.getElementById('cnt2'),12,2000);animCount(document.getElementById('cnt3'),100,1600);statsObs.disconnect();}});},{threshold:.5});
 statsObs.observe(document.querySelector('.hero-stats'));
 
-/* ── COMMAND PALETTE ── */
+/* COMMAND PALETTE */
 function openPal(){document.getElementById('cmd').classList.add('open');document.getElementById('cmdIn').focus();}
 function closePal(){document.getElementById('cmd').classList.remove('open');}
 function navTo(id){closePal();document.querySelector(id)?.scrollIntoView({behavior:'smooth'});}
 document.getElementById('cmd').addEventListener('click',e=>{if(e.target===e.currentTarget)closePal();});
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openPal();}if(e.key==='Escape')closePal();});
 
-/* ── TOAST ── */
+/* TOAST */
 function showToast(msg){const t=document.getElementById('toast'),m=document.getElementById('toastMsg');m.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3200);}
 
-/* ── FILTER TOOLS ── */
+/* FILTER */
 function ft(el,cat){
   document.querySelectorAll('.ftag').forEach(t=>t.classList.remove('on'));el.classList.add('on');
-  document.querySelectorAll('.tc[data-cat]').forEach(c=>{
-    const show=cat==='all'||c.dataset.cat.includes(cat);
-    c.style.opacity=show?'1':'.15';c.style.transform=show?'':'scale(.97)';c.style.transition='opacity .3s,transform .3s';
-  });
+  document.querySelectorAll('.tc[data-cat]').forEach(c=>{const show=cat==='all'||c.dataset.cat.includes(cat);c.style.opacity=show?'1':'.15';c.style.transform=show?'':'scale(.97)';c.style.transition='opacity .3s,transform .3s';});
 }
 
-/* ── SEARCH ── */
+/* SEARCH */
 document.getElementById('toolSearch').addEventListener('input',function(){
   const q=this.value.toLowerCase();
-  document.querySelectorAll('.tc').forEach(c=>{
-    const n=(c.querySelector('.tc-name')?.textContent||'').toLowerCase();
-    const d=(c.querySelector('.tc-desc')?.textContent||'').toLowerCase();
-    c.style.display=(!q||n.includes(q)||d.includes(q))?'block':'none';
-  });
+  document.querySelectorAll('.tc').forEach(c=>{const n=(c.querySelector('.tc-name')?.textContent||'').toLowerCase();const d=(c.querySelector('.tc-desc')?.textContent||'').toLowerCase();c.style.display=(!q||n.includes(q)||d.includes(q))?'block':'none';});
 });
 
-/* ── CONTACT FORM ── */
+/* CONTACT */
 function submitContact(){
   const name=document.getElementById('cName').value.trim();
   const email=document.getElementById('cEmail').value.trim();
@@ -889,129 +794,20 @@ function submitContact(){
   window.open(`mailto:ziadanter101@gmail.com?subject=${subject}&body=${body}`);
   showToast('✅ Opening email client...');
 }
-
-/* ══════════════════════════════════════════
-   BIMZ BOT — LIVE AI (Claude API)
-══════════════════════════════════════════ */
-const SYSTEM_PROMPT=`You are BIMZ Bot, an expert AI assistant for BIM and CAD engineers. You specialize in:
-- AutoCAD LISP scripting (syntax, commands, automation routines)
-- Dynamo visual programming for Revit
-- Revit families, parameters, and BIM workflows
-- MEP engineering (HVAC, Plumbing, Firefighting systems)
-- Clash detection using Navisworks
-- Shop drawing production standards
-- MEP coordination between disciplines
-
-Always provide practical, engineer-grade answers. Use code blocks for LISP/Dynamo examples. Be concise but complete. When writing LISP code, include comments. Format your response clearly.`;
-
-let chatHistory=[];
-let isBotTyping=false;
-
-function addMsg(role,text,isHTML){
-  const chat=document.getElementById('botChat');
-  const wrap=document.createElement('div');
-  wrap.className=`cm${role==='user'?' right':''}`;
-  const av=document.createElement('div');
-  av.className=`cav ${role==='bot'?'bot':'user'}`;
-  av.textContent=role==='bot'?'⚡':'👤';
-  const bubble=document.createElement('div');
-  bubble.className=`cb2 ${role==='bot'?'bot':'user'}`;
-  if(isHTML)bubble.innerHTML=text;
-  else bubble.textContent=text;
-  wrap.appendChild(av);wrap.appendChild(bubble);
-  chat.appendChild(wrap);
-  chat.scrollTop=chat.scrollHeight;
-  return bubble;
-}
-
-function addTyping(){
-  const chat=document.getElementById('botChat');
-  const wrap=document.createElement('div');wrap.className='cm';wrap.id='typingWrap';
-  const av=document.createElement('div');av.className='cav bot';av.textContent='⚡';
-  const bubble=document.createElement('div');bubble.className='cb2 bot typing';
-  bubble.innerHTML='<div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>';
-  wrap.appendChild(av);wrap.appendChild(bubble);
-  chat.appendChild(wrap);chat.scrollTop=chat.scrollHeight;
-}
-
-function removeTyping(){document.getElementById('typingWrap')?.remove();}
-
-function formatBotResponse(text){
-  return text
-    .replace(/```(\w*)\n?([\s\S]*?)```/g,'<pre style="background:rgba(0,0,0,.4);border:1px solid var(--border);border-radius:6px;padding:.75rem;margin:.5rem 0;font-family:var(--mono);font-size:.72rem;color:var(--teal);overflow-x:auto;white-space:pre;"><code>$2</code></pre>')
-    .replace(/`([^`]+)`/g,'<code style="color:var(--teal);background:rgba(56,189,248,.08);padding:1px 5px;border-radius:3px;font-family:var(--mono);">$1</code>')
-    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\n/g,'<br/>');
-}
-
-async function sendBot(){
-  if(isBotTyping)return;
-  const inp=document.getElementById('botIn');
-  const q=inp.value.trim();
-  if(!q)return;
-  inp.value='';
-  addMsg('user',q);
-  chatHistory.push({role:'user',content:q});
-  isBotTyping=true;
-  document.getElementById('botSend').disabled=true;
-  addTyping();
-  try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
-        system:SYSTEM_PROMPT,
-        messages:chatHistory
-      })
-    });
-    const data=await res.json();
-    removeTyping();
-    if(data.content&&data.content[0]){
-      const reply=data.content[0].text;
-      chatHistory.push({role:'assistant',content:reply});
-      addMsg('bot',formatBotResponse(reply),true);
-    }else{
-      addMsg('bot','⚠️ Could not get a response. Please try again.',false);
-    }
-  }catch(err){
-    removeTyping();
-    addMsg('bot','⚠️ Connection error. Check your network and try again.',false);
-  }
-  isBotTyping=false;
-  document.getElementById('botSend').disabled=false;
-}
-
-function quickAsk(q){
-  document.getElementById('botIn').value=q;
-  sendBot();
-  document.getElementById('ai').scrollIntoView({behavior:'smooth'});
-}
-
-document.getElementById('botIn').addEventListener('keydown',e=>{if(e.key==='Enter')sendBot();});
 </script>
 
-<!-- Firebase — single init -->
+<!-- Firebase -->
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
 import{getFirestore,collection,getDocs,doc,updateDoc,increment}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-firestore.js";
 import{getAuth,signInWithPopup,GoogleAuthProvider,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/12.12.0/firebase-auth.js";
 
-const cfg={
-  apiKey:"AIzaSyD4qL5kQjBWNZg1JqDvYoRal3d_EODmoA4",
-  authDomain:"bimz-439c4.firebaseapp.com",
-  projectId:"bimz-439c4",
-  storageBucket:"bimz-439c4.firebasestorage.app",
-  messagingSenderId:"755613694385",
-  appId:"1:755613694385:web:3e4390196df61f45732590"
-};
+const cfg={apiKey:"AIzaSyD4qL5kQjBWNZg1JqDvYoRal3d_EODmoA4",authDomain:"bimz-439c4.firebaseapp.com",projectId:"bimz-439c4",storageBucket:"bimz-439c4.firebasestorage.app",messagingSenderId:"755613694385",appId:"1:755613694385:web:3e4390196df61f45732590"};
 const app=initializeApp(cfg);
 const db=getFirestore(app);
 const auth=getAuth(app);
 const provider=new GoogleAuthProvider();
 
-/* Auth */
 window.login=async()=>{try{await signInWithPopup(auth,provider);}catch(e){console.log(e);}};
 window.logout=async()=>{await signOut(auth);};
 onAuthStateChanged(auth,user=>{
@@ -1020,11 +816,7 @@ onAuthStateChanged(auth,user=>{
   else{btn.textContent='Login';btn.onclick=window.login;}
 });
 
-/* Load dynamic tools from Firestore */
-window.downloadTool=async(id,link)=>{
-  try{await updateDoc(doc(db,'tools',id),{downloads:increment(1)});}catch(e){}
-  window.open(link,'_blank');
-};
+window.downloadTool=async(id,link)=>{try{await updateDoc(doc(db,'tools',id),{downloads:increment(1)});}catch(e){}window.open(link,'_blank');};
 async function loadTools(){
   try{
     const snap=await getDocs(collection(db,'tools'));
@@ -1033,22 +825,8 @@ async function loadTools(){
       const t=docSnap.data();const id=docSnap.id;
       if(!t.name||!t.download)return;
       const card=document.createElement('div');
-      card.className='tc reveal';
-      card.dataset.cat=t.category||'all';
-      card.innerHTML=`
-        <div class="tc-top">
-          <div class="tc-icon" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);">${t.icon||'⚡'}</div>
-          <div class="tc-badges"><span class="badge b-free">Free</span></div>
-        </div>
-        <div class="tc-name">${t.name}</div>
-        <div class="tc-desc">${t.description||t.type||''}</div>
-        <div class="tc-meta">
-          <div class="tc-stars">★★★★★</div>
-          <div class="tc-dl">↓ ${t.downloads||0}</div>
-        </div>
-        <button onclick="downloadTool('${id}','${t.download}')" style="margin-top:10px;background:var(--teal);color:#fff;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;">Download ↓</button>
-        <div class="tc-bar"></div>
-      `;
+      card.className='tc reveal';card.dataset.cat=t.category||'all';
+      card.innerHTML=`<div class="tc-top"><div class="tc-icon" style="background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);">${t.icon||'⚡'}</div><div class="tc-badges"><span class="badge b-free">Free</span></div></div><div class="tc-name">${t.name}</div><div class="tc-desc">${t.description||t.type||''}</div><div class="tc-meta"><div class="tc-stars">★★★★★</div><div class="tc-dl">↓ ${t.downloads||0}</div></div><button onclick="downloadTool('${id}','${t.download}')" style="margin-top:10px;background:var(--teal);color:#fff;border:none;padding:8px 15px;border-radius:6px;cursor:pointer;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;">Download ↓</button><div class="tc-bar"></div>`;
       container.appendChild(card);
       const obsNew=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obsNew.unobserve(e.target);}});},{threshold:.1});
       obsNew.observe(card);
