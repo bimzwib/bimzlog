@@ -1,11 +1,5 @@
 export default async function handler(req, res) {
 
-  if (req.method !== 'POST') {
-    return res.status(405).json({
-      error: 'Method not allowed'
-    });
-  }
-
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -14,12 +8,18 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
+  if (req.method !== 'POST') {
+    return res.status(405).json({
+      error: 'Method not allowed'
+    });
+  }
+
   try {
 
     const { messages } = req.body;
 
     const userMessage =
-      messages[messages.length - 1]?.content || '';
+      messages?.[messages.length - 1]?.content || 'Hello';
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
@@ -46,14 +46,10 @@ export default async function handler(req, res) {
 
     console.log(JSON.stringify(data));
 
-const reply =
-data?.candidates?.[0]?.content?.parts?.[0]?.text
-|| JSON.stringify(data)
-|| "AI did not return a valid response.";
+    const reply =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text
+      || 'No response from Gemini';
 
-const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
-|| data?.candidates?.[0]?.output
-|| "AI did not return a valid response.";
     return res.status(200).json({
       content: [
         {
@@ -67,8 +63,9 @@ const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text
     console.error(err);
 
     return res.status(500).json({
-      error: 'Internal server error'
+      error: err.message
     });
 
   }
+
 }
