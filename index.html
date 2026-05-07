@@ -30,7 +30,28 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);overflow-x:hid
 #curR{width:32px;height:32px;border:1px solid rgba(56,189,248,.4);transition:width .25s,height .25s,border-color .25s;}
 #curR.hover{width:52px;height:52px;border-color:rgba(56,189,248,.7);}
 
-#bgCanvas{position:fixed;inset:0;z-index:0;}
+#bgCanvas{position:fixed;inset:0;z-index:0;transition:background .5s;}
+
+/* ══ LIGHT MODE ══ */
+body.light{
+  --bg:#f0f4ff;--bg2:#e8eeff;--bg3:#dde5ff;--card:#ffffff;--card2:#f5f7ff;
+  --border:#c8d4f0;--border2:rgba(56,130,248,.35);
+  --t1:#0f1a3a;--t2:#3d5280;--t3:#7a90c0;
+}
+body.light #bgCanvas{filter:invert(0);}
+body.light nav{background:rgba(240,244,255,.92);border-bottom:1px solid var(--border);}
+body.light .mock-chat{background:rgba(240,244,255,.9);}
+body.light .mock-chat-header{background:rgba(220,228,255,.9);}
+body.light .mock-bubble{background:#fff;border-color:var(--border);}
+body.light .mock-bubble.user{background:rgba(56,130,248,.06);}
+body.light .cmp-tbl th{background:var(--card2);}
+body.light .tc-code{background:rgba(0,0,20,.04);color:#0e6bbd;}
+body.light .cmd-box{background:var(--card2);}
+body.light #toast{background:var(--card2);}
+
+/* ══ THEME TOGGLE BUTTON ══ */
+.theme-toggle{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--card);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .25s;flex-shrink:0;}
+.theme-toggle:hover{border-color:var(--border2);background:rgba(56,189,248,.08);transform:scale(1.05);}
 
 nav{position:fixed;top:0;width:100%;z-index:500;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;background:rgba(5,8,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:box-shadow .3s;}
 nav.scrolled{box-shadow:0 4px 30px rgba(0,0,0,.5);}
@@ -355,6 +376,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);max-width:
     <div class="nav-search" onclick="openPal()">
       <span>🔍</span><span>Search...</span><kbd>⌘K</kbd>
     </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Mode">🌙</button>
     <button class="btn-nav" id="loginBtn" onclick="login()">Login</button>
   </div>
 </nav>
@@ -687,7 +709,7 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.bot-preview-card
   el.addEventListener('mouseleave',()=>curR.classList.remove('hover'));
 });
 
-/* THREE.JS BG */
+/* THREE.JS BG — PREMIUM ENGINEERING GRID */
 (function initThreeBG(){
   const script=document.createElement('script');
   script.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
@@ -696,48 +718,201 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.bot-preview-card
     const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
     renderer.setSize(window.innerWidth,window.innerHeight);
-    renderer.setClearColor(0x05080f,1);
+
     const scene=new THREE.Scene();
-    const camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,.1,1000);
-    camera.position.set(0,0,28);
-    const cubes=[];
-    const cubeMats=[
-      new THREE.MeshBasicMaterial({color:0x38bdf8,wireframe:true,opacity:.18,transparent:true}),
-      new THREE.MeshBasicMaterial({color:0x3b82f6,wireframe:true,opacity:.12,transparent:true}),
-      new THREE.MeshBasicMaterial({color:0xa855f7,wireframe:true,opacity:.1,transparent:true}),
-    ];
-    for(let i=0;i<22;i++){
-      const s=Math.random()*2.5+.5;
-      const geo=new THREE.BoxGeometry(s,s*(.5+Math.random()),s*(.5+Math.random()));
-      const mat=cubeMats[Math.floor(Math.random()*cubeMats.length)].clone();
-      const mesh=new THREE.Mesh(geo,mat);
-      mesh.position.set((Math.random()-.5)*60,(Math.random()-.5)*40,(Math.random()-.5)*20-5);
-      mesh.rotation.set(Math.random()*Math.PI,Math.random()*Math.PI,Math.random()*Math.PI);
-      mesh.userData={rx:(Math.random()-.5)*.003,ry:(Math.random()-.5)*.004,rz:(Math.random()-.5)*.002,oy:mesh.position.y,t:Math.random()*Math.PI*2};
-      scene.add(mesh);cubes.push(mesh);
+    const camera=new THREE.PerspectiveCamera(55,window.innerWidth/window.innerHeight,.1,2000);
+    camera.position.set(0,12,38);
+    camera.lookAt(0,0,0);
+
+    let isLight=false;
+
+    // ── COLORS ──
+    const C={
+      dark:{bg:0x05080f,grid1:0x1a2540,grid2:0x0d1830,node:0x38bdf8,pulse:0x38bdf8,line:0x3b82f6,accent:0xa855f7,dot:0x38bdf8},
+      light:{bg:0xeef2ff,grid1:0xc0cfee,grid2:0xd0daf5,node:0x1a6bcc,pulse:0x2c7be5,line:0x4a7fd4,accent:0x7c3aed,dot:0x2563eb}
+    };
+    function gc(){return isLight?C.light:C.dark;}
+
+    // ── SET BG COLOR ──
+    function setBgColor(){
+      renderer.setClearColor(gc().bg,1);
     }
-    const torusGeo=new THREE.TorusGeometry(14,0.08,8,80);
-    const torus=new THREE.Mesh(torusGeo,new THREE.MeshBasicMaterial({color:0x38bdf8,opacity:.06,transparent:true}));
-    torus.rotation.x=Math.PI/3;scene.add(torus);
-    const torus2=new THREE.Mesh(new THREE.TorusGeometry(20,0.05,6,100),new THREE.MeshBasicMaterial({color:0x3b82f6,opacity:.04,transparent:true}));
-    torus2.rotation.x=Math.PI/5;torus2.rotation.y=Math.PI/6;scene.add(torus2);
-    const gridHelper=new THREE.GridHelper(80,30,0x1a2540,0x1a2540);
-    gridHelper.position.y=-12;gridHelper.material.opacity=0.25;gridHelper.material.transparent=true;scene.add(gridHelper);
-    const dotCount=180,dotGeo=new THREE.BufferGeometry(),positions=new Float32Array(dotCount*3);
-    for(let i=0;i<dotCount;i++){positions[i*3]=(Math.random()-.5)*80;positions[i*3+1]=(Math.random()-.5)*50;positions[i*3+2]=(Math.random()-.5)*30-5;}
-    dotGeo.setAttribute('position',new THREE.BufferAttribute(positions,3));
-    const dots=new THREE.Points(dotGeo,new THREE.PointsMaterial({color:0x38bdf8,size:.12,opacity:.4,transparent:true}));
-    scene.add(dots);
-    let mouseX=0,mouseY=0,targetX=0,targetY=0;
+    setBgColor();
+
+    // ── PERSPECTIVE GRID (floor) ──
+    const gridGroup=new THREE.Group();
+    scene.add(gridGroup);
+
+    function makeGridLines(){
+      while(gridGroup.children.length)gridGroup.remove(gridGroup.children[0]);
+      const cols=gc();
+      const W=120,D=100,STEP=6;
+      const mat1=new THREE.LineBasicMaterial({color:cols.grid1,opacity:.5,transparent:true});
+      const mat2=new THREE.LineBasicMaterial({color:cols.grid2,opacity:.25,transparent:true});
+      // longitudinal lines
+      for(let x=-W/2;x<=W/2;x+=STEP){
+        const geo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,0,-D/2),new THREE.Vector3(x,0,D/2)]);
+        gridGroup.add(new THREE.Line(geo,Math.abs(x)%18===0?mat1.clone():mat2.clone()));
+      }
+      // transverse lines
+      for(let z=-D/2;z<=D/2;z+=STEP){
+        const geo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(-W/2,0,z),new THREE.Vector3(W/2,0,z)]);
+        gridGroup.add(new THREE.Line(geo,Math.abs(z)%18===0?mat1.clone():mat2.clone()));
+      }
+      gridGroup.position.y=-10;
+    }
+    makeGridLines();
+
+    // ── FLOATING BIM NODES (spheres at grid intersections) ──
+    const nodeGroup=new THREE.Group();
+    scene.add(nodeGroup);
+    const nodePositions=[];
+    for(let i=0;i<28;i++){
+      nodePositions.push(new THREE.Vector3(
+        (Math.random()-.5)*80,
+        Math.random()*14-4,
+        (Math.random()-.5)*50
+      ));
+    }
+
+    function makeNodes(){
+      while(nodeGroup.children.length)nodeGroup.remove(nodeGroup.children[0]);
+      const cols=gc();
+      nodePositions.forEach((pos,i)=>{
+        const size=Math.random()*.18+.08;
+        const geo=new THREE.SphereGeometry(size,8,8);
+        const mat=new THREE.MeshBasicMaterial({color:i%3===0?cols.accent:cols.node,opacity:i%5===0?.8:.45,transparent:true});
+        const mesh=new THREE.Mesh(geo,mat);
+        mesh.position.copy(pos);
+        mesh.userData={baseY:pos.y,t:Math.random()*Math.PI*2,speed:.006+Math.random()*.004};
+        nodeGroup.add(mesh);
+      });
+    }
+    makeNodes();
+
+    // ── CONNECTING LINES BETWEEN NEARBY NODES ──
+    const lineGroup=new THREE.Group();
+    scene.add(lineGroup);
+
+    function makeConnections(){
+      while(lineGroup.children.length)lineGroup.remove(lineGroup.children[0]);
+      const cols=gc();
+      const mat=new THREE.LineBasicMaterial({color:cols.line,opacity:.12,transparent:true,vertexColors:false});
+      for(let i=0;i<nodePositions.length;i++){
+        for(let j=i+1;j<nodePositions.length;j++){
+          const d=nodePositions[i].distanceTo(nodePositions[j]);
+          if(d<22){
+            const alpha=1-(d/22);
+            const m=new THREE.LineBasicMaterial({color:cols.line,opacity:alpha*.18,transparent:true});
+            const geo=new THREE.BufferGeometry().setFromPoints([nodePositions[i],nodePositions[j]]);
+            lineGroup.add(new THREE.Line(geo,m));
+          }
+        }
+      }
+    }
+    makeConnections();
+
+    // ── PULSE RINGS (expanding rings from random nodes) ──
+    const pulseRings=[];
+    function spawnPulse(){
+      const cols=gc();
+      const pos=nodePositions[Math.floor(Math.random()*nodePositions.length)];
+      const geo=new THREE.RingGeometry(.05,.1,32);
+      const mat=new THREE.MeshBasicMaterial({color:cols.pulse,opacity:.7,transparent:true,side:THREE.DoubleSide});
+      const mesh=new THREE.Mesh(geo,mat);
+      mesh.position.copy(pos);
+      mesh.rotation.x=-Math.PI/2;
+      mesh.userData={life:0,maxLife:2.2};
+      scene.add(mesh);
+      pulseRings.push(mesh);
+    }
+    let pulseTimer=0;
+
+    // ── LARGE FAINT TORUS (orbital ring) ──
+    function makeOrbital(){
+      while(orbitalGroup.children.length)orbitalGroup.remove(orbitalGroup.children[0]);
+      const cols=gc();
+      const t1=new THREE.Mesh(
+        new THREE.TorusGeometry(18,.04,8,120),
+        new THREE.MeshBasicMaterial({color:cols.node,opacity:.07,transparent:true})
+      );
+      t1.rotation.x=Math.PI/2.5;
+      orbitalGroup.add(t1);
+      const t2=new THREE.Mesh(
+        new THREE.TorusGeometry(26,.025,6,140),
+        new THREE.MeshBasicMaterial({color:cols.accent,opacity:.04,transparent:true})
+      );
+      t2.rotation.x=Math.PI/3;t2.rotation.z=Math.PI/7;
+      orbitalGroup.add(t2);
+    }
+    const orbitalGroup=new THREE.Group();
+    scene.add(orbitalGroup);
+    makeOrbital();
+
+    // ── STAR FIELD (tiny dots) ──
+    function makeStars(){
+      while(starGroup.children.length)starGroup.remove(starGroup.children[0]);
+      const cols=gc();
+      const count=isLight?60:220;
+      const pos=new Float32Array(count*3);
+      for(let i=0;i<count;i++){pos[i*3]=(Math.random()-.5)*160;pos[i*3+1]=(Math.random()-.5)*90;pos[i*3+2]=(Math.random()-.5)*60-5;}
+      const geo=new THREE.BufferGeometry();
+      geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+      const mat=new THREE.PointsMaterial({color:cols.dot,size:isLight?.06:.1,opacity:isLight?.3:.55,transparent:true});
+      starGroup.add(new THREE.Points(geo,mat));
+    }
+    const starGroup=new THREE.Group();
+    scene.add(starGroup);
+    makeStars();
+
+    // ── THEME SWITCH ──
+    window.switchBGTheme=function(light){
+      isLight=light;
+      setBgColor();
+      makeGridLines();
+      makeNodes();
+      makeConnections();
+      makeOrbital();
+      makeStars();
+    };
+
+    // ── MOUSE PARALLAX ──
+    let mouseX=0,mouseY=0,camX=0,camY=0;
     document.addEventListener('mousemove',e=>{mouseX=(e.clientX/window.innerWidth-.5)*2;mouseY=(e.clientY/window.innerHeight-.5)*2;});
+
     window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);});
+
+    // ── ANIMATE ──
+    let t=0;
     function animate(){
       requestAnimationFrame(animate);
-      targetX+=(mouseX*.8-targetX)*.04;targetY+=(mouseY*.5-targetY)*.04;
-      scene.rotation.y=targetX*.15;scene.rotation.x=targetY*.08;
-      torus.rotation.z+=0.0015;torus2.rotation.z-=0.001;torus2.rotation.y+=0.0008;
-      dots.rotation.y+=0.0003;gridHelper.rotation.y+=0.0005;
-      cubes.forEach(c=>{c.rotation.x+=c.userData.rx;c.rotation.y+=c.userData.ry;c.rotation.z+=c.userData.rz;c.userData.t+=0.008;c.position.y=c.userData.oy+Math.sin(c.userData.t)*1.2;});
+      t+=.008;
+      camX+=(mouseX*2.5-camX)*.03;
+      camY+=(mouseY*1.5-camY)*.03;
+      camera.position.x=camX;
+      camera.position.y=12+camY*.5;
+      camera.lookAt(0,0,0);
+
+      orbitalGroup.children[0]&&(orbitalGroup.children[0].rotation.z+=.0008);
+      orbitalGroup.children[1]&&(orbitalGroup.children[1].rotation.z-=.0005,orbitalGroup.children[1].rotation.y+=.0003);
+
+      gridGroup.position.x=camX*.05;
+
+      nodeGroup.children.forEach(n=>{n.position.y=n.userData.baseY+Math.sin(t*n.userData.speed*125+n.userData.t)*.8;});
+
+      // pulse rings
+      pulseTimer+=.016;
+      if(pulseTimer>1.6){pulseTimer=0;spawnPulse();}
+      for(let i=pulseRings.length-1;i>=0;i--){
+        const r=pulseRings[i];
+        r.userData.life+=.016;
+        const prog=r.userData.life/r.userData.maxLife;
+        const s=1+prog*12;
+        r.scale.set(s,s,s);
+        r.material.opacity=(1-prog)*.7;
+        if(r.userData.life>=r.userData.maxLife){scene.remove(r);pulseRings.splice(i,1);}
+      }
+
       renderer.render(scene,camera);
     }
     animate();
@@ -745,7 +920,20 @@ document.querySelectorAll('a,button,.ftag,.tc,.lc,.ci,.ai-card,.bot-preview-card
   document.head.appendChild(script);
 })();
 
-/* CARD GLOW */
+/* THEME TOGGLE */
+(function(){
+  const btn=document.getElementById('themeToggle');
+  let light=false;
+  btn.addEventListener('click',()=>{
+    light=!light;
+    document.body.classList.toggle('light',light);
+    btn.textContent=light?'🌙':'☀️';
+    btn.title=light?'Switch to Dark Mode':'Switch to Light Mode';
+    if(window.switchBGTheme)window.switchBGTheme(light);
+  });
+})();
+
+
 document.querySelectorAll('.tc').forEach(c=>{
   c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');c.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');});
 });
