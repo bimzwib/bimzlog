@@ -561,6 +561,35 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
   .eng-tools-grid{grid-template-columns:1fr 1fr;}
 }
 </style>
+
+<style>
+/* ── BIMZ ULTRA ENHANCEMENTS ── */
+.bimz-3d-stage{position:absolute;inset:-40px;z-index:0;pointer-events:none;opacity:0;animation:fadeIn3D 1.4s .4s ease forwards;}
+@keyframes fadeIn3D{to{opacity:1;}}
+#bimz3DCanvas{width:100%;height:100%;display:block;filter:drop-shadow(0 0 60px rgba(0,240,255,.25));}
+.holo-card{z-index:2;}
+.float-badge{z-index:3;}
+/* Hero subtle parallax glow ring */
+.hero-r::before{content:'';position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(0,240,255,.10),rgba(139,92,246,.06) 35%,transparent 70%);filter:blur(20px);pointer-events:none;z-index:0;animation:pulseGlow 6s ease-in-out infinite;}
+@keyframes pulseGlow{0%,100%{transform:scale(1);opacity:.85;}50%{transform:scale(1.08);opacity:1;}}
+/* Cinematic concentric holo rings overlay */
+.holo-rings{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;z-index:1;}
+.holo-rings span{position:absolute;border:1px solid rgba(0,240,255,.18);border-radius:50%;animation:ringPulse 4s ease-in-out infinite;}
+.holo-rings span:nth-child(1){width:300px;height:300px;animation-delay:0s;}
+.holo-rings span:nth-child(2){width:420px;height:420px;animation-delay:.6s;border-color:rgba(139,92,246,.18);}
+.holo-rings span:nth-child(3){width:540px;height:540px;animation-delay:1.2s;border-color:rgba(0,240,255,.10);}
+@keyframes ringPulse{0%,100%{transform:scale(.95);opacity:.4;}50%{transform:scale(1.05);opacity:1;}}
+/* Premium card hover depth across the site */
+.section .card,.tool-card,.feature-card,.pricing-card,.course-card,.acc-card{transition:transform .5s cubic-bezier(.34,1.4,.64,1),box-shadow .5s,border-color .4s;}
+.section .card:hover,.tool-card:hover,.feature-card:hover,.pricing-card:hover,.course-card:hover,.acc-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -20px rgba(0,240,255,.18),0 0 0 1px rgba(0,240,255,.25);}
+/* Smooth stagger reveal */
+.reveal{transition:opacity .9s ease, transform .9s cubic-bezier(.22,1,.36,1);}
+/* Mobile hide heavy 3D */
+@media (max-width:900px){.bimz-3d-stage,.holo-rings{display:none;}}
+@media (prefers-reduced-motion:reduce){.bimz-3d-stage,.holo-rings,.hero-r::before{animation:none!important;}}
+</style>
+<script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+
 </head>
 <body>
 
@@ -699,6 +728,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       </div>
     </div>
     <div class="hero-r">
+      <div class="bimz-3d-stage"><canvas id="bimz3DCanvas"></canvas></div>
+      <div class="holo-rings"><span></span><span></span><span></span></div>
       <div class="hero-card-wrap">
         <div class="float-badge fb1">⚡ AutoCAD LISP</div>
         <div class="float-badge fb2">🤖 AI Assistant</div>
@@ -1977,5 +2008,113 @@ async function loadTools(){
 }
 loadTools();
 </script>
+
+<script>
+(function(){
+  if(!window.THREE) return;
+  var canvas = document.getElementById('bimz3DCanvas');
+  if(!canvas) return;
+  var stage = canvas.parentElement;
+  var w = stage.clientWidth || 480, h = stage.clientHeight || 560;
+  var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true, alpha:true, powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 1.75));
+  renderer.setSize(w, h, false);
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(45, w/h, 0.1, 100);
+  camera.position.set(0, 0, 6);
+
+  var group = new THREE.Group(); scene.add(group);
+
+  // Wireframe icosahedron (BIM core)
+  var coreGeom = new THREE.IcosahedronGeometry(1.35, 1);
+  var coreMat  = new THREE.MeshBasicMaterial({color:0x00f0ff, wireframe:true, transparent:true, opacity:.85});
+  var core = new THREE.Mesh(coreGeom, coreMat); group.add(core);
+
+  // Inner solid glow sphere
+  var inner = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(.85, 1),
+    new THREE.MeshBasicMaterial({color:0x1e6fff, transparent:true, opacity:.18})
+  ); group.add(inner);
+
+  // Orbiting torus rings
+  function ring(r, color, rx, rz, op){
+    var m = new THREE.Mesh(
+      new THREE.TorusGeometry(r, .012, 8, 96),
+      new THREE.MeshBasicMaterial({color:color, transparent:true, opacity:op})
+    );
+    m.rotation.x = rx; m.rotation.z = rz; return m;
+  }
+  var r1 = ring(2.0, 0x00f0ff,  Math.PI/2.4, 0, .55);
+  var r2 = ring(2.4, 0x8b5cf6,  Math.PI/3.6, .6, .45);
+  var r3 = ring(2.8, 0x3b82f6,  Math.PI/2,   1.1, .35);
+  group.add(r1); group.add(r2); group.add(r3);
+
+  // Floating nodes
+  var nodes = new THREE.Group();
+  var nodeGeo = new THREE.SphereGeometry(.045, 12, 12);
+  var nodeMat = new THREE.MeshBasicMaterial({color:0x00f0ff});
+  for(var i=0;i<22;i++){
+    var n = new THREE.Mesh(nodeGeo, nodeMat);
+    var t = Math.random()*Math.PI*2, p = Math.acos(2*Math.random()-1), R = 2.2 + Math.random()*.5;
+    n.position.set(R*Math.sin(p)*Math.cos(t), R*Math.sin(p)*Math.sin(t), R*Math.cos(p));
+    n.userData = {sp: .003 + Math.random()*.004};
+    nodes.add(n);
+  }
+  group.add(nodes);
+
+  // Particle field (blueprint dust)
+  var pCount = 350;
+  var pPos = new Float32Array(pCount*3);
+  for(var k=0;k<pCount;k++){
+    pPos[k*3]   = (Math.random()-.5)*8;
+    pPos[k*3+1] = (Math.random()-.5)*8;
+    pPos[k*3+2] = (Math.random()-.5)*8;
+  }
+  var pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos,3));
+  var particles = new THREE.Points(pGeo, new THREE.PointsMaterial({color:0x00f0ff, size:.018, transparent:true, opacity:.55}));
+  scene.add(particles);
+
+  // Parallax
+  var mx=0, my=0, tx=0, ty=0;
+  window.addEventListener('mousemove', function(e){
+    mx = (e.clientX/window.innerWidth - .5);
+    my = (e.clientY/window.innerHeight - .5);
+  }, {passive:true});
+
+  var paused = false;
+  document.addEventListener('visibilitychange', function(){ paused = document.hidden; });
+
+  function resize(){
+    var rect = stage.getBoundingClientRect();
+    var nw = Math.max(320, rect.width), nh = Math.max(320, rect.height);
+    renderer.setSize(nw, nh, false);
+    camera.aspect = nw/nh; camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  var t0 = performance.now();
+  function tick(){
+    if(!paused){
+      var t = (performance.now()-t0)/1000;
+      core.rotation.x = t*.25; core.rotation.y = t*.32;
+      inner.rotation.y = -t*.5;
+      r1.rotation.z += .002; r2.rotation.z -= .0015; r3.rotation.z += .001;
+      nodes.children.forEach(function(n,i){
+        n.position.applyAxisAngle(new THREE.Vector3(0,1,0), n.userData.sp);
+        n.material.opacity = .6 + Math.sin(t*2+i)*.3;
+      });
+      particles.rotation.y = t*.04;
+      tx += (mx*.4 - tx)*.05; ty += (my*.4 - ty)*.05;
+      group.rotation.y = tx; group.rotation.x = ty;
+    }
+    renderer.render(scene, camera);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+</script>
+
 </body>
 </html>
