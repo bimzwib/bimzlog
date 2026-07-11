@@ -39,7 +39,7 @@
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#020508;--bg2:#03070e;--bg3:#060d18;--card:#080f1e;--card2:#0c1528;
@@ -49,7 +49,7 @@
   --t1:#e8f4ff;--t2:#a8c4e0;--t3:#5a7aa0;
   --sans:'Inter',sans-serif;
   --mono:'JetBrains Mono',monospace;--display:'Syne',sans-serif;--condense:'Barlow Condensed',sans-serif;
-  --arabic:'Cairo',sans-serif;
+  --arabic:'Cairo',sans-serif;--hindi:'Noto Sans Devanagari',sans-serif;
   --r:14px;--rs:8px;
   --glow-cyan:0 0 40px rgba(0,240,255,.25),0 0 80px rgba(0,240,255,.1);
   --glow-purple:0 0 40px rgba(139,92,246,.25);
@@ -69,6 +69,7 @@ body.day-mode #loader{background:var(--bg);}
 body.day-mode .tool-card,.day-mode .acc-card,.day-mode .proj-card{background:rgba(255,255,255,.9);}
 html[dir="rtl"]{direction:rtl;}
 html[dir="rtl"] body{font-family:var(--arabic),var(--sans);}
+html[lang="hi"] body{font-family:var(--hindi),var(--sans);}
 html[dir="rtl"] .nav-center{flex-direction:row-reverse;}
 html[dir="rtl"] .exp-li::before{content:'←';}
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -85,7 +86,8 @@ body{font-family:var(--sans);background:var(--bg);color:var(--t1);overflow-x:hid
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--purple));border-radius:2px;}
 
 /* CURSOR */
-#cursor{position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:screen;}
+#cursor{position:fixed;pointer-events:none;z-index:99999;mix-blend-mode:screen;direction:ltr;top:0;left:0;}
+body.touch-cursor,body.touch-cursor *{cursor:auto!important;}
 #cursor-dot{width:6px;height:6px;background:var(--cyan);border-radius:50%;position:absolute;transform:translate(-50%,-50%);box-shadow:0 0 8px var(--cyan),0 0 20px rgba(0,240,255,.5);}
 #cursor-ring{width:40px;height:40px;border:1px solid rgba(0,240,255,.4);border-radius:50%;position:absolute;transform:translate(-50%,-50%);transition:width .2s,height .2s;}
 body.cursor-hover #cursor-ring{width:60px;height:60px;border-color:rgba(0,240,255,.7);}
@@ -111,7 +113,7 @@ body.day-mode #cursor-ring{border-color:rgba(0,80,160,.55);}
 .loader-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;}
 .loader-logo-wrap{position:relative;width:120px;height:120px;margin-bottom:2rem;}
 .loader-logo-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;}
-.loader-logo-text{font-family:var(--display);font-size:2.2rem;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:logoAssemble 1.2s ease forwards;opacity:0;}
+.loader-logo-text{font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em;font-weight:900;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:logoAssemble 1.2s ease forwards;opacity:0;white-space:nowrap;}
 @keyframes logoAssemble{0%{opacity:0;filter:blur(20px);transform:scale(.5);}50%{opacity:.7;filter:blur(4px);}100%{opacity:1;filter:blur(0);transform:scale(1);}}
 .loader-ring{position:absolute;inset:0;border-radius:50%;animation:spinRing 2s linear infinite;}
 .loader-ring-1{border:2px solid transparent;border-top:2px solid var(--cyan);border-right:2px solid rgba(0,240,255,.3);filter:drop-shadow(0 0 8px var(--cyan));}
@@ -440,7 +442,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <div class="loader-ring loader-ring-2"></div>
       <div class="loader-ring loader-ring-3"></div>
       <div class="loader-hologram"></div>
-      <div class="loader-logo-inner"><div class="loader-logo-text">ZA</div></div>
+      <div class="loader-logo-inner"><div class="loader-logo-text">BIMZ</div></div>
     </div>
     <div class="loader-status" id="loaderStatus">Initializing Portfolio...</div>
     <div class="loader-bar-wrap"><div class="loader-bar" id="loaderBar"></div></div>
@@ -458,18 +460,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <div class="logo-name">ZIA<span class="logo-z">D</span></div>
     </a>
     <div class="nav-center">
-      <a href="#about" class="nav-link" data-en="About" data-ar="عني">About</a>
-      <a href="#bimztools" class="nav-link" data-en="BimzTools" data-ar="بيمز تولز">BimzTools</a>
-      <a href="#projects" class="nav-link" data-en="Projects" data-ar="المشاريع">Projects</a>
-      <a href="#experience" class="nav-link" data-en="Experience" data-ar="الخبرة">Experience</a>
-      <a href="#cv" class="nav-link" data-en="CV & Scripts" data-ar="السيفي">CV & Scripts</a>
-      <a href="#contact" class="nav-link" data-en="Contact" data-ar="تواصل">Contact</a>
+      <a href="#about" class="nav-link" data-en="About" data-ar="عني" data-hi="के बारे में">About</a>
+      <a href="#bimztools" class="nav-link" data-en="BimzTools" data-ar="بيمز تولز" data-hi="बिमज़ टूल्स">BimzTools</a>
+      <a href="#lisp" class="nav-link" data-en="AutoCAD LISP" data-ar="ليسبات أوتوكاد" data-hi="ऑटोकैड लिस्प">AutoCAD LISP</a>
+      <a href="#projects" class="nav-link" data-en="Projects" data-ar="المشاريع" data-hi="प्रोजेक्ट्स">Projects</a>
+      <a href="#experience" class="nav-link" data-en="Experience" data-ar="الخبرة" data-hi="अनुभव">Experience</a>
+      <a href="#cv" class="nav-link" data-en="CV & Scripts" data-ar="السيفي" data-hi="सीवी और स्क्रिप्ट्स">CV & Scripts</a>
+      <a href="#contact" class="nav-link" data-en="Contact" data-ar="تواصل" data-hi="संपर्क">Contact</a>
     </div>
     <div class="nav-right">
       <a href="https://wa.me/201030715866" target="_blank" class="wa-btn" aria-label="Contact via WhatsApp"><div class="wa-pulse"></div>💬</a>
-      <button class="lang-toggle" onclick="toggleLang()" id="langBtn" aria-label="Switch language to Arabic">AR</button>
+      <button class="lang-toggle" onclick="toggleLang()" id="langBtn" aria-label="Switch language">AR</button>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle dark/light theme"><span id="themeIcon">☀️</span></button>
-      <a href="Ziad_Anter_CV.pdf" download class="btn-cta"><span data-en="⬇ Download CV" data-ar="⬇ تحميل السيفي">⬇ Download CV</span></a>
+      <a href="Ziad_Anter_CV.pdf" download class="btn-cta"><span data-en="⬇ Download CV" data-ar="⬇ تحميل السيفي" data-hi="⬇ सीवी डाउनलोड करें">⬇ Download CV</span></a>
     </div>
   </div>
 </nav>
@@ -478,22 +481,22 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <section style="position:relative;z-index:1;">
 <div class="hero">
   <div class="hero-l">
-    <div class="eyebrow"><div class="eyebrow-dot"></div><span data-en="MEP BIM Coordinator & BIM Developer · Cairo, Egypt" data-ar="منسق MEP BIM ومطور · القاهرة، مصر">MEP BIM Coordinator & BIM Developer · Cairo, Egypt</span></div>
+    <div class="eyebrow"><div class="eyebrow-dot"></div><span data-en="MEP BIM Coordinator & BIM Developer · Cairo, Egypt" data-ar="منسق MEP BIM ومطور · القاهرة، مصر" data-hi="एमईपी बिम कोऑर्डिनेटर और बिम डेवलपर · काहिरा, मिस्र">MEP BIM Coordinator & BIM Developer · Cairo, Egypt</span></div>
     <h1>
-      <span class="h1-line1" data-en="// Engineering the Future of" data-ar="// هندسة مستقبل">// Engineering the Future of</span>
+      <span class="h1-line1" data-en="// Engineering the Future of" data-ar="// هندسة مستقبل" data-hi="// का भविष्य गढ़ते हुए">// Engineering the Future of</span>
       <span class="h1-main">BIM</span>
-      <span class="h1-sub" data-en="Automation" data-ar="الأتمتة">Automation</span>
+      <span class="h1-sub" data-en="Automation" data-ar="الأتمتة" data-hi="ऑटोमेशन">Automation</span>
     </h1>
-    <p class="hero-desc" data-en="Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%." data-ar="منذ 2023، بأسلّم نماذج BIM من LOD 400، وأحل أكثر من 1,000 تعارض لكل طابق، وأبني أدوات مخصصة — بما فيها بيمز تولز، إضافة ريفيت بـ 11 ميزة تقلل وقت العمل المتكرر بنسبة 35%.">Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%.</p>
+    <p class="hero-desc" data-en="Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%." data-ar="منذ 2023، بأسلّم نماذج BIM من LOD 400، وأحل أكثر من 1,000 تعارض لكل طابق، وأبني أدوات مخصصة — بما فيها بيمز تولز، إضافة ريفيت بـ 11 ميزة تقلل وقت العمل المتكرر بنسبة 35%." data-hi="2023 से, LOD 400 बिम मॉडल तैयार करना, प्रति फ्लोर 1,000+ क्लैश हल करना, और कस्टम टूल्स बनाना — जिसमें बिमज़ टूल्स भी शामिल है, एक रिविट प्लगइन जिसमें 11 ऑटोमेशन फीचर्स हैं जो बार-बार होने वाले काम को 35% तक कम करते हैं।">Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%.</p>
     <div class="hero-actions">
-      <a href="#bimztools" class="btn-primary"><span>🔧</span><span data-en="Explore BimzTools" data-ar="اكتشف بيمز تولز">Explore BimzTools</span></a>
-      <a href="Ziad_Anter_CV.pdf" download class="btn-secondary"><span>⬇</span><span data-en="Download CV" data-ar="تحميل السيفي">Download CV</span></a>
+      <a href="#bimztools" class="btn-primary"><span>🔧</span><span data-en="Explore BimzTools" data-ar="اكتشف بيمز تولز" data-hi="बिमज़ टूल्स एक्सप्लोर करें">Explore BimzTools</span></a>
+      <a href="Ziad_Anter_CV.pdf" download class="btn-secondary"><span>⬇</span><span data-en="Download CV" data-ar="تحميل السيفي" data-hi="सीवी डाउनलोड करें">Download CV</span></a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item"><div class="stat-num" style="font-size:1.6rem;">2023<span class="accent"></span></div><div class="stat-label" data-en="Since" data-ar="بداية العمل">Since</div></div>
-      <div class="stat-item"><div class="stat-num">25<span class="accent">+</span></div><div class="stat-label" data-en="Projects Delivered" data-ar="مشروع منجز">Projects Delivered</div></div>
-      <div class="stat-item"><div class="stat-num">11<span class="accent"></span></div><div class="stat-label" data-en="BimzTools Features" data-ar="أداة بيمز">BimzTools Features</div></div>
-      <div class="stat-item"><div class="stat-num">35<span class="accent">%</span></div><div class="stat-label" data-en="Workflow Saved" data-ar="توفير في الوقت">Workflow Saved</div></div>
+      <div class="stat-item"><div class="stat-num" style="font-size:1.6rem;">2023<span class="accent"></span></div><div class="stat-label" data-en="Since" data-ar="بداية العمل" data-hi="कब से">Since</div></div>
+      <div class="stat-item"><div class="stat-num">25<span class="accent">+</span></div><div class="stat-label" data-en="Projects Delivered" data-ar="مشروع منجز" data-hi="पूर्ण प्रोजेक्ट">Projects Delivered</div></div>
+      <div class="stat-item"><div class="stat-num">11<span class="accent"></span></div><div class="stat-label" data-en="BimzTools Features" data-ar="أداة بيمز" data-hi="बिमज़ फीचर्स">BimzTools Features</div></div>
+      <div class="stat-item"><div class="stat-num">35<span class="accent">%</span></div><div class="stat-label" data-en="Workflow Saved" data-ar="توفير في الوقت" data-hi="समय की बचत">Workflow Saved</div></div>
     </div>
   </div>
   <div class="hero-r">
@@ -506,9 +509,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
         <div class="holo-corner tl"></div><div class="holo-corner tr"></div>
         <div class="holo-corner bl"></div><div class="holo-corner br"></div>
         <div class="holo-glow"></div>
-        <div class="hc-header" data-en="BIM Developer Profile" data-ar="ملف مطور BIM">BIM Developer Profile</div>
+        <div class="hc-header" data-en="BIM Developer Profile" data-ar="ملف مطور BIM" data-hi="बिम डेवलपर प्रोफ़ाइल">BIM Developer Profile</div>
         <div class="hc-bignum">ZIAD</div>
-        <div class="hc-subtitle" data-en="MEP BIM Coordinator · BIM Developer" data-ar="منسق MEP BIM · مطور BIM">MEP BIM Coordinator · BIM Developer</div>
+        <div class="hc-subtitle" data-en="MEP BIM Coordinator · BIM Developer" data-ar="منسق MEP BIM · مطور BIM" data-hi="एमईपी बिम कोऑर्डिनेटर · बिम डेवलपर">MEP BIM Coordinator · BIM Developer</div>
         <div class="hc-tools">
           <div class="hct"><span class="hct-dot" style="background:var(--cyan)"></span><span class="hct-name">Revit MEP · LOD 400</span><span class="hct-badge free">Expert</span></div>
           <div class="hct"><span class="hct-dot" style="background:var(--blue2)"></span><span class="hct-name">BimzTools (C# + WPF)</span><span class="hct-badge new">Creator</span></div>
@@ -525,20 +528,20 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- LIVE DASH -->
 <div class="live-dash">
   <div class="live-dash-inner">
-    <div class="live-item"><div class="live-dot cyan"></div><span data-en="Location:" data-ar="الموقع:">Location:</span> <span class="live-val">Cairo, Egypt</span></div>
-    <div class="live-item"><div class="live-dot purple"></div><span data-en="BimzTools:" data-ar="بيمز تولز:">BimzTools:</span> <span class="live-val" data-en="11 Tools · Revit 2020–2027" data-ar="11 أداة · ريفيت 2020–2027">11 Tools · Revit 2020–2027</span></div>
-    <div class="live-item"><div class="live-dot orange"></div><span data-en="Projects Delivered:" data-ar="المشاريع المنجزة:">Projects Delivered:</span> <span class="live-val">25+</span></div>
-    <div class="live-item"><div class="live-dot green"></div><span data-en="BIM Coordination:" data-ar="تنسيق BIM:">BIM Coordination:</span> <span class="live-val" style="color:var(--green)">ACTIVE</span></div>
+    <div class="live-item"><div class="live-dot cyan"></div><span data-en="Location:" data-ar="الموقع:" data-hi="स्थान:">Location:</span> <span class="live-val">Cairo, Egypt</span></div>
+    <div class="live-item"><div class="live-dot purple"></div><span data-en="BimzTools:" data-ar="بيمز تولز:" data-hi="बिमज़ टूल्स:">BimzTools:</span> <span class="live-val" data-en="11 Tools · Revit 2020–2027" data-ar="11 أداة · ريفيت 2020–2027" data-hi="11 टूल्स · रिविट 2020–2027">11 Tools · Revit 2020–2027</span></div>
+    <div class="live-item"><div class="live-dot orange"></div><span data-en="Projects Delivered:" data-ar="المشاريع المنجزة:" data-hi="पूर्ण प्रोजेक्ट्स:">Projects Delivered:</span> <span class="live-val">25+</span></div>
+    <div class="live-item"><div class="live-dot green"></div><span data-en="BIM Coordination:" data-ar="تنسيق BIM:" data-hi="बिम कोऑर्डिनेशन:">BIM Coordination:</span> <span class="live-val" style="color:var(--green)">ACTIVE</span></div>
   </div>
 </div>
 
 <!-- STATS STRIP -->
 <div class="stats-strip">
   <div class="stats-strip-inner">
-    <div class="stat-block reveal"><div class="stat-big"><span class="n">25</span><span class="u">+</span></div><div class="stat-lbl" data-en="Projects" data-ar="مشروع">Projects</div><div class="stat-trend" data-en="Residential, Hospitality, Infrastructure" data-ar="سكني، ضيافة، بنية تحتية">Residential, Hospitality, Infra</div></div>
-    <div class="stat-block reveal"><div class="stat-big"><span class="n">1k</span><span class="u">+</span></div><div class="stat-lbl" data-en="Clashes/Floor" data-ar="تعارض/طابق">Clashes/Floor</div><div class="stat-trend" data-en="Resolved with Navisworks" data-ar="محلولة بنافيسووركس">Resolved with Navisworks</div></div>
-    <div class="stat-block reveal"><div class="stat-big"><span class="n">35</span><span class="u">%</span></div><div class="stat-lbl" data-en="Time Saved" data-ar="وقت موفر">Time Saved</div><div class="stat-trend" data-en="Via BimzTools automation" data-ar="عبر أتمتة بيمز تولز">Via BimzTools automation</div></div>
-    <div class="stat-block reveal"><div class="stat-big"><span class="n">500</span><span class="u">k+</span></div><div class="stat-lbl" data-en="m² Coordinated" data-ar="م² منسقة">m² Coordinated</div><div class="stat-trend" data-en="Four Seasons Infrastructure" data-ar="بنية تحتية فور سيزونز">Four Seasons Infrastructure</div></div>
+    <div class="stat-block reveal"><div class="stat-big"><span class="n">25</span><span class="u">+</span></div><div class="stat-lbl" data-en="Projects" data-ar="مشروع" data-hi="प्रोजेक्ट">Projects</div><div class="stat-trend" data-en="Residential, Hospitality, Infrastructure" data-ar="سكني، ضيافة، بنية تحتية" data-hi="आवासीय, आतिथ्य, बुनियादी ढांचा">Residential, Hospitality, Infra</div></div>
+    <div class="stat-block reveal"><div class="stat-big"><span class="n">1k</span><span class="u">+</span></div><div class="stat-lbl" data-en="Clashes/Floor" data-ar="تعارض/طابق" data-hi="क्लैश/फ्लोर">Clashes/Floor</div><div class="stat-trend" data-en="Resolved with Navisworks" data-ar="محلولة بنافيسووركس" data-hi="Navisworks से हल">Resolved with Navisworks</div></div>
+    <div class="stat-block reveal"><div class="stat-big"><span class="n">35</span><span class="u">%</span></div><div class="stat-lbl" data-en="Time Saved" data-ar="وقت موفر" data-hi="समय की बचत">Time Saved</div><div class="stat-trend" data-en="Via BimzTools automation" data-ar="عبر أتمتة بيمز تولز" data-hi="बिमज़ टूल्स ऑटोमेशन से">Via BimzTools automation</div></div>
+    <div class="stat-block reveal"><div class="stat-big"><span class="n">500</span><span class="u">k+</span></div><div class="stat-lbl" data-en="m² Coordinated" data-ar="م² منسقة" data-hi="वर्ग मीटर समन्वित">m² Coordinated</div><div class="stat-trend" data-en="Four Seasons Infrastructure" data-ar="بنية تحتية فور سيزونز" data-hi="फोर सीज़न्स इंफ्रास्ट्रक्चर">Four Seasons Infrastructure</div></div>
   </div>
 </div>
 
@@ -547,8 +550,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- ABOUT -->
 <section class="section" id="about">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="About Me" data-ar="عني">About Me</div>
-    <h2 class="section-title reveal"><span data-en="MEP BIM Coordinator" data-ar="منسق MEP BIM">MEP BIM Coordinator</span><br><span style="color:var(--cyan)" data-en="& BIM Developer" data-ar="ومطور BIM">& BIM Developer</span></h2>
+    <div class="section-label reveal" data-en="About Me" data-ar="عني" data-hi="मेरे बारे में">About Me</div>
+    <h2 class="section-title reveal"><span data-en="MEP BIM Coordinator" data-ar="منسق MEP BIM" data-hi="एमईपी बिम कोऑर्डिनेटर">MEP BIM Coordinator</span><br><span style="color:var(--cyan)" data-en="& BIM Developer" data-ar="ومطور BIM" data-hi="और बिम डेवलपर">& BIM Developer</span></h2>
     <div class="about-grid">
       <div class="about-text reveal">
         <p>I'm <strong>Ziad Ahmed Anter</strong> — an MEP BIM Coordinator and BIM Developer based in Cairo, Egypt, working <strong>since 2023</strong> across Plumbing and Firefighting systems on 25+ large-scale projects.</p>
@@ -575,8 +578,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <section class="section" id="bimztools">
   <div class="section-inner">
     <div class="section-label reveal">BimzTools</div>
-    <h2 class="section-title reveal"><span data-en="BimzTools —" data-ar="بيمز تولز —">BimzTools —</span><br><span style="color:var(--cyan)" data-en="Revit Automation Plugin" data-ar="إضافة أتمتة ريفيت">Revit Automation Plugin</span></h2>
-    <p class="section-desc reveal" data-en="A custom-built Revit plugin (C# + WPF, MVVM architecture) with 11 productivity tools. Compatible with Revit 2020–2027. Built to eliminate repetitive BIM tasks." data-ar="إضافة ريفيت مخصصة (C# + WPF، معمارية MVVM) تحتوي 11 أداة إنتاجية. متوافقة مع ريفيت 2020–2027. مبنية للقضاء على مهام BIM المتكررة.">A custom-built Revit plugin (C# + WPF, MVVM architecture) with 11 productivity tools. Compatible with Revit 2020–2027. Built to eliminate repetitive BIM tasks.</p>
+    <h2 class="section-title reveal"><span data-en="BimzTools —" data-ar="بيمز تولز —" data-hi="बिमज़ टूल्स —">BimzTools —</span><br><span style="color:var(--cyan)" data-en="Revit Automation Plugin" data-ar="إضافة أتمتة ريفيت" data-hi="रिविट ऑटोमेशन प्लगइन">Revit Automation Plugin</span></h2>
+    <p class="section-desc reveal" data-en="A custom-built Revit plugin (C# + WPF, MVVM architecture) with 11 productivity tools. Compatible with Revit 2020–2027. Built to eliminate repetitive BIM tasks." data-ar="إضافة ريفيت مخصصة (C# + WPF، معمارية MVVM) تحتوي 11 أداة إنتاجية. متوافقة مع ريفيت 2020–2027. مبنية للقضاء على مهام BIM المتكررة." data-hi="एक कस्टम-निर्मित रिविट प्लगइन (C# + WPF, MVVM आर्किटेक्चर) जिसमें 11 प्रोडक्टिविटी टूल्स हैं। रिविट 2020–2027 के साथ संगत। बार-बार होने वाले बिम कार्यों को खत्म करने के लिए बनाया गया।">A custom-built Revit plugin (C# + WPF, MVVM architecture) with 11 productivity tools. Compatible with Revit 2020–2027. Built to eliminate repetitive BIM tasks.</p>
 
     <!-- TERMINAL -->
     <div class="bim-terminal reveal">
@@ -676,36 +679,198 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       </div>
     </div>
     <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;" class="reveal">
-      <a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" class="btn-primary"><span>⬇</span><span data-en="Download BimzTools" data-ar="تحميل بيمز تولز">Download BimzTools</span></a>
-      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);" data-en="Compatible: Revit 2020 → 2027 · C# + WPF · MVVM" data-ar="متوافق: ريفيت 2020 → 2027 · C# + WPF · MVVM">Compatible: Revit 2020 → 2027 · C# + WPF · MVVM</span>
+      <a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" class="btn-primary"><span>⬇</span><span data-en="Download BimzTools" data-ar="تحميل بيمز تولز" data-hi="बिमज़ टूल्स डाउनलोड करें">Download BimzTools</span></a>
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);" data-en="Compatible: Revit 2020 → 2027 · C# + WPF · MVVM" data-ar="متوافق: ريفيت 2020 → 2027 · C# + WPF · MVVM" data-hi="संगत: रिविट 2020 → 2027 · C# + WPF · MVVM">Compatible: Revit 2020 → 2027 · C# + WPF · MVVM</span>
     </div>
 
     <!-- INSTALL GUIDE -->
     <div class="reveal" style="margin-top:3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2rem;">
-      <div class="section-label" style="margin-bottom:.5rem;" data-en="Setup Guide" data-ar="دليل التثبيت">Setup Guide</div>
-      <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem;" data-en="How to Install BimzTools" data-ar="طريقة تثبيت BimzTools">How to Install BimzTools</h3>
+      <div class="section-label" style="margin-bottom:.5rem;" data-en="Setup Guide" data-ar="دليل التثبيت" data-hi="सेटअप गाइड">Setup Guide</div>
+      <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem;" data-en="How to Install BimzTools" data-ar="طريقة تثبيت BimzTools" data-hi="बिमज़ टूल्स कैसे इंस्टॉल करें">How to Install BimzTools</h3>
       <ol style="list-style:none;display:flex;flex-direction:column;gap:1.25rem;padding:0;margin:0;">
         <li style="display:flex;gap:1rem;align-items:flex-start;">
           <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">1</span>
-          <span data-en="Install pyRevit first — it's required before anything else. Download it from the official site:" data-ar="ثبّت برنامج pyRevit الأول — الأداة دي أساسية ولازم تتسطب قبل أي حاجة تانية. تقدر تنزلها من الموقع الرسمي:">Install pyRevit first — it's required before anything else. Download it from the official site:</span>
+          <span data-en="Install pyRevit first — it's required before anything else. Download it from the official site:" data-ar="ثبّت برنامج pyRevit الأول — الأداة دي أساسية ولازم تتسطب قبل أي حاجة تانية. تقدر تنزلها من الموقع الرسمي:" data-hi="पहले pyRevit इंस्टॉल करें — यह किसी भी और चीज़ से पहले ज़रूरी है। इसे आधिकारिक साइट से डाउनलोड करें:">Install pyRevit first — it's required before anything else. Download it from the official site:</span>
         </li>
         <li style="margin-inline-start:44px;">
           <a href="https://pyrevitlabs.io/" target="_blank" style="color:var(--cyan);font-family:var(--mono);font-size:.85rem;">pyrevitlabs.io</a>
         </li>
         <li style="display:flex;gap:1rem;align-items:flex-start;">
           <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">2</span>
-          <span data-en="Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue." data-ar="تأكد من التثبيت — افتح Revit وتأكد إن تابة جديدة اسمها pyRevit ظهرت في الـ Ribbon. الخطوة دي مهمة عشان تتأكد إن التثبيت نجح قبل ما تكمل.">Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue.</span>
+          <span data-en="Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue." data-ar="تأكد من التثبيت — افتح Revit وتأكد إن تابة جديدة اسمها pyRevit ظهرت في الـ Ribbon. الخطوة دي مهمة عشان تتأكد إن التثبيت نجح قبل ما تكمل." data-hi="इंस्टॉल की पुष्टि करें — रिविट खोलें और देखें कि रिबन में एक नया pyRevit टैब दिख रहा है। इससे यह पक्का होता है कि आगे बढ़ने से पहले pyRevit ठीक से काम कर रहा है।">Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue.</span>
         </li>
         <li style="display:flex;gap:1rem;align-items:flex-start;">
           <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">3</span>
-          <span data-en="Download and unzip BimzTools using the download button above, then extract it anywhere on your machine." data-ar="نزّل ملف BimzTools المضغوط من زرار التحميل بالأعلى، وبعدين فك الضغط عنه في أي مكان على جهازك.">Download and unzip BimzTools using the download button above, then extract it anywhere on your machine.</span>
+          <span data-en="Download and unzip BimzTools using the download button above, then extract it anywhere on your machine." data-ar="نزّل ملف BimzTools المضغوط من زرار التحميل بالأعلى، وبعدين فك الضغط عنه في أي مكان على جهازك." data-hi="ऊपर दिए गए डाउनलोड बटन से बिमज़ टूल्स डाउनलोड करें और अनज़िप करें, फिर अपनी मशीन में कहीं भी एक्सट्रैक्ट करें।">Download and unzip BimzTools using the download button above, then extract it anywhere on your machine.</span>
         </li>
         <li style="display:flex;gap:1rem;align-items:flex-start;">
           <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">4</span>
-          <span data-en="Run the installer — inside the extracted folder, find and run" data-ar="شغّل ملف التثبيت — جوه الملف اللي فككت ضغطه، هتلاقي ملف اسمه">Run the installer — inside the extracted folder, find and run</span>
+          <span data-en="Run the installer — inside the extracted folder, find and run" data-ar="شغّل ملف التثبيت — جوه الملف اللي فككت ضغطه، هتلاقي ملف اسمه" data-hi="इंस्टॉलर चलाएं — एक्सट्रैक्ट किए गए फ़ोल्डर के अंदर, यह फ़ाइल ढूंढें और चलाएं">Run the installer — inside the extracted folder, find and run</span>
           <code style="background:rgba(0,240,255,.08);color:var(--cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--mono);font-size:.85rem;white-space:nowrap;">Install_BimzTools.bat</code>
         </li>
-        <li style="margin-inline-start:44px;color:var(--t2);font-size:.9rem;" data-en="Once it finishes, BimzTools will load automatically inside Revit — ready to use." data-ar="وبعد ما ينتهي، الأداة هتشتغل تلقائيًا جوه Revit — جاهزة للاستخدام.">Once it finishes, BimzTools will load automatically inside Revit — ready to use.</li>
+        <li style="margin-inline-start:44px;color:var(--t2);font-size:.9rem;" data-en="Once it finishes, BimzTools will load automatically inside Revit — ready to use." data-ar="وبعد ما ينتهي، الأداة هتشتغل تلقائيًا جوه Revit — جاهزة للاستخدام." data-hi="पूरा होने के बाद, बिमज़ टूल्स रिविट के अंदर अपने-आप लोड हो जाएगा — इस्तेमाल के लिए तैयार।">Once it finishes, BimzTools will load automatically inside Revit — ready to use.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<hr class="section-hr"/>
+
+<!-- AUTOCAD LISP -->
+<section class="section" id="lisp">
+  <div class="section-inner">
+    <div class="section-label reveal" data-en="AutoCAD LISP" data-ar="ليسبات أوتوكاد" data-hi="ऑटोकैड लिस्प">AutoCAD LISP</div>
+    <h2 class="section-title reveal"><span data-en="AutoCAD LISP —" data-ar="ليسبات أوتوكاد —" data-hi="ऑटोकैड लिस्प —">AutoCAD LISP —</span><br><span style="color:var(--cyan)" data-en="Custom Drafting Tools" data-ar="أدوات رسم مخصصة" data-hi="कस्टम ड्राफ्टिंग टूल्स">Custom Drafting Tools</span></h2>
+    <p class="section-desc reveal" data-en="16 custom AutoLISP tools built to speed up daily AutoCAD drafting — from text and color management to levels, blocks, and batch file operations. Compatible with any AutoCAD version that supports AutoLISP." data-ar="16 أداة AutoLISP مخصصة لتسريع أعمال الرسم اليومية في الأوتوكاد — من إدارة النصوص والألوان إلى المناسيب والبلوكات وعمليات الملفات الجماعية. متوافقة مع أي إصدار أوتوكاد يدعم AutoLISP." data-hi="16 कस्टम AutoLISP टूल्स, जो रोज़ाना के ऑटोकैड ड्राफ्टिंग कार्य को तेज़ करने के लिए बनाए गए हैं — टेक्स्ट और कलर मैनेजमेंट से लेकर लेवल्स, ब्लॉक्स, और बैच फ़ाइल ऑपरेशन्स तक। AutoLISP सपोर्ट करने वाले किसी भी ऑटोकैड वर्ज़न के साथ संगत।">16 custom AutoLISP tools built to speed up daily AutoCAD drafting — from text and color management to levels, blocks, and batch file operations. Compatible with any AutoCAD version that supports AutoLISP.</p>
+
+    <div class="tools-grid">
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.15);">🔍</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">FRS (Find & Replace)</div>
+        <div class="tc-desc" data-en="Searches for any text and replaces it with another across all open drawings at once — inside Model Space, Layouts, or both. Perfect for updating project names, sheet numbers, or any repeated data without opening every file manually." data-ar="تتيح الأداة البحث عن أي نص واستبداله بنص آخر داخل جميع الرسومات المفتوحة دفعة واحدة، مع إمكانية تنفيذ العملية داخل الـ Model Space أو الـ Layouts أو كليهما. تعتبر أداة مثالية لتحديث أسماء المشاريع أو أرقام اللوحات أو أي بيانات متكررة دون الحاجة إلى فتح كل ملف وتعديله يدوياً." data-hi="किसी भी टेक्स्ट को खोजें और सभी खुली हुई ड्रॉइंग्स में एक साथ दूसरे टेक्स्ट से बदलें — Model Space, Layouts, या दोनों में। प्रोजेक्ट नाम, शीट नंबर, या किसी भी दोहराए जाने वाले डेटा को हर फ़ाइल मैन्युअली खोले बिना अपडेट करने के लिए बेहतरीन।">Searches for any text and replaces it with another across all open drawings at once — inside Model Space, Layouts, or both. Perfect for updating project names, sheet numbers, or any repeated data without opening every file manually.</div>
+        <div class="tc-compat" data-en="Text Tools · <span>Batch Replace</span>" data-ar="أدوات النصوص · <span>استبدال جماعي</span>" data-hi="टेक्स्ट टूल्स · <span>बैच रिप्लेस</span>">Text Tools · <span>Batch Replace</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);">📏</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">IL (Invert Level Calculator)</div>
+        <div class="tc-desc" data-en="Calculates Invert Levels while drawing sewer networks. Enter the starting level and slope, then pick points along the path — the tool automatically computes the new level for each point, reducing calculation errors and saving time." data-ar="تساعد على حساب مناسيب الـ Invert Level أثناء رسم شبكات الصرف الصحي، حيث يتم إدخال المنسوب الابتدائي والميل، ثم اختيار النقاط على المسار، لتقوم الأداة بحساب المنسوب الجديد لكل نقطة تلقائياً وفقاً للمسافة والميل المحدد، مما يقلل الأخطاء الحسابية ويوفر الوقت." data-hi="सीवर नेटवर्क बनाते समय Invert Levels की गणना करता है। शुरुआती लेवल और स्लोप डालें, फिर पथ पर पॉइंट्स चुनें — टूल हर पॉइंट के लिए दूरी और स्लोप के हिसाब से नया लेवल अपने-आप निकाल देता है, जिससे गणना की गलतियां कम होती हैं और समय बचता है।">Calculates Invert Levels while drawing sewer networks. Enter the starting level and slope, then pick points along the path — the tool automatically computes the new level for each point, reducing calculation errors and saving time.</div>
+        <div class="tc-compat" data-en="Levels · <span>Sewer Networks</span>" data-ar="المناسيب · <span>شبكات الصرف</span>" data-hi="लेवल्स · <span>सीवर नेटवर्क</span>">Levels · <span>Sewer Networks</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.15);">🎨</div><div class="tc-badges"><span class="badge b-revit">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">RGB2ACI</div>
+        <div class="tc-desc" data-en="Converts every True Color (RGB) in the drawing into standard AutoCAD Color Index (ACI) colors — ensuring compatibility with CTB plot styles and printing, and fixing color mismatches between devices or when sharing files." data-ar="تحول جميع الألوان المعرفة بنظام True Color (RGB) داخل الرسم إلى ألوان AutoCAD القياسية (ACI)، مما يضمن توافق الملفات مع ملفات الـ CTB والطباعة، ويحل مشاكل اختلاف الألوان بين الأجهزة أو عند مشاركة الملفات." data-hi="ड्रॉइंग में मौजूद सभी True Color (RGB) रंगों को स्टैंडर्ड AutoCAD Color Index (ACI) रंगों में बदलता है — CTB प्लॉट स्टाइल और प्रिंटिंग के साथ संगतता सुनिश्चित करता है, और डिवाइसेज़ के बीच या फ़ाइलें शेयर करते समय रंगों में अंतर की समस्या ठीक करता है।">Converts every True Color (RGB) in the drawing into standard AutoCAD Color Index (ACI) colors — ensuring compatibility with CTB plot styles and printing, and fixing color mismatches between devices or when sharing files.</div>
+        <div class="tc-compat" data-en="Color Tools · <span>CTB Compatible</span>" data-ar="أدوات الألوان · <span>متوافق مع CTB</span>" data-hi="कलर टूल्स · <span>CTB संगत</span>">Color Tools · <span>CTB Compatible</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(255,149,0,.08);border:1px solid rgba(255,149,0,.15);">💾</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">CLOSAV</div>
+        <div class="tc-desc" data-en="Saves every open drawing, then closes all of them with a single click — saving time when wrapping up work on a large number of files." data-ar="تحفظ جميع الرسومات المفتوحة ثم تقوم بإغلاقها بالكامل بضغطة واحدة، مما يوفر الوقت عند الانتهاء من العمل على عدد كبير من الملفات." data-hi="सभी खुली हुई ड्रॉइंग्स को सेव करता है, फिर एक ही क्लिक में सबको बंद कर देता है — बड़ी संख्या में फ़ाइलों पर काम खत्म करते समय समय बचाता है।">Saves every open drawing, then closes all of them with a single click — saving time when wrapping up work on a large number of files.</div>
+        <div class="tc-compat" data-en="Batch Files · <span>Save & Close</span>" data-ar="الملفات الجماعية · <span>حفظ وإغلاق</span>" data-hi="बैच फ़ाइलें · <span>सेव और क्लोज़</span>">Batch Files · <span>Save & Close</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);">📐</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">SLO</div>
+        <div class="tc-desc" data-en="Automatically calculates new levels based on slope and distance between points. Enter the starting level and slope, then pick points on the drawing to generate correct levels along the path — ideal for drainage networks and infrastructure work." data-ar="تحسب المناسيب الجديدة تلقائياً اعتماداً على الميل والمسافة بين النقاط، حيث يتم إدخال المنسوب الابتدائي والميل، ثم اختيار النقاط على الرسم لتوليد المناسيب الصحيحة على امتداد المسار، وهي أداة مناسبة لأعمال شبكات الصرف والبنية التحتية." data-hi="पॉइंट्स के बीच की दूरी और स्लोप के आधार पर नए लेवल अपने-आप निकालता है। शुरुआती लेवल और स्लोप डालें, फिर ड्रॉइंग पर पॉइंट्स चुनें ताकि पथ पर सही लेवल बन जाएं — ड्रेनेज नेटवर्क और इंफ्रास्ट्रक्चर के काम के लिए उपयुक्त।">Automatically calculates new levels based on slope and distance between points. Enter the starting level and slope, then pick points on the drawing to generate correct levels along the path — ideal for drainage networks and infrastructure work.</div>
+        <div class="tc-compat" data-en="Levels · <span>Infrastructure</span>" data-ar="المناسيب · <span>بنية تحتية</span>" data-hi="लेवल्स · <span>इंफ्रास्ट्रक्चर</span>">Levels · <span>Infrastructure</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.15);">🔠</div><div class="tc-badges"><span class="badge b-revit">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">SSH</div>
+        <div class="tc-desc" data-en="Finds all TEXT and MTEXT elements with a specific height in the drawing, then groups or selects them at once — making it easy to review and standardize text heights." data-ar="تبحث عن جميع عناصر TEXT وMTEXT التي تمتلك ارتفاعاً معيناً داخل الرسم، ثم تقوم بتجميعها أو التعامل معها دفعة واحدة، مما يسهل مراجعة النصوص وتوحيد ارتفاعاتها." data-hi="ड्रॉइंग में एक तय ऊंचाई वाले सभी TEXT और MTEXT एलिमेंट्स को ढूंढता है, फिर उन्हें एक साथ ग्रुप या सिलेक्ट करता है — टेक्स्ट की ऊंचाई की समीक्षा और मानकीकरण आसान बनाता है।">Finds all TEXT and MTEXT elements with a specific height in the drawing, then groups or selects them at once — making it easy to review and standardize text heights.</div>
+        <div class="tc-compat" data-en="Text Tools · <span>Height Search</span>" data-ar="أدوات النصوص · <span>بحث بالارتفاع</span>" data-hi="टेक्स्ट टूल्स · <span>हाइट सर्च</span>">Text Tools · <span>Height Search</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.15);">🔄</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">STX (Swap Text)</div>
+        <div class="tc-desc" data-en="Copies text or instantly swaps the content of two TEXT or MTEXT elements — making it easy to correct data or replace text without retyping." data-ar="تتيح نسخ النصوص أو تبديل محتوى عنصرين من عناصر TEXT أو MTEXT بسرعة، مما يسهل تصحيح البيانات أو استبدال النصوص دون الحاجة لإعادة الكتابة." data-hi="टेक्स्ट कॉपी करता है या दो TEXT/MTEXT एलिमेंट्स की कंटेंट को तुरंत आपस में बदल देता है — डेटा ठीक करना या टेक्स्ट बदलना बिना दोबारा टाइप किए आसान बनाता है।">Copies text or instantly swaps the content of two TEXT or MTEXT elements — making it easy to correct data or replace text without retyping.</div>
+        <div class="tc-compat" data-en="Text Tools · <span>Swap & Copy</span>" data-ar="أدوات النصوص · <span>تبديل ونسخ</span>" data-hi="टेक्स्ट टूल्स · <span>स्वैप और कॉपी</span>">Text Tools · <span>Swap & Copy</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);">📝</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">T2M (Text to MText)</div>
+        <div class="tc-desc" data-en="Converts a group of TEXT elements into a single MTEXT element, with the option to merge them into one line or several lines — making text easier to edit and manage inside drawings." data-ar="تحول مجموعة من عناصر TEXT إلى عنصر MTEXT واحد مع إمكانية اختيار طريقة دمج النصوص، سواء في سطر واحد أو في عدة أسطر، مما يسهل تعديل النصوص وإدارتها داخل الرسومات." data-hi="TEXT एलिमेंट्स के एक ग्रुप को एक ही MTEXT एलिमेंट में बदलता है, जिसमें उन्हें एक लाइन या कई लाइनों में मर्ज करने का विकल्प होता है — ड्रॉइंग के अंदर टेक्स्ट को एडिट और मैनेज करना आसान बनाता है।">Converts a group of TEXT elements into a single MTEXT element, with the option to merge them into one line or several lines — making text easier to edit and manage inside drawings.</div>
+        <div class="tc-compat" data-en="Text Tools · <span>Merge Text</span>" data-ar="أدوات النصوص · <span>دمج النصوص</span>" data-hi="टेक्स्ट टूल्स · <span>मर्ज टेक्स्ट</span>">Text Tools · <span>Merge Text</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.15);">📋</div><div class="tc-badges"><span class="badge b-revit">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">TBLK</div>
+        <div class="tc-desc" data-en="Automatically imports the Title Block and sheet settings from an external file into the current drawing — speeding up sheet setup and keeping title blocks consistent across all drawings." data-ar="تقوم باستيراد الـ Title Block وإعدادات اللوحة من ملف خارجي إلى الرسم الحالي تلقائياً، مما يسرع تجهيز اللوحات ويضمن توحيد الـ Title Blocks بين جميع الرسومات." data-hi="एक्सटर्नल फ़ाइल से Title Block और शीट सेटिंग्स को मौजूदा ड्रॉइंग में अपने-आप इंपोर्ट करता है — शीट सेटअप को तेज़ करता है और सभी ड्रॉइंग्स में टाइटल ब्लॉक को एक जैसा रखता है।">Automatically imports the Title Block and sheet settings from an external file into the current drawing — speeding up sheet setup and keeping title blocks consistent across all drawings.</div>
+        <div class="tc-compat" data-en="Title Blocks · <span>Auto Import</span>" data-ar="لوحات العنوان · <span>استيراد تلقائي</span>" data-hi="टाइटल ब्लॉक · <span>ऑटो इंपोर्ट</span>">Title Blocks · <span>Auto Import</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(255,149,0,.08);border:1px solid rgba(255,149,0,.15);">🏷️</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">TG (Block Tag Generator)</div>
+        <div class="tc-desc" data-en="Works similar to the Tag tool in Revit — creates text linked to a block that displays one of its Attributes or its name wherever the user places it, making it easy to number and identify elements in drawings." data-ar="تعمل بطريقة مشابهة لأداة Tag في Revit، حيث تقوم بإنشاء نص مرتبط بالبلوك يعرض قيمة أحد الـ Attributes أو اسم البلوك في المكان الذي يحدده المستخدم، مما يسهل ترقيم العناصر وتعريفها داخل الرسومات." data-hi="Revit के Tag टूल की तरह काम करता है — एक ब्लॉक से जुड़ा हुआ टेक्स्ट बनाता है जो उसके किसी Attribute या नाम को उस जगह दिखाता है जहां यूज़र उसे रखे — ड्रॉइंग में एलिमेंट्स को नंबर देना और पहचानना आसान बनाता है।">Works similar to the Tag tool in Revit — creates text linked to a block that displays one of its Attributes or its name wherever the user places it, making it easy to number and identify elements in drawings.</div>
+        <div class="tc-compat" data-en="Blocks · <span>Auto Tagging</span>" data-ar="البلوكات · <span>ترقيم تلقائي</span>" data-hi="ब्लॉक्स · <span>ऑटो टैगिंग</span>">Blocks · <span>Auto Tagging</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);">🔤</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">UAT</div>
+        <div class="tc-desc" data-en="Searches for a specific text inside all TEXT and MTEXT elements and replaces it with new text across the entire drawing — making repeated data edits fast and accurate." data-ar="تبحث عن نص معين داخل جميع عناصر TEXT وMTEXT وتستبدله بنص جديد على مستوى الرسم بالكامل، مما يجعل تعديل البيانات المتكررة عملية سريعة ودقيقة." data-hi="सभी TEXT और MTEXT एलिमेंट्स के अंदर एक तय टेक्स्ट खोजता है और उसे पूरी ड्रॉइंग में नए टेक्स्ट से बदल देता है — दोहराए जाने वाले डेटा एडिट को तेज़ और सटीक बनाता है।">Searches for a specific text inside all TEXT and MTEXT elements and replaces it with new text across the entire drawing — making repeated data edits fast and accurate.</div>
+        <div class="tc-compat" data-en="Text Tools · <span>Global Replace</span>" data-ar="أدوات النصوص · <span>استبدال شامل</span>" data-hi="टेक्स्ट टूल्स · <span>ग्लोबल रिप्लेस</span>">Text Tools · <span>Global Replace</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.15);">⚙️</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">AUTO LISP.VLX</div>
+        <div class="tc-desc" data-en="A compiled VLX file bundling a set of AutoLISP tools into one file for easier loading and use — offering better performance and code protection compared to traditional LSP files." data-ar="ملف VLX مجمع يضم مجموعة من أدوات الـ AutoLISP داخل ملف واحد لتسهيل التحميل والاستخدام، ويوفر أداءً أفضل مع حماية الكود مقارنة بملفات LSP التقليدية." data-hi="एक कंपाइल की गई VLX फ़ाइल जो कई AutoLISP टूल्स को एक ही फ़ाइल में जोड़ती है ताकि लोड करना और इस्तेमाल करना आसान हो — पारंपरिक LSP फ़ाइलों की तुलना में बेहतर परफ़ॉर्मेंस और कोड सुरक्षा देती है।">A compiled VLX file bundling a set of AutoLISP tools into one file for easier loading and use — offering better performance and code protection compared to traditional LSP files.</div>
+        <div class="tc-compat" data-en="Tool Bundle · <span>Compiled VLX</span>" data-ar="حزمة أدوات · <span>ملف VLX مجمع</span>" data-hi="टूल बंडल · <span>कंपाइल्ड VLX</span>">Tool Bundle · <span>Compiled VLX</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,240,255,.08);border:1px solid rgba(0,240,255,.15);">🚪</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">CNOS</div>
+        <div class="tc-desc" data-en="Closes all open drawings without saving, after showing a confirmation prompt — ideal for quickly closing all files while avoiding accidental execution." data-ar="يغلق جميع الرسومات المفتوحة بدون حفظ بعد عرض رسالة تأكيد للمستخدم، وهو مناسب عند الرغبة في إغلاق جميع الملفات بسرعة مع تجنب تنفيذ العملية بالخطأ." data-hi="पुष्टि का संदेश दिखाने के बाद, बिना सेव किए सभी खुली हुई ड्रॉइंग्स को बंद कर देता है — गलती से चलने से बचाते हुए सभी फ़ाइलों को जल्दी बंद करने के लिए उपयुक्त।">Closes all open drawings without saving, after showing a confirmation prompt — ideal for quickly closing all files while avoiding accidental execution.</div>
+        <div class="tc-compat" data-en="Batch Files · <span>Safe Close</span>" data-ar="الملفات الجماعية · <span>إغلاق آمن</span>" data-hi="बैच फ़ाइलें · <span>सेफ़ क्लोज़</span>">Batch Files · <span>Safe Close</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(0,255,157,.08);border:1px solid rgba(0,255,157,.15);">📦</div><div class="tc-badges"><span class="badge b-hot">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">CS (Create Similar)</div>
+        <div class="tc-desc" data-en="Works the same way as the Create Similar command in Revit — copies any Block while keeping all its properties such as Layer, Scale, Rotation, and Attributes, then places new copies wherever the user chooses." data-ar="يعمل بنفس فكرة أمر Create Similar في Revit، حيث يسمح بنسخ أي Block مع الاحتفاظ بجميع خصائصه مثل الـ Layer والـ Scale والـ Rotation والـ Attributes، ثم وضع نسخ جديدة في المواقع التي يحددها المستخدم." data-hi="Revit के Create Similar कमांड की तरह काम करता है — किसी भी Block को उसके सभी गुणों जैसे Layer, Scale, Rotation, और Attributes के साथ कॉपी करता है, फिर यूज़र की चुनी हुई जगहों पर नई कॉपियां रखता है।">Works the same way as the Create Similar command in Revit — copies any Block while keeping all its properties such as Layer, Scale, Rotation, and Attributes, then places new copies wherever the user chooses.</div>
+        <div class="tc-compat" data-en="Blocks · <span>Smart Copy</span>" data-ar="البلوكات · <span>نسخ ذكي</span>" data-hi="ब्लॉक्स · <span>स्मार्ट कॉपी</span>">Blocks · <span>Smart Copy</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.15);">🧹</div><div class="tc-badges"><span class="badge b-new">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Delete All Hatch</div>
+        <div class="tc-desc" data-en="Deletes every Hatch object in the drawing at once — useful for cleaning up large files, reducing drawing size, and improving performance." data-ar="يحذف جميع عناصر الـ Hatch الموجودة داخل الرسم دفعة واحدة، وهو مفيد عند تنظيف الملفات الكبيرة أو تقليل حجم الرسومات وتحسين الأداء." data-hi="ड्रॉइंग में मौजूद सभी Hatch ऑब्जेक्ट्स को एक साथ हटा देता है — बड़ी फ़ाइलों को साफ़ करने, ड्रॉइंग का साइज़ कम करने, और परफ़ॉर्मेंस बेहतर बनाने के लिए उपयोगी।">Deletes every Hatch object in the drawing at once — useful for cleaning up large files, reducing drawing size, and improving performance.</div>
+        <div class="tc-compat" data-en="Cleanup · <span>Batch Delete</span>" data-ar="التنظيف · <span>حذف جماعي</span>" data-hi="क्लीनअप · <span>बैच डिलीट</span>">Cleanup · <span>Batch Delete</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card reveal" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon" style="background:rgba(139,92,246,.08);border:1px solid rgba(139,92,246,.15);">🎨</div><div class="tc-badges"><span class="badge b-revit">LISP</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">FixColor</div>
+        <div class="tc-desc" data-en="Automatically corrects the colors of elements inside Blocks by processing their contents — helping unify colors and fix printing issues caused by inconsistent element properties within blocks." data-ar="يقوم بتصحيح ألوان العناصر الموجودة داخل الـ Blocks عن طريق معالجة محتوياتها تلقائياً، مما يساعد على توحيد الألوان وحل مشاكل الطباعة الناتجة عن اختلاف خصائص العناصر داخل البلوكات." data-hi="Block के अंदर मौजूद एलिमेंट्स के कंटेंट को प्रोसेस करके उनके रंग अपने-आप ठीक करता है — रंगों को एक जैसा बनाने और ब्लॉक के अंदर असंगत एलिमेंट प्रॉपर्टीज़ की वजह से होने वाली प्रिंटिंग समस्याओं को ठीक करने में मदद करता है।">Automatically corrects the colors of elements inside Blocks by processing their contents — helping unify colors and fix printing issues caused by inconsistent element properties within blocks.</div>
+        <div class="tc-compat" data-en="Color Tools · <span>Block Colors</span>" data-ar="أدوات الألوان · <span>ألوان البلوكات</span>" data-hi="कलर टूल्स · <span>ब्लॉक कलर्स</span>">Color Tools · <span>Block Colors</span></div>
+        <div class="tc-bar"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;" class="reveal">
+      <a href="https://drive.google.com/drive/folders/1GSA0dCsGR0erYb7_jfqVflXwwhQiFrWc" target="_blank" class="btn-primary"><span>⬇</span><span data-en="Download All LISP Tools" data-ar="تحميل كل أدوات الليسب" data-hi="सभी लिस्प टूल्स डाउनलोड करें">Download All LISP Tools</span></a>
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);" data-en="Compatible: Any AutoCAD version · AutoLISP / VLX" data-ar="متوافق: أي إصدار أوتوكاد · AutoLISP / VLX" data-hi="संगत: कोई भी ऑटोकैड वर्ज़न · AutoLISP / VLX">Compatible: Any AutoCAD version · AutoLISP / VLX</span>
+    </div>
+
+    <!-- LISP INSTALL GUIDE -->
+    <div class="reveal" style="margin-top:3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2rem;">
+      <div class="section-label" style="margin-bottom:.5rem;" data-en="Setup Guide" data-ar="دليل التثبيت" data-hi="सेटअप गाइड">Setup Guide</div>
+      <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem;" data-en="How to Install the LISP Tools" data-ar="طريقة تثبيت ملفات الليسب" data-hi="लिस्प टूल्स कैसे इंस्टॉल करें">How to Install the LISP Tools</h3>
+      <ol style="list-style:none;display:flex;flex-direction:column;gap:1.25rem;padding:0;margin:0;">
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">1</span>
+          <span data-en="Copy the LISP files to any fixed folder on your machine." data-ar="انسخ ملفات الـ LISP إلى أي مجلد ثابت على جهازك." data-hi="LISP फ़ाइलों को अपनी मशीन के किसी स्थायी फ़ोल्डर में कॉपी करें।">Copy the LISP files to any fixed folder on your machine.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">2</span>
+          <span data-en="Open AutoCAD." data-ar="افتح AutoCAD." data-hi="AutoCAD खोलें।">Open AutoCAD.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">3</span>
+          <span data-en="Type the command" data-ar="اكتب الأمر" data-hi="यह कमांड टाइप करें">Type the command</span>
+          <code style="background:rgba(0,240,255,.08);color:var(--cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--mono);font-size:.85rem;white-space:nowrap;">APPLOAD</code>
+          <span data-en="and press Enter." data-ar="ثم اضغط Enter." data-hi="और Enter दबाएं।">and press Enter.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">4</span>
+          <span data-en="Click the Contents button inside Startup Suite if you want the LISP files to load automatically every time AutoCAD opens." data-ar="اضغط على زر Contents داخل Startup Suite إذا كنت تريد تحميل الليسب تلقائياً مع كل مرة يفتح فيها AutoCAD." data-hi="अगर आप चाहते हैं कि हर बार AutoCAD खुलने पर LISP फ़ाइलें अपने-आप लोड हों, तो Startup Suite के अंदर Contents बटन पर क्लिक करें।">Click the Contents button inside Startup Suite if you want the LISP files to load automatically every time AutoCAD opens.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">5</span>
+          <span data-en="Click Add and choose the required LISP files, then click Close and Load." data-ar="اضغط Add واختر ملفات الـ LISP المطلوبة، ثم اضغط Close ثم Load." data-hi="Add पर क्लिक करें और ज़रूरी LISP फ़ाइलें चुनें, फिर Close और Load पर क्लिक करें।">Click Add and choose the required LISP files, then click Close and Load.</span>
+        </li>
+        <li style="margin-inline-start:44px;color:var(--t2);font-size:.9rem;" data-en="After loading, type the LISP command name in the command line and press Enter — ready to use." data-ar="بعد التحميل اكتب اسم الأمر الخاص بالليسب في سطر الأوامر ثم اضغط Enter — جاهزة للاستخدام." data-hi="लोड होने के बाद, कमांड लाइन में LISP कमांड का नाम टाइप करें और Enter दबाएं — इस्तेमाल के लिए तैयार।">After loading, type the LISP command name in the command line and press Enter — ready to use.</li>
       </ol>
     </div>
   </div>
@@ -716,15 +881,15 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- PROJECTS -->
 <section class="section" id="projects">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="Selected Projects" data-ar="المشاريع المنتقاة">Selected Projects</div>
-    <h2 class="section-title reveal"><span data-en="25+ Projects" data-ar="أكثر من 25 مشروعاً">25+ Projects</span><br><span style="color:var(--cyan)" data-en="Delivered" data-ar="تم تسليمها">Delivered</span></h2>
-    <p class="section-desc reveal" data-en="Residential, commercial, hospitality, and large-scale infrastructure — including developments exceeding 500,000 m²." data-ar="سكني وتجاري وضيافة وبنية تحتية — بما فيها مشاريع تتجاوز 500,000 م².">Residential, commercial, hospitality, and large-scale infrastructure — including developments exceeding 500,000 m².</p>
+    <div class="section-label reveal" data-en="Selected Projects" data-ar="المشاريع المنتقاة" data-hi="चुनिंदा प्रोजेक्ट्स">Selected Projects</div>
+    <h2 class="section-title reveal"><span data-en="25+ Projects" data-ar="أكثر من 25 مشروعاً" data-hi="25+ प्रोजेक्ट्स">25+ Projects</span><br><span style="color:var(--cyan)" data-en="Delivered" data-ar="تم تسليمها" data-hi="पूर्ण किए गए">Delivered</span></h2>
+    <p class="section-desc reveal" data-en="Residential, commercial, hospitality, and large-scale infrastructure — including developments exceeding 500,000 m²." data-ar="سكني وتجاري وضيافة وبنية تحتية — بما فيها مشاريع تتجاوز 500,000 م²." data-hi="आवासीय, वाणिज्यिक, आतिथ्य, और बड़े पैमाने का बुनियादी ढांचा — जिसमें 500,000 वर्ग मीटर से ज़्यादा की परियोजनाएं शामिल हैं।">Residential, commercial, hospitality, and large-scale infrastructure — including developments exceeding 500,000 m².</p>
     <div class="filter-tags reveal">
-      <div class="ftag on" onclick="ft(this,'all')" data-en="All" data-ar="الكل">All</div>
-      <div class="ftag" onclick="ft(this,'infra')" data-en="Infrastructure" data-ar="بنية تحتية">Infrastructure</div>
-      <div class="ftag" onclick="ft(this,'hospitality')" data-en="Hospitality" data-ar="فندقي">Hospitality</div>
-      <div class="ftag" onclick="ft(this,'residential')" data-en="Residential" data-ar="سكني">Residential</div>
-      <div class="ftag" onclick="ft(this,'commercial')" data-en="Commercial" data-ar="تجاري">Commercial</div>
+      <div class="ftag on" onclick="ft(this,'all')" data-en="All" data-ar="الكل" data-hi="सभी">All</div>
+      <div class="ftag" onclick="ft(this,'infra')" data-en="Infrastructure" data-ar="بنية تحتية" data-hi="बुनियादी ढांचा">Infrastructure</div>
+      <div class="ftag" onclick="ft(this,'hospitality')" data-en="Hospitality" data-ar="فندقي" data-hi="आतिथ्य">Hospitality</div>
+      <div class="ftag" onclick="ft(this,'residential')" data-en="Residential" data-ar="سكني" data-hi="आवासीय">Residential</div>
+      <div class="ftag" onclick="ft(this,'commercial')" data-en="Commercial" data-ar="تجاري" data-hi="वाणिज्यिक">Commercial</div>
     </div>
     <div class="projects-grid" id="projGrid"></div>
   </div>
@@ -735,10 +900,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- EXPERIENCE -->
 <section class="section" id="experience">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="Experience" data-ar="الخبرة">Experience</div>
-    <h2 class="section-title reveal"><span data-en="Work" data-ar="الخبرة">Work</span><br><span style="color:var(--cyan)" data-en="Experience" data-ar="العملية">Experience</span></h2>
+    <div class="section-label reveal" data-en="Experience" data-ar="الخبرة" data-hi="अनुभव">Experience</div>
+    <h2 class="section-title reveal"><span data-en="Work" data-ar="الخبرة" data-hi="कार्य">Work</span><br><span style="color:var(--cyan)" data-en="Experience" data-ar="العملية" data-hi="अनुभव">Experience</span></h2>
     <div class="exp-card reveal">
-      <div class="exp-role" data-en="MEP BIM Coordinator & BIM Developer" data-ar="منسق MEP BIM ومطور BIM">MEP BIM Coordinator & BIM Developer</div>
+      <div class="exp-role" data-en="MEP BIM Coordinator & BIM Developer" data-ar="منسق MEP BIM ومطور BIM" data-hi="एमईपी बिम कोऑर्डिनेटर और बिम डेवलपर">MEP BIM Coordinator & BIM Developer</div>
       <div class="exp-company">Direct · Cairo, Egypt · Nov 2023 – Present</div>
       <ul class="exp-list">
         <li class="exp-li"><span>Delivered Shop Drawings and coordinated BIM models for <strong>25+ projects</strong> across residential, commercial, hospitality, and infrastructure sectors — including developments exceeding <strong>500,000 m²</strong>.</span></li>
@@ -752,12 +917,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
         <li class="exp-li"><span>Produced Riser Diagrams, Builder Work Drawings, Coordination Drawings, and As-Built documentation. BOQ and Quantity Takeoff at scales up to <strong>1:600</strong>.</span></li>
       </ul>
       <div class="metrics-row">
-        <div class="metric"><div class="metric-val">25+</div><div class="metric-label" data-en="Projects" data-ar="مشروع">Projects</div></div>
-        <div class="metric"><div class="metric-val">1000+</div><div class="metric-label" data-en="Clashes/Floor" data-ar="تعارض/طابق">Clashes/Floor</div></div>
-        <div class="metric"><div class="metric-val">35%</div><div class="metric-label" data-en="Workflow Saved" data-ar="وقت موفر">Workflow Saved</div></div>
-        <div class="metric"><div class="metric-val">500k+</div><div class="metric-label" data-en="m² Coordinated" data-ar="م² منسقة">m² Coordinated</div></div>
-        <div class="metric"><div class="metric-val">11</div><div class="metric-label" data-en="Plugin Tools" data-ar="أداة إضافة">Plugin Tools</div></div>
-        <div class="metric"><div class="metric-val">3+</div><div class="metric-label" data-en="Teams Managed" data-ar="فريق مدار">Teams Managed</div></div>
+        <div class="metric"><div class="metric-val">25+</div><div class="metric-label" data-en="Projects" data-ar="مشروع" data-hi="प्रोजेक्ट">Projects</div></div>
+        <div class="metric"><div class="metric-val">1000+</div><div class="metric-label" data-en="Clashes/Floor" data-ar="تعارض/طابق" data-hi="क्लैश/फ्लोर">Clashes/Floor</div></div>
+        <div class="metric"><div class="metric-val">35%</div><div class="metric-label" data-en="Workflow Saved" data-ar="وقت موفر" data-hi="समय की बचत">Workflow Saved</div></div>
+        <div class="metric"><div class="metric-val">500k+</div><div class="metric-label" data-en="m² Coordinated" data-ar="م² منسقة" data-hi="वर्ग मीटर समन्वित">m² Coordinated</div></div>
+        <div class="metric"><div class="metric-val">11</div><div class="metric-label" data-en="Plugin Tools" data-ar="أداة إضافة" data-hi="प्लगइन टूल्स">Plugin Tools</div></div>
+        <div class="metric"><div class="metric-val">3+</div><div class="metric-label" data-en="Teams Managed" data-ar="فريق مدار" data-hi="प्रबंधित टीमें">Teams Managed</div></div>
       </div>
     </div>
   </div>
@@ -768,19 +933,19 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- CV + PYTHON -->
 <section class="section" id="cv">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="Downloads" data-ar="التحميلات">Downloads</div>
-    <h2 class="section-title reveal"><span data-en="CV & Python" data-ar="السيفي والبايثون">CV & Python</span><br><span style="color:var(--cyan)" data-en="Scripts" data-ar="السكريبتات">Scripts</span></h2>
+    <div class="section-label reveal" data-en="Downloads" data-ar="التحميلات" data-hi="डाउनलोड">Downloads</div>
+    <h2 class="section-title reveal"><span data-en="CV & Python" data-ar="السيفي والبايثون" data-hi="सीवी और पायथन">CV & Python</span><br><span style="color:var(--cyan)" data-en="Scripts" data-ar="السكريبتات" data-hi="स्क्रिप्ट्स">Scripts</span></h2>
     <div class="cv-grid">
       <div class="big-card reveal">
         <div class="big-card-icon">📄</div>
-        <div class="big-card-title" data-en="Download My CV" data-ar="تحميل السيفي">Download My CV</div>
-        <div class="big-card-desc" data-en="Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack." data-ar="السيفي كاملاً يشمل خبرة تنسيق MEP BIM، تطوير بيمز تولز، إنجازات الأتمتة، قائمة المشاريع، الشهادات، والمهارات التقنية.">Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack.</div>
-        <a href="Ziad_Anter_CV.pdf" download class="btn-primary" style="width:fit-content;"><span>⬇</span><span data-en="Download PDF" data-ar="تحميل PDF">Download PDF</span></a>
+        <div class="big-card-title" data-en="Download My CV" data-ar="تحميل السيفي" data-hi="मेरा सीवी डाउनलोड करें">Download My CV</div>
+        <div class="big-card-desc" data-en="Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack." data-ar="السيفي كاملاً يشمل خبرة تنسيق MEP BIM، تطوير بيمز تولز، إنجازات الأتمتة، قائمة المشاريع، الشهادات، والمهارات التقنية." data-hi="पूरा सीवी जिसमें एमईपी बिम कोऑर्डिनेशन का अनुभव, बिमज़ टूल्स का विकास, ऑटोमेशन उपलब्धियां, 25+ प्रोजेक्ट्स की सूची, प्रमाणपत्र, और पूरी तकनीकी विशेषज्ञता शामिल है।">Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack.</div>
+        <a href="Ziad_Anter_CV.pdf" download class="btn-primary" style="width:fit-content;"><span>⬇</span><span data-en="Download PDF" data-ar="تحميل PDF" data-hi="पीडीएफ़ डाउनलोड करें">Download PDF</span></a>
       </div>
       <div class="big-card reveal">
         <div class="big-card-icon">🐍</div>
-        <div class="big-card-title" data-en="Python Automation Scripts" data-ar="سكريبتات بايثون">Python Automation Scripts</div>
-        <div class="big-card-desc" data-en="Custom Python scripts for Revit automation, BOQ generation, sheet management, and BIM workflow optimization — reducing project time by 35%." data-ar="سكريبتات بايثون مخصصة لأتمتة ريفيت، توليد الكميات، إدارة اللوحات، وتحسين سير عمل BIM — تقليل وقت المشروع بنسبة 35%.">Custom Python scripts for Revit automation, BOQ generation, sheet management, and BIM workflow optimization — reducing project time by 35%.</div>
+        <div class="big-card-title" data-en="Python Automation Scripts" data-ar="سكريبتات بايثون" data-hi="पायथन ऑटोमेशन स्क्रिप्ट्स">Python Automation Scripts</div>
+        <div class="big-card-desc" data-en="Custom Python scripts for Revit automation, BOQ generation, sheet management, and BIM workflow optimization — reducing project time by 35%." data-ar="سكريبتات بايثون مخصصة لأتمتة ريفيت، توليد الكميات، إدارة اللوحات، وتحسين سير عمل BIM — تقليل وقت المشروع بنسبة 35%." data-hi="रिविट ऑटोमेशन, BOQ जनरेशन, शीट प्रबंधन, और बिम वर्कफ़्लो ऑप्टिमाइज़ेशन के लिए कस्टम पायथन स्क्रिप्ट्स — प्रोजेक्ट का समय 35% तक कम करते हुए।">Custom Python scripts for Revit automation, BOQ generation, sheet management, and BIM workflow optimization — reducing project time by 35%.</div>
         <div class="py-list">
           <div class="py-item"><span class="py-icon">🐍</span>BOQ_Extractor.py — BOQ automation</div>
           <div class="py-item"><span class="py-icon">🐍</span>Clash_Report_Parser.py — Navisworks</div>
@@ -788,7 +953,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
           <div class="py-item"><span class="py-icon">🐍</span>Parameter_Sync.py — Data sync</div>
           <div class="py-item"><span class="py-icon">🐍</span>NWC_Model_Exporter.py — NWC export</div>
         </div>
-        <a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" class="btn-secondary" style="width:fit-content;"><span>⬇</span><span data-en="View All Scripts" data-ar="عرض كل السكريبتات">View All Scripts</span></a>
+        <a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" class="btn-secondary" style="width:fit-content;"><span>⬇</span><span data-en="View All Scripts" data-ar="عرض كل السكريبتات" data-hi="सभी स्क्रिप्ट्स देखें">View All Scripts</span></a>
       </div>
     </div>
   </div>
@@ -799,16 +964,16 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- CERTS -->
 <section class="section" id="certs" style="background:var(--bg2);">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="Certifications" data-ar="الشهادات">Certifications</div>
-    <h2 class="section-title reveal" data-en="Certified &amp; Trained" data-ar="معتمد ومدرب">Certified &amp; Trained</h2>
+    <div class="section-label reveal" data-en="Certifications" data-ar="الشهادات" data-hi="प्रमाणपत्र">Certifications</div>
+    <h2 class="section-title reveal" data-en="Certified &amp; Trained" data-ar="معتمد ومدرب" data-hi="प्रमाणित और प्रशिक्षित">Certified &amp; Trained</h2>
     <div class="certs-list">
       <div class="cert-block reveal">
         <div class="cert-block-header">
           <div class="cert-issuer">Dubai Future Foundation — Dubai Centre for Artificial Intelligence</div>
-          <div class="cert-name" data-en="Prompt Engineering Certification — One Million Prompters Initiative" data-ar="شهادة هندسة البرومبت — مبادرة مليون مبرمج">Prompt Engineering Certification — One Million Prompters Initiative</div>
+          <div class="cert-name" data-en="Prompt Engineering Certification — One Million Prompters Initiative" data-ar="شهادة هندسة البرومبت — مبادرة مليون مبرمج" data-hi="प्रॉम्प्ट इंजीनियरिंग सर्टिफिकेशन — वन मिलियन प्रॉम्प्टर्स इनिशिएटिव">Prompt Engineering Certification — One Million Prompters Initiative</div>
           <div class="cert-date">January 2025</div>
           <ul class="cert-desc">
-            <li data-en="Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence." data-ar="مبادرة حكومية معتمدة في الذكاء الاصطناعي، تركز على أساسيات هندسة البرومبت والتفاعل الفعّال مع نماذج اللغة، بما يتماشى مع مخطط دبي العالمي للذكاء الاصطناعي.">Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence.</li>
+            <li data-en="Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence." data-ar="مبادرة حكومية معتمدة في الذكاء الاصطناعي، تركز على أساسيات هندسة البرومبت والتفاعل الفعّال مع نماذج اللغة، بما يتماشى مع مخطط دبي العالمي للذكاء الاصطناعي." data-hi="सरकार-मान्यता प्राप्त एआई पहल, जो प्रॉम्प्ट इंजीनियरिंग सिद्धांतों और एआई भाषा मॉडल्स के साथ प्रभावी संपर्क पर केंद्रित है, दुबई यूनिवर्सल ब्लूप्रिंट फ़ॉर आर्टिफिशियल इंटेलिजेंस के अनुरूप।">Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence.</li>
           </ul>
         </div>
         <iframe class="cert-embed" src="cert-prompt-engineering.pdf" title="Prompt Engineering Certificate"></iframe>
@@ -817,10 +982,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <div class="cert-block reveal">
         <div class="cert-block-header">
           <div class="cert-issuer">Autodesk Authorized Training Center — CAD Masters Training & Solutions</div>
-          <div class="cert-name" data-en="Autodesk Revit MEP Professional (Revit 2024)" data-ar="أوتوديسك ريفيت MEP احترافي (ريفيت 2024)">Autodesk Revit MEP Professional (Revit 2024)</div>
+          <div class="cert-name" data-en="Autodesk Revit MEP Professional (Revit 2024)" data-ar="أوتوديسك ريفيت MEP احترافي (ريفيت 2024)" data-hi="ऑटोडेस्क रिविट एमईपी प्रोफेशनल (रिविट 2024)">Autodesk Revit MEP Professional (Revit 2024)</div>
           <div class="cert-date">September 2025 · 25–32 Hours</div>
           <ul class="cert-desc">
-            <li data-en="Includes Revit Family Creation & Parametric Modeling." data-ar="تشمل إنشاء العائلات البارامترية في ريفيت والنمذجة البارامترية.">Includes Revit Family Creation & Parametric Modeling.</li>
+            <li data-en="Includes Revit Family Creation & Parametric Modeling." data-ar="تشمل إنشاء العائلات البارامترية في ريفيت والنمذجة البارامترية." data-hi="इसमें रिविट फ़ैमिली क्रिएशन और पैरामेट्रिक मॉडलिंग शामिल है।">Includes Revit Family Creation & Parametric Modeling.</li>
           </ul>
         </div>
         <iframe class="cert-embed" src="cert-autodesk-revit-mep.pdf" title="Autodesk Revit MEP Professional Certificate"></iframe>
@@ -829,10 +994,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <div class="cert-block reveal">
         <div class="cert-block-header">
           <div class="cert-issuer">M3aarf Education Platform</div>
-          <div class="cert-name" data-en="Professional Development Diploma — Digital, AI & Design Tools" data-ar="دبلومة التطوير المهني — الرقمي والذكاء الاصطناعي وأدوات التصميم">Professional Development Diploma — Digital, AI & Design Tools</div>
+          <div class="cert-name" data-en="Professional Development Diploma — Digital, AI & Design Tools" data-ar="دبلومة التطوير المهني — الرقمي والذكاء الاصطناعي وأدوات التصميم" data-hi="प्रोफेशनल डेवलपमेंट डिप्लोमा — डिजिटल, एआई और डिज़ाइन टूल्स">Professional Development Diploma — Digital, AI & Design Tools</div>
           <div class="cert-date">January 2024 – April 2026 · 8 Courses · 87 Total Hours</div>
           <ul class="cert-desc">
-            <li data-en="Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design." data-ar="مسار متعدد الكورسات يشمل: عروض تقديمية بالذكاء الاصطناعي (PowerPoint وGoogle Slides)، تصميم الشعارات والهوية البصرية، الرسم الهندسي 2D/3D بالأوتوكاد، تصميم مستندات الوورد، كتابة المقالات بالذكاء الاصطناعي (عربي/إنجليزي)، ChatGPT للإنتاجية وصناعة المحتوى، تصميم مواقع الويب بالذكاء الاصطناعي (UI/UX)، وتوليد الصور والفيديو بالذكاء الاصطناعي.">Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design.</li>
+            <li data-en="Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design." data-ar="مسار متعدد الكورسات يشمل: عروض تقديمية بالذكاء الاصطناعي (PowerPoint وGoogle Slides)، تصميم الشعارات والهوية البصرية، الرسم الهندسي 2D/3D بالأوتوكاد، تصميم مستندات الوورد، كتابة المقالات بالذكاء الاصطناعي (عربي/إنجليزي)، ChatGPT للإنتاجية وصناعة المحتوى، تصميم مواقع الويب بالذكاء الاصطناعي (UI/UX)، وتوليد الصور والفيديو بالذكاء الاصطناعي." data-hi="संरचित मल्टी-कोर्स ट्रैक जिसमें शामिल है: एआई-संचालित प्रेज़ेंटेशन (पावरपॉइंट और गूगल स्लाइड्स); लोगो और ब्रांडिंग डिज़ाइन; ऑटोकैड 2D/3D ड्राफ्टिंग; माइक्रोसॉफ्ट वर्ड डॉक्यूमेंट डिज़ाइन; एआई-संचालित अरबी/अंग्रेज़ी लेखन; प्रोडक्टिविटी और कंटेंट क्रिएशन के लिए ChatGPT; एआई-संचालित वेब डिज़ाइन (UI/UX और स्मार्ट फीचर्स); और एआई इमेज/वीडियो जनरेशन व डिज़ाइन।">Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design.</li>
           </ul>
         </div>
         <iframe class="cert-embed" src="cert-m3aarf-diploma.pdf" title="Professional Development Diploma Certificate"></iframe>
@@ -846,9 +1011,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- CONTACT -->
 <section class="section" id="contact">
   <div class="section-inner">
-    <div class="section-label reveal" data-en="Contact" data-ar="تواصل">Contact</div>
-    <h2 class="section-title reveal"><span data-en="Get In" data-ar="تواصل">Get In</span><br><span style="color:var(--cyan)" data-en="Touch" data-ar="معي">Touch</span></h2>
-    <p class="section-desc reveal" data-en="Available for full-time roles, freelance BIM projects, and tool development collaboration. Response within 24 hours." data-ar="متاح للوظائف والمشاريع المستقلة والتعاون في تطوير الأدوات. رد خلال 24 ساعة.">Available for full-time roles, freelance BIM projects, and tool development collaboration. Response within 24 hours.</p>
+    <div class="section-label reveal" data-en="Contact" data-ar="تواصل" data-hi="संपर्क">Contact</div>
+    <h2 class="section-title reveal"><span data-en="Get In" data-ar="تواصل" data-hi="जुड़ें">Get In</span><br><span style="color:var(--cyan)" data-en="Touch" data-ar="معي" data-hi="हमसे">Touch</span></h2>
+    <p class="section-desc reveal" data-en="Available for full-time roles, freelance BIM projects, and tool development collaboration. Response within 24 hours." data-ar="متاح للوظائف والمشاريع المستقلة والتعاون في تطوير الأدوات. رد خلال 24 ساعة." data-hi="पूर्णकालिक नौकरियों, फ्रीलांस बिम प्रोजेक्ट्स, और टूल डेवलपमेंट सहयोग के लिए उपलब्ध। 24 घंटे के अंदर जवाब।">Available for full-time roles, freelance BIM projects, and tool development collaboration. Response within 24 hours.</p>
     <div class="contact-grid">
       <div class="contact-links reveal">
         <a class="contact-link-item" href="mailto:ziadanter101@gmail.com">
@@ -868,10 +1033,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
         </div>
       </div>
       <form class="contact-form reveal" id="contactForm" onsubmit="return sendContactForm(event)">
-        <div class="cf-group"><label class="cf-label" for="cfName" data-en="Name" data-ar="الاسم">Name</label><input class="cf-input" id="cfName" type="text" placeholder="Your name" required/></div>
-        <div class="cf-group"><label class="cf-label" for="cfEmail" data-en="Email" data-ar="البريد الإلكتروني">Email</label><input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com" required/></div>
-        <div class="cf-group"><label class="cf-label" for="cfMessage" data-en="Message" data-ar="الرسالة">Message</label><textarea class="cf-textarea" id="cfMessage" placeholder="Tell me about your project or opportunity..." required></textarea></div>
-        <button type="submit" class="cf-submit" id="cfSubmitBtn"><span>✉</span><span id="cfSubmitLabel" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span></button>
+        <div class="cf-group"><label class="cf-label" for="cfName" data-en="Name" data-ar="الاسم" data-hi="नाम">Name</label><input class="cf-input" id="cfName" type="text" placeholder="Your name" required/></div>
+        <div class="cf-group"><label class="cf-label" for="cfEmail" data-en="Email" data-ar="البريد الإلكتروني" data-hi="ईमेल">Email</label><input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com" required/></div>
+        <div class="cf-group"><label class="cf-label" for="cfMessage" data-en="Message" data-ar="الرسالة" data-hi="संदेश">Message</label><textarea class="cf-textarea" id="cfMessage" placeholder="Tell me about your project or opportunity..." required></textarea></div>
+        <button type="submit" class="cf-submit" id="cfSubmitBtn"><span>✉</span><span id="cfSubmitLabel" data-en="Send Message" data-ar="إرسال الرسالة" data-hi="संदेश भेजें">Send Message</span></button>
         <div id="cfStatus" style="display:none;font-family:var(--mono);font-size:.75rem;text-align:center;margin-top:.5rem;padding:.6rem;border-radius:6px;"></div>
       </form>
     </div>
@@ -887,37 +1052,37 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
           <div class="logo-mark"><span>Z</span></div>
           <div class="logo-name">ZIA<span class="logo-z">D</span></div>
         </div>
-        <p data-en="MEP BIM Coordinator & BIM Developer based in Cairo, Egypt. Creator of BimzTools — a Revit automation plugin used across 25+ projects." data-ar="منسق MEP BIM ومطور BIM في القاهرة، مصر. مبتكر بيمز تولز — إضافة أتمتة ريفيت مستخدمة عبر أكثر من 25 مشروعاً.">MEP BIM Coordinator & BIM Developer based in Cairo, Egypt. Creator of BimzTools — a Revit automation plugin used across 25+ projects.</p>
+        <p data-en="MEP BIM Coordinator & BIM Developer based in Cairo, Egypt. Creator of BimzTools — a Revit automation plugin used across 25+ projects." data-ar="منسق MEP BIM ومطور BIM في القاهرة، مصر. مبتكر بيمز تولز — إضافة أتمتة ريفيت مستخدمة عبر أكثر من 25 مشروعاً." data-hi="काहिरा, मिस्र में स्थित एमईपी बिम कोऑर्डिनेटर और बिम डेवलपर। बिमज़ टूल्स के निर्माता — एक रिविट ऑटोमेशन प्लगइन जो 25+ प्रोजेक्ट्स में इस्तेमाल होता है।">MEP BIM Coordinator & BIM Developer based in Cairo, Egypt. Creator of BimzTools — a Revit automation plugin used across 25+ projects.</p>
       </div>
       <div>
-        <div class="footer-col-title" data-en="Quick Links" data-ar="روابط سريعة">Quick Links</div>
+        <div class="footer-col-title" data-en="Quick Links" data-ar="روابط سريعة" data-hi="त्वरित लिंक">Quick Links</div>
         <ul class="footer-col-links">
-          <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
-          <li><a href="#bimztools" data-en="BimzTools" data-ar="بيمز تولز">BimzTools</a></li>
-          <li><a href="#projects" data-en="Projects" data-ar="المشاريع">Projects</a></li>
-          <li><a href="#experience" data-en="Experience" data-ar="الخبرة">Experience</a></li>
+          <li><a href="#about" data-en="About" data-ar="عني" data-hi="के बारे में">About</a></li>
+          <li><a href="#bimztools" data-en="BimzTools" data-ar="بيمز تولز" data-hi="बिमज़ टूल्स">BimzTools</a></li>
+          <li><a href="#projects" data-en="Projects" data-ar="المشاريع" data-hi="प्रोजेक्ट्स">Projects</a></li>
+          <li><a href="#experience" data-en="Experience" data-ar="الخبرة" data-hi="अनुभव">Experience</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title" data-en="Downloads" data-ar="التحميلات">Downloads</div>
+        <div class="footer-col-title" data-en="Downloads" data-ar="التحميلات" data-hi="डाउनलोड">Downloads</div>
         <ul class="footer-col-links">
-          <li><a href="Ziad_Anter_CV.pdf" download data-en="Download CV" data-ar="تحميل السيفي">Download CV</a></li>
-          <li><a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" data-en="BimzTools" data-ar="بيمز تولز">BimzTools</a></li>
-          <li><a href="https://bimzlog.vercel.app" target="_blank" data-en="BIMZ Platform" data-ar="منصة BIMZ">BIMZ Platform</a></li>
+          <li><a href="Ziad_Anter_CV.pdf" download data-en="Download CV" data-ar="تحميل السيفي" data-hi="सीवी डाउनलोड करें">Download CV</a></li>
+          <li><a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" data-en="BimzTools" data-ar="بيمز تولز" data-hi="बिमज़ टूल्स">BimzTools</a></li>
+          <li><a href="https://bimzlog.vercel.app" target="_blank" data-en="BIMZ Platform" data-ar="منصة BIMZ" data-hi="बिमज़ प्लेटफ़ॉर्म">BIMZ Platform</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-col-title" data-en="Contact" data-ar="تواصل">Contact</div>
+        <div class="footer-col-title" data-en="Contact" data-ar="تواصل" data-hi="संपर्क">Contact</div>
         <ul class="footer-col-links">
           <li><a href="mailto:ziadanter101@gmail.com">✉ Email</a></li>
           <li><a href="https://wa.me/201030715866" target="_blank">💬 WhatsApp</a></li>
-          <li><a href="#contact" data-en="📍 Cairo, Egypt" data-ar="📍 القاهرة، مصر">📍 Cairo, Egypt</a></li>
+          <li><a href="#contact" data-en="📍 Cairo, Egypt" data-ar="📍 القاهرة، مصر" data-hi="📍 काहिरा, मिस्र">📍 Cairo, Egypt</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <div class="footer-copy">© 2025 Ziad Ahmed Anter · MEP BIM Coordinator & BIM Developer</div>
-      <div class="footer-status"><div class="footer-status-dot"></div><span data-en="Portfolio Online" data-ar="الموقع يعمل">Portfolio Online</span></div>
+      <div class="footer-status"><div class="footer-status-dot"></div><span data-en="Portfolio Online" data-ar="الموقع يعمل" data-hi="पोर्टफ़ोलियो ऑनलाइन">Portfolio Online</span></div>
     </div>
   </div>
 </footer>
@@ -1037,6 +1202,7 @@ function cardGlow(e,card){
 const isTouchDevice=('ontouchstart' in window)||navigator.maxTouchPoints>0;
 if(isTouchDevice){
   document.body.style.cursor='auto';
+  document.body.classList.add('touch-cursor');
   const curEl=document.getElementById('cursor');
   if(curEl)curEl.style.display='none';
 }else{
@@ -1080,19 +1246,25 @@ function toggleTheme(){
 
 /* ── LANG ── */
 let lang='en';
-function toggleLang(){
-  lang=lang==='en'?'ar':'en';
-  document.getElementById('langBtn').textContent=lang==='en'?'AR':'EN';
+const langOrder=['en','ar','hi'];
+const langNextLabel={en:'AR',ar:'HI',hi:'EN'};
+function applyLang(){
+  document.getElementById('langBtn').textContent=langNextLabel[lang];
   document.documentElement.setAttribute('lang',lang);
   document.documentElement.setAttribute('dir',lang==='ar'?'rtl':'ltr');
   document.querySelectorAll('[data-en][data-ar]').forEach(el=>{
-    const v=lang==='ar'?el.dataset.ar:el.dataset.en;
+    const v=lang==='ar'?el.dataset.ar:(lang==='hi'?(el.dataset.hi||el.dataset.en):el.dataset.en);
     if(el.tagName==='INPUT'||el.tagName==='TEXTAREA')el.placeholder=v;
     else el.innerHTML=v;
   });
   localStorage.setItem('za-lang',lang);
 }
-(()=>{const s=localStorage.getItem('za-lang')||'en';if(s!=='en'){lang='en';toggleLang();}})();
+function toggleLang(){
+  const idx=langOrder.indexOf(lang);
+  lang=langOrder[(idx+1)%langOrder.length];
+  applyLang();
+}
+(()=>{const s=localStorage.getItem('za-lang');if(s&&langOrder.includes(s)){lang=s;applyLang();}})();
 
 /* ── NAV SCROLL ── */
 window.addEventListener('scroll',()=>{
