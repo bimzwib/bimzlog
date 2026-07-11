@@ -3,8 +3,40 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Ziad Ahmed Anter — MEP BIM Coordinator & BIM Developer. Creator of BimzTools. 3+ years, 25+ projects."/>
+<meta name="description" content="Ziad Ahmed Anter — MEP BIM Coordinator & BIM Developer. Creator of BimzTools. Since 2023, 25+ projects."/>
 <title>Ziad Anter — MEP BIM Coordinator & BIM Developer</title>
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="assets/favicon-180.png"/>
+
+<meta property="og:type" content="profile"/>
+<meta property="og:title" content="Ziad Anter — MEP BIM Coordinator & BIM Developer"/>
+<meta property="og:description" content="Since 2023, delivering LOD 400 BIM models across 25+ projects. Creator of BimzTools — a Revit automation plugin with 11 tools."/>
+<meta property="og:image" content="assets/og-image.jpg"/>
+<meta property="og:image:width" content="1200"/>
+<meta property="og:image:height" content="630"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Ziad Anter — MEP BIM Coordinator & BIM Developer"/>
+<meta name="twitter:description" content="Since 2023, delivering LOD 400 BIM models across 25+ projects. Creator of BimzTools — a Revit automation plugin with 11 tools."/>
+<meta name="twitter:image" content="assets/og-image.jpg"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ziad Ahmed Anter",
+  "jobTitle": "MEP BIM Coordinator & BIM Developer",
+  "worksFor": {"@type": "Organization", "name": "DIRECT Engineering Consultants"},
+  "address": {"@type": "PostalAddress", "addressLocality": "Cairo", "addressCountry": "EG"},
+  "email": "mailto:ziadanter101@gmail.com",
+  "url": "https://bimzlog.vercel.app",
+  "sameAs": ["https://bimzlog.vercel.app"],
+  "knowsAbout": ["Revit MEP", "BIM Coordination", "Navisworks", "AutoCAD LISP", "Python Automation", "Plumbing Systems", "Firefighting Systems"]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
@@ -42,6 +74,11 @@ html[dir="rtl"] .exp-li::before{content:'←';}
 html{scroll-behavior:smooth;}
 body{font-family:var(--sans);background:var(--bg);color:var(--t1);overflow-x:hidden;cursor:none;font-size:15px;line-height:1.7;transition:background .4s,color .4s;}
 .mono,.section-label,.eyebrow,.badge,.stat-label,.stat-trend,.tc-meta,.loader-status,.loader-pct,.cmd-cat,.footer-copy,.footer-status,.contact-label,.nav-link{font-family:var(--mono);}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important;}
+  #bgCanvas,#cursor,.trail{display:none!important;}
+  body{cursor:auto!important;}
+}
 ::-webkit-scrollbar{width:4px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--purple));border-radius:2px;}
@@ -372,6 +409,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
   .footer-top{grid-template-columns:1fr;}
   .hero h1{font-size:3rem;}
 }
+@media (pointer:coarse){
+  *{cursor:auto!important;}
+  #cursor{display:none!important;}
+}
 </style>
 </head>
 <body>
@@ -418,10 +459,10 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
     </div>
     <div class="nav-right">
       <div class="nav-status"><div class="nav-status-dot"></div><span data-en="Open to Work" data-ar="متاح للعمل">Open to Work</span></div>
-      <a href="https://wa.me/201030715866" target="_blank" class="wa-btn"><div class="wa-pulse"></div>💬</a>
-      <button class="lang-toggle" onclick="toggleLang()" id="langBtn">AR</button>
-      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn"><span id="themeIcon">🌙</span></button>
-      <a href="https://drive.google.com/file/d/1sPYMeh78DsU1MgGl47J9ExI0OlHPzS84/view" target="_blank" class="btn-cta"><span data-en="⬇ Download CV" data-ar="⬇ تحميل السيفي">⬇ Download CV</span></a>
+      <a href="https://wa.me/201030715866" target="_blank" class="wa-btn" aria-label="Contact via WhatsApp"><div class="wa-pulse"></div>💬</a>
+      <button class="lang-toggle" onclick="toggleLang()" id="langBtn" aria-label="Switch language to Arabic">AR</button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle dark/light theme"><span id="themeIcon">🌙</span></button>
+      <a href="assets/Ziad_Anter_CV.pdf" download class="btn-cta"><span data-en="⬇ Download CV" data-ar="⬇ تحميل السيفي">⬇ Download CV</span></a>
     </div>
   </div>
 </nav>
@@ -436,13 +477,13 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <span class="h1-main">BIM</span>
       <span class="h1-sub" data-en="Automation" data-ar="الأتمتة">Automation</span>
     </h1>
-    <p class="hero-desc" data-en="3+ years delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%." data-ar="أكثر من 3 سنوات في تسليم نماذج BIM من LOD 400، وحل أكثر من 1,000 تعارض لكل طابق، وبناء أدوات مخصصة — بما فيها بيمز تولز، إضافة ريفيت بـ 11 ميزة تقلل وقت العمل المتكرر بنسبة 35%.">3+ years delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%.</p>
+    <p class="hero-desc" data-en="Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%." data-ar="منذ 2023، بأسلّم نماذج BIM من LOD 400، وأحل أكثر من 1,000 تعارض لكل طابق، وأبني أدوات مخصصة — بما فيها بيمز تولز، إضافة ريفيت بـ 11 ميزة تقلل وقت العمل المتكرر بنسبة 35%.">Since 2023, delivering LOD 400 BIM models, resolving 1,000+ clashes per floor, and building custom tools — including BimzTools, a Revit plugin with 11 automation features that cuts recurring workflows by 35%.</p>
     <div class="hero-actions">
       <a href="#bimztools" class="btn-primary"><span>🔧</span><span data-en="Explore BimzTools" data-ar="اكتشف بيمز تولز">Explore BimzTools</span></a>
-      <a href="https://drive.google.com/file/d/1sPYMeh78DsU1MgGl47J9ExI0OlHPzS84/view" target="_blank" class="btn-secondary"><span>⬇</span><span data-en="Download CV" data-ar="تحميل السيفي">Download CV</span></a>
+      <a href="assets/Ziad_Anter_CV.pdf" download class="btn-secondary"><span>⬇</span><span data-en="Download CV" data-ar="تحميل السيفي">Download CV</span></a>
     </div>
     <div class="hero-stats">
-      <div class="stat-item"><div class="stat-num">3<span class="accent">+</span></div><div class="stat-label" data-en="Years Experience" data-ar="سنوات خبرة">Years Experience</div></div>
+      <div class="stat-item"><div class="stat-num" style="font-size:1.6rem;">2023<span class="accent"></span></div><div class="stat-label" data-en="Since" data-ar="بداية العمل">Since</div></div>
       <div class="stat-item"><div class="stat-num">25<span class="accent">+</span></div><div class="stat-label" data-en="Projects Delivered" data-ar="مشروع منجز">Projects Delivered</div></div>
       <div class="stat-item"><div class="stat-num">11<span class="accent"></span></div><div class="stat-label" data-en="BimzTools Features" data-ar="أداة بيمز">BimzTools Features</div></div>
       <div class="stat-item"><div class="stat-num">35<span class="accent">%</span></div><div class="stat-label" data-en="Workflow Saved" data-ar="توفير في الوقت">Workflow Saved</div></div>
@@ -504,7 +545,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
     <h2 class="section-title reveal"><span data-en="MEP BIM Coordinator" data-ar="منسق MEP BIM">MEP BIM Coordinator</span><br><span style="color:var(--cyan)" data-en="& BIM Developer" data-ar="ومطور BIM">& BIM Developer</span></h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>I'm <strong>Ziad Ahmed Anter</strong> — an MEP BIM Coordinator and BIM Developer based in Cairo, Egypt, with <strong>3+ years of experience</strong> across Plumbing and Firefighting systems on 25+ large-scale projects.</p>
+        <p>I'm <strong>Ziad Ahmed Anter</strong> — an MEP BIM Coordinator and BIM Developer based in Cairo, Egypt, working <strong>since 2023</strong> across Plumbing and Firefighting systems on 25+ large-scale projects.</p>
         <p>My work ranges from delivering <strong>LOD 400 coordinated BIM models</strong> and resolving 1,000+ clashes per floor using Navisworks, to building custom tools that automate the repetitive parts of BIM workflows — giving engineers time to focus on what matters.</p>
         <p>I created <strong>BimzTools</strong> — a Revit plugin built in C# + WPF with 11 productivity tools — and Python scripts that cut recurring workflows by 35% across live projects. I also integrate <strong>AI-driven workflows</strong> with Revit and Navisworks, reducing coordination overhead by 25–30%.</p>
         <p>I also manage full project delivery on <strong>Autodesk Construction Cloud (ACC)</strong> — from issue tracking to model publishing — across multiple simultaneous projects.</p>
@@ -632,6 +673,35 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" class="btn-primary"><span>⬇</span><span data-en="Download BimzTools" data-ar="تحميل بيمز تولز">Download BimzTools</span></a>
       <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);" data-en="Compatible: Revit 2020 → 2027 · C# + WPF · MVVM" data-ar="متوافق: ريفيت 2020 → 2027 · C# + WPF · MVVM">Compatible: Revit 2020 → 2027 · C# + WPF · MVVM</span>
     </div>
+
+    <!-- INSTALL GUIDE -->
+    <div class="reveal" style="margin-top:3rem;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:2rem;">
+      <div class="section-label" style="margin-bottom:.5rem;" data-en="Setup Guide" data-ar="دليل التثبيت">Setup Guide</div>
+      <h3 style="font-family:var(--display);font-size:1.4rem;margin-bottom:1.5rem;" data-en="How to Install BimzTools" data-ar="طريقة تثبيت BimzTools">How to Install BimzTools</h3>
+      <ol style="list-style:none;display:flex;flex-direction:column;gap:1.25rem;padding:0;margin:0;">
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">1</span>
+          <span data-en="Install pyRevit first — it's required before anything else. Download it from the official site:" data-ar="ثبّت برنامج pyRevit الأول — الأداة دي أساسية ولازم تتسطب قبل أي حاجة تانية. تقدر تنزلها من الموقع الرسمي:">Install pyRevit first — it's required before anything else. Download it from the official site:</span>
+        </li>
+        <li style="margin-inline-start:44px;">
+          <a href="https://pyrevitlabs.io/" target="_blank" style="color:var(--cyan);font-family:var(--mono);font-size:.85rem;">pyrevitlabs.io</a>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">2</span>
+          <span data-en="Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue." data-ar="تأكد من التثبيت — افتح Revit وتأكد إن تابة جديدة اسمها pyRevit ظهرت في الـ Ribbon. الخطوة دي مهمة عشان تتأكد إن التثبيت نجح قبل ما تكمل.">Confirm the install — open Revit and check that a new pyRevit tab appears in the Ribbon. This confirms pyRevit is working before you continue.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">3</span>
+          <span data-en="Download and unzip BimzTools using the download button above, then extract it anywhere on your machine." data-ar="نزّل ملف BimzTools المضغوط من زرار التحميل بالأعلى، وبعدين فك الضغط عنه في أي مكان على جهازك.">Download and unzip BimzTools using the download button above, then extract it anywhere on your machine.</span>
+        </li>
+        <li style="display:flex;gap:1rem;align-items:flex-start;">
+          <span style="flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(0,240,255,.1);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.8rem;display:flex;align-items:center;justify-content:center;">4</span>
+          <span data-en="Run the installer — inside the extracted folder, find and run" data-ar="شغّل ملف التثبيت — جوه الملف اللي فككت ضغطه، هتلاقي ملف اسمه">Run the installer — inside the extracted folder, find and run</span>
+          <code style="background:rgba(0,240,255,.08);color:var(--cyan);padding:.15rem .5rem;border-radius:4px;font-family:var(--mono);font-size:.85rem;white-space:nowrap;">Install_BimzTools.bat</code>
+        </li>
+        <li style="margin-inline-start:44px;color:var(--t2);font-size:.9rem;" data-en="Once it finishes, BimzTools will load automatically inside Revit — ready to use." data-ar="وبعد ما ينتهي، الأداة هتشتغل تلقائيًا جوه Revit — جاهزة للاستخدام.">Once it finishes, BimzTools will load automatically inside Revit — ready to use.</li>
+      </ol>
+    </div>
   </div>
 </section>
 
@@ -699,7 +769,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
         <div class="big-card-icon">📄</div>
         <div class="big-card-title" data-en="Download My CV" data-ar="تحميل السيفي">Download My CV</div>
         <div class="big-card-desc" data-en="Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack." data-ar="السيفي كاملاً يشمل خبرة تنسيق MEP BIM، تطوير بيمز تولز، إنجازات الأتمتة، قائمة المشاريع، الشهادات، والمهارات التقنية.">Full CV covering MEP BIM coordination experience, BimzTools development, automation achievements, 25+ project list, certifications, and complete technical stack.</div>
-        <a href="https://drive.google.com/file/d/1sPYMeh78DsU1MgGl47J9ExI0OlHPzS84/view" target="_blank" class="btn-primary" style="width:fit-content;"><span>⬇</span><span data-en="Download PDF" data-ar="تحميل PDF">Download PDF</span></a>
+        <a href="assets/Ziad_Anter_CV.pdf" download class="btn-primary" style="width:fit-content;"><span>⬇</span><span data-en="Download PDF" data-ar="تحميل PDF">Download PDF</span></a>
       </div>
       <div class="big-card reveal">
         <div class="big-card-icon">🐍</div>
@@ -771,12 +841,12 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
           <span class="cli-icon">📍</span><div><div class="cli-label">Location</div><div class="cli-val">Cairo, Egypt</div></div>
         </div>
       </div>
-      <div class="contact-form reveal">
-        <div class="cf-group"><label class="cf-label" data-en="Name" data-ar="الاسم">Name</label><input class="cf-input" type="text" placeholder="Your name"/></div>
-        <div class="cf-group"><label class="cf-label" data-en="Email" data-ar="البريد الإلكتروني">Email</label><input class="cf-input" type="email" placeholder="your@email.com"/></div>
-        <div class="cf-group"><label class="cf-label" data-en="Message" data-ar="الرسالة">Message</label><textarea class="cf-textarea" placeholder="Tell me about your project or opportunity..."></textarea></div>
-        <a href="mailto:ziadanter101@gmail.com" class="cf-submit"><span>✉</span><span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span></a>
-      </div>
+      <form class="contact-form reveal" id="contactForm" onsubmit="return sendContactForm(event)">
+        <div class="cf-group"><label class="cf-label" for="cfName" data-en="Name" data-ar="الاسم">Name</label><input class="cf-input" id="cfName" type="text" placeholder="Your name" required/></div>
+        <div class="cf-group"><label class="cf-label" for="cfEmail" data-en="Email" data-ar="البريد الإلكتروني">Email</label><input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com" required/></div>
+        <div class="cf-group"><label class="cf-label" for="cfMessage" data-en="Message" data-ar="الرسالة">Message</label><textarea class="cf-textarea" id="cfMessage" placeholder="Tell me about your project or opportunity..." required></textarea></div>
+        <button type="submit" class="cf-submit"><span>✉</span><span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span></button>
+      </form>
     </div>
   </div>
 </section>
@@ -804,7 +874,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <div>
         <div class="footer-col-title" data-en="Downloads" data-ar="التحميلات">Downloads</div>
         <ul class="footer-col-links">
-          <li><a href="https://drive.google.com/file/d/1sPYMeh78DsU1MgGl47J9ExI0OlHPzS84/view" target="_blank" data-en="Download CV" data-ar="تحميل السيفي">Download CV</a></li>
+          <li><a href="assets/Ziad_Anter_CV.pdf" download data-en="Download CV" data-ar="تحميل السيفي">Download CV</a></li>
           <li><a href="https://drive.google.com/drive/folders/1HlAPN3mQ_eI_zx96gPU4uo_GfcGOZNiz" target="_blank" data-en="BimzTools" data-ar="بيمز تولز">BimzTools</a></li>
           <li><a href="https://bimzlog.vercel.app" target="_blank" data-en="BIMZ Platform" data-ar="منصة BIMZ">BIMZ Platform</a></li>
         </ul>
@@ -826,7 +896,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 </footer>
 
 <div class="wa-float">
-  <a href="https://wa.me/201030715866" target="_blank" class="wa-float-btn">💬</a>
+  <a href="https://wa.me/201030715866" target="_blank" class="wa-float-btn" aria-label="Chat on WhatsApp">💬</a>
 </div>
 
 <script>
@@ -877,6 +947,19 @@ function renderProjs(){
 }
 renderProjs();
 
+/* ── CONTACT FORM ── */
+function sendContactForm(e){
+  e.preventDefault();
+  const name=document.getElementById('cfName').value.trim();
+  const email=document.getElementById('cfEmail').value.trim();
+  const message=document.getElementById('cfMessage').value.trim();
+  if(!name||!email||!message){return false;}
+  const subject=encodeURIComponent('Portfolio Contact from '+name);
+  const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
+  window.location.href='mailto:ziadanter101@gmail.com?subject='+subject+'&body='+body;
+  return false;
+}
+
 /* ── CARD GLOW ── */
 function cardGlow(e,card){
   const r=card.getBoundingClientRect();
@@ -885,29 +968,36 @@ function cardGlow(e,card){
 }
 
 /* ── CURSOR ── */
-const dot=document.getElementById('cursor-dot');
-const ring=document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-function moveCursor(){
-  dot.style.left=mx+'px';dot.style.top=my+'px';
-  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(moveCursor);
+const isTouchDevice=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+if(isTouchDevice){
+  document.body.style.cursor='auto';
+  const curEl=document.getElementById('cursor');
+  if(curEl)curEl.style.display='none';
+}else{
+  const dot=document.getElementById('cursor-dot');
+  const ring=document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  function moveCursor(){
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(moveCursor);
+  }
+  moveCursor();
+  document.querySelectorAll('a,button,.ftag,.tool-card,.proj-card,.contact-link-item,.hct').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+  /* trail */
+  document.addEventListener('mousemove',e=>{
+    const t=document.createElement('div');
+    t.className='trail';
+    t.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;`;
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),600);
+  });
 }
-moveCursor();
-document.querySelectorAll('a,button,.ftag,.tool-card,.proj-card,.contact-link-item,.hct').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
-});
-/* trail */
-document.addEventListener('mousemove',e=>{
-  const t=document.createElement('div');
-  t.className='trail';
-  t.style.cssText=`left:${e.clientX}px;top:${e.clientY}px;width:4px;height:4px;`;
-  document.body.appendChild(t);
-  setTimeout(()=>t.remove(),600);
-});
 
 /* ── THEME ── */
 function toggleTheme(){
@@ -976,6 +1066,8 @@ window.addEventListener('scroll',()=>{
 
 /* ── BG CANVAS ── */
 function initBg(){
+  const isMobile=window.innerWidth<768||/Mobi|Android/i.test(navigator.userAgent);
+  const scale=isMobile?0.4:1;
   const canvas=document.getElementById('bgCanvas');
   const ctx=canvas.getContext('2d');
   function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
@@ -984,13 +1076,13 @@ function initBg(){
   let mx=canvas.width/2,my=canvas.height/2,tmx=mx,tmy=my;
   document.addEventListener('mousemove',e=>{tmx=e.clientX;tmy=e.clientY;});
   const orbs=[];
-  for(let i=0;i<6;i++)orbs.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*300+150,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,hue:[195,260,160,30,340,210][i],phase:Math.random()*Math.PI*2,speed:Math.random()*.003+.002});
+  for(let i=0;i<Math.max(2,Math.round(6*scale));i++)orbs.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*300+150,vx:(Math.random()-.5)*.15,vy:(Math.random()-.5)*.15,hue:[195,260,160,30,340,210][i%6],phase:Math.random()*Math.PI*2,speed:Math.random()*.003+.002});
   const neurons=[];
-  for(let i=0;i<50;i++)neurons.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*2+.8,pulse:Math.random()*Math.PI*2,layer:Math.floor(Math.random()*4),firing:false,fireTimer:0,fireDelay:Math.random()*300});
+  for(let i=0;i<Math.round(50*scale);i++)neurons.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,r:Math.random()*2+.8,pulse:Math.random()*Math.PI*2,layer:Math.floor(Math.random()*4),firing:false,fireTimer:0,fireDelay:Math.random()*300});
   const hexTiles=[];
-  for(let i=0;i<18;i++)hexTiles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*35+15,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.004,alpha:Math.random()*.12+.04,phase:Math.random()*Math.PI*2});
+  for(let i=0;i<Math.round(18*scale);i++)hexTiles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*35+15,vx:(Math.random()-.5)*.08,vy:(Math.random()-.5)*.08,rot:Math.random()*Math.PI*2,vrot:(Math.random()-.5)*.004,alpha:Math.random()*.12+.04,phase:Math.random()*Math.PI*2});
   const meteors=[];
-  setInterval(()=>{meteors.push({x:Math.random()*canvas.width*1.5-canvas.width*.25,y:-20,vx:(Math.random()-.3)*4,vy:Math.random()*6+4,len:Math.random()*120+60,alpha:1,hue:Math.random()<.5?195:260,life:0,maxLife:Math.random()*60+40});},800);
+  setInterval(()=>{meteors.push({x:Math.random()*canvas.width*1.5-canvas.width*.25,y:-20,vx:(Math.random()-.3)*4,vy:Math.random()*6+4,len:Math.random()*120+60,alpha:1,hue:Math.random()<.5?195:260,life:0,maxLife:Math.random()*60+40});},isMobile?2000:800);
   const waves=[];
   for(let i=0;i<5;i++)waves.push({y:canvas.height*(.2+i*.15),amp:Math.random()*30+15,freq:Math.random()*.008+.003,speed:Math.random()*.006+.003,phase:Math.random()*Math.PI*2,hue:[195,260,160,195,260][i],alpha:.04+i*.006});
   function drawHex(x,y,r,rot){ctx.beginPath();for(let i=0;i<6;i++){const a=i*Math.PI/3+rot;ctx.lineTo(x+r*Math.cos(a),y+r*Math.sin(a));}ctx.closePath();}
