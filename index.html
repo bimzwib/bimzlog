@@ -846,7 +846,8 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
         <div class="cf-group"><label class="cf-label" for="cfName" data-en="Name" data-ar="الاسم">Name</label><input class="cf-input" id="cfName" type="text" placeholder="Your name" required/></div>
         <div class="cf-group"><label class="cf-label" for="cfEmail" data-en="Email" data-ar="البريد الإلكتروني">Email</label><input class="cf-input" id="cfEmail" type="email" placeholder="your@email.com" required/></div>
         <div class="cf-group"><label class="cf-label" for="cfMessage" data-en="Message" data-ar="الرسالة">Message</label><textarea class="cf-textarea" id="cfMessage" placeholder="Tell me about your project or opportunity..." required></textarea></div>
-        <button type="submit" class="cf-submit"><span>✉</span><span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span></button>
+        <button type="submit" class="cf-submit" id="cfSubmitBtn"><span>✉</span><span id="cfSubmitLabel" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span></button>
+        <div id="cfStatus" style="display:none;font-family:var(--mono);font-size:.75rem;text-align:center;margin-top:.5rem;padding:.6rem;border-radius:6px;"></div>
       </form>
     </div>
   </div>
@@ -949,15 +950,54 @@ function renderProjs(){
 renderProjs();
 
 /* ── CONTACT FORM ── */
-function sendContactForm(e){
+async function sendContactForm(e){
   e.preventDefault();
   const name=document.getElementById('cfName').value.trim();
   const email=document.getElementById('cfEmail').value.trim();
   const message=document.getElementById('cfMessage').value.trim();
-  if(!name||!email||!message){return false;}
-  const subject=encodeURIComponent('Portfolio Contact from '+name);
-  const body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
-  window.location.href='mailto:ziadanter101@gmail.com?subject='+subject+'&body='+body;
+  const btn=document.getElementById('cfSubmitBtn');
+  const label=document.getElementById('cfSubmitLabel');
+  const status=document.getElementById('cfStatus');
+  if(!name||!email||!message)return false;
+
+  const originalLabel=label.textContent;
+  label.textContent=(lang==='ar')?'جاري الإرسال...':'Sending...';
+  btn.disabled=true;
+  btn.style.opacity='.7';
+  status.style.display='none';
+
+  try{
+    const formData=new FormData();
+    formData.append('access_key','6885d7c0-4193-47f9-8aa9-bd5405142437');
+    formData.append('subject','Portfolio Contact from '+name);
+    formData.append('name',name);
+    formData.append('email',email);
+    formData.append('message',message);
+
+    const res=await fetch('https://api.web3forms.com/submit',{method:'POST',body:formData});
+    const data=await res.json();
+
+    if(res.ok&&data.success){
+      status.style.display='block';
+      status.style.background='rgba(0,255,157,.08)';
+      status.style.border='1px solid rgba(0,255,157,.3)';
+      status.style.color='var(--green)';
+      status.textContent=(lang==='ar')?'✓ تم إرسال رسالتك بنجاح، هرد عليك خلال 24 ساعة.':'✓ Message sent successfully. I\'ll reply within 24 hours.';
+      document.getElementById('contactForm').reset();
+    }else{
+      throw new Error(data.message||'Send failed');
+    }
+  }catch(err){
+    status.style.display='block';
+    status.style.background='rgba(255,51,102,.08)';
+    status.style.border='1px solid rgba(255,51,102,.3)';
+    status.style.color='var(--red)';
+    status.textContent=(lang==='ar')?'✗ حصل خطأ، جرب تاني أو تواصل مباشرة عبر واتساب.':'✗ Something went wrong. Please try again or contact via WhatsApp.';
+  }finally{
+    label.textContent=originalLabel;
+    btn.disabled=false;
+    btn.style.opacity='1';
+  }
   return false;
 }
 
