@@ -328,25 +328,21 @@ nav.scrolled .nav-inner{height:56px;background:rgba(2,5,8,.92);border-bottom-col
 .py-item .py-icon{color:#facc15;}
 
 /* CERTS */
-.certs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem;}
-.cert-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column;}
-.cert-view-btn{margin-top:1rem;align-self:flex-start;background:rgba(0,240,255,.06);border:1px solid var(--border3);color:var(--cyan);font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.55rem 1rem;border-radius:6px;cursor:none;transition:all .25s;}
-.cert-view-btn:hover{background:rgba(0,240,255,.14);box-shadow:0 0 20px rgba(0,240,255,.15);}
-.cert-modal{display:none;position:fixed;inset:0;z-index:20000;background:rgba(2,5,8,.88);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:2rem;}
-.cert-modal.open{display:flex;}
-.cert-modal-inner{width:100%;max-width:900px;height:88vh;background:var(--card);border:1px solid var(--border3);border-radius:var(--r);box-shadow:var(--glow-cyan);display:flex;flex-direction:column;overflow:hidden;}
-.cert-modal-header{display:flex;align-items:center;justify-content:space-between;padding:.9rem 1.25rem;border-bottom:1px solid var(--border);flex:0 0 auto;}
-.cert-modal-title{font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--t1);}
-.cert-modal-close{background:rgba(255,51,102,.08);border:1px solid rgba(255,51,102,.3);color:var(--red);width:32px;height:32px;border-radius:50%;cursor:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.cert-modal-close:hover{background:rgba(255,51,102,.18);}
-.cert-modal-frame{flex:1 1 auto;width:100%;border:none;background:#fff;}
-@media(max-width:640px){.cert-modal{padding:.75rem;}.cert-modal-inner{height:92vh;}}
-.cert-card:hover{border-color:var(--border2);transform:translateY(-3px);}
-.cert-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--purple),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .4s;}
-.cert-card:hover::before{transform:scaleX(1);}
-.cert-issuer{font-family:var(--mono);font-size:.6rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.5rem;}
-.cert-name{font-family:var(--display);font-size:.95rem;font-weight:700;color:var(--t1);line-height:1.4;margin-bottom:.5rem;}
-.cert-date{font-family:var(--mono);font-size:.65rem;color:var(--t3);}
+.certs-list{display:flex;flex-direction:column;gap:2.5rem;}
+.cert-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .3s;}
+.cert-block:hover{border-color:var(--border2);}
+.cert-block-header{padding:1.75rem 1.75rem 1.5rem;border-bottom:1px solid var(--border);}
+.cert-issuer{font-family:var(--mono);font-size:.65rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.6rem;}
+.cert-name{font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--t1);line-height:1.4;margin-bottom:.5rem;}
+.cert-date{font-family:var(--mono);font-size:.7rem;color:var(--t3);margin-bottom:1rem;}
+.cert-desc{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;}
+.cert-desc li{font-size:.85rem;color:var(--t2);line-height:1.65;padding-inline-start:1.1rem;position:relative;}
+.cert-desc li::before{content:'—';position:absolute;left:0;color:var(--cyan);}
+html[dir="rtl"] .cert-desc li::before{left:auto;right:0;}
+html[dir="rtl"] .cert-desc li{padding-inline-start:0;padding-inline-end:1.1rem;}
+.cert-embed{display:block;width:100%;height:80vh;border:none;background:#fff;}
+@media(max-width:640px){.cert-embed{height:60vh;}.cert-block-header{padding:1.25rem;}}
+
 
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
@@ -807,39 +803,45 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
   <div class="section-inner">
     <div class="section-label reveal" data-en="Certifications" data-ar="الشهادات">Certifications</div>
     <h2 class="section-title reveal" data-en="Certified &amp; Trained" data-ar="معتمد ومدرب">Certified &amp; Trained</h2>
-    <div class="certs-grid">
-      <div class="cert-card reveal">
-        <div class="cert-issuer">Autodesk</div>
-        <div class="cert-name" data-en="Autodesk Revit MEP Professional (Revit 2024)" data-ar="أوتوديسك ريفيت MEP احترافي (ريفيت 2024)">Autodesk Revit MEP Professional (Revit 2024)</div>
-        <div class="cert-date">September 2025 · CAD Masters Training & Solutions · 25–32 Hours</div>
-        <button class="cert-view-btn" onclick="openCert('cert-autodesk-revit-mep.pdf','Autodesk Revit MEP Professional')" data-en="👁 View Certificate" data-ar="👁 عرض الشهادة">👁 View Certificate</button>
+    <div class="certs-list">
+      <div class="cert-block reveal">
+        <div class="cert-block-header">
+          <div class="cert-issuer">Dubai Future Foundation — Dubai Centre for Artificial Intelligence</div>
+          <div class="cert-name" data-en="Prompt Engineering Certification — One Million Prompters Initiative" data-ar="شهادة هندسة البرومبت — مبادرة مليون مبرمج">Prompt Engineering Certification — One Million Prompters Initiative</div>
+          <div class="cert-date">January 2025</div>
+          <ul class="cert-desc">
+            <li data-en="Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence." data-ar="مبادرة حكومية معتمدة في الذكاء الاصطناعي، تركز على أساسيات هندسة البرومبت والتفاعل الفعّال مع نماذج اللغة، بما يتماشى مع مخطط دبي العالمي للذكاء الاصطناعي.">Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence.</li>
+          </ul>
+        </div>
+        <iframe class="cert-embed" src="cert-prompt-engineering.pdf" title="Prompt Engineering Certificate"></iframe>
       </div>
-      <div class="cert-card reveal">
-        <div class="cert-issuer">Dubai Future Foundation</div>
-        <div class="cert-name" data-en="Prompt Engineering — One Million Prompters Initiative" data-ar="هندسة البرومبت — مبادرة مليون مبرمج">Prompt Engineering — One Million Prompters Initiative</div>
-        <div class="cert-date">January 2025 · Dubai Centre for Artificial Intelligence</div>
-        <button class="cert-view-btn" onclick="openCert('cert-prompt-engineering.pdf','Prompt Engineering Certificate')" data-en="👁 View Certificate" data-ar="👁 عرض الشهادة">👁 View Certificate</button>
+
+      <div class="cert-block reveal">
+        <div class="cert-block-header">
+          <div class="cert-issuer">Autodesk Authorized Training Center — CAD Masters Training & Solutions</div>
+          <div class="cert-name" data-en="Autodesk Revit MEP Professional (Revit 2024)" data-ar="أوتوديسك ريفيت MEP احترافي (ريفيت 2024)">Autodesk Revit MEP Professional (Revit 2024)</div>
+          <div class="cert-date">September 2025 · 25–32 Hours</div>
+          <ul class="cert-desc">
+            <li data-en="Includes Revit Family Creation & Parametric Modeling." data-ar="تشمل إنشاء العائلات البارامترية في ريفيت والنمذجة البارامترية.">Includes Revit Family Creation & Parametric Modeling.</li>
+          </ul>
+        </div>
+        <iframe class="cert-embed" src="cert-autodesk-revit-mep.pdf" title="Autodesk Revit MEP Professional Certificate"></iframe>
       </div>
-      <div class="cert-card reveal">
-        <div class="cert-issuer">M3aarf Education Platform</div>
-        <div class="cert-name" data-en="Professional Development Diploma — Digital, AI & Design Tools" data-ar="دبلومة التطوير المهني — الرقمي والذكاء الاصطناعي وأدوات التصميم">Professional Development Diploma — Digital, AI & Design Tools</div>
-        <div class="cert-date">Jan 2024 – Apr 2026 · 8 Courses · 87 Total Hours</div>
-        <button class="cert-view-btn" onclick="openCert('cert-m3aarf-diploma.pdf','Professional Development Diploma')" data-en="👁 View Certificate" data-ar="👁 عرض الشهادة">👁 View Certificate</button>
+
+      <div class="cert-block reveal">
+        <div class="cert-block-header">
+          <div class="cert-issuer">M3aarf Education Platform</div>
+          <div class="cert-name" data-en="Professional Development Diploma — Digital, AI & Design Tools" data-ar="دبلومة التطوير المهني — الرقمي والذكاء الاصطناعي وأدوات التصميم">Professional Development Diploma — Digital, AI & Design Tools</div>
+          <div class="cert-date">January 2024 – April 2026 · 8 Courses · 87 Total Hours</div>
+          <ul class="cert-desc">
+            <li data-en="Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design." data-ar="مسار متعدد الكورسات يشمل: عروض تقديمية بالذكاء الاصطناعي (PowerPoint وGoogle Slides)، تصميم الشعارات والهوية البصرية، الرسم الهندسي 2D/3D بالأوتوكاد، تصميم مستندات الوورد، كتابة المقالات بالذكاء الاصطناعي (عربي/إنجليزي)، ChatGPT للإنتاجية وصناعة المحتوى، تصميم مواقع الويب بالذكاء الاصطناعي (UI/UX)، وتوليد الصور والفيديو بالذكاء الاصطناعي.">Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design.</li>
+          </ul>
+        </div>
+        <iframe class="cert-embed" src="cert-m3aarf-diploma.pdf" title="Professional Development Diploma Certificate"></iframe>
       </div>
     </div>
   </div>
 </section>
-
-<!-- CERT MODAL -->
-<div id="certModal" class="cert-modal" onclick="if(event.target===this)closeCert()">
-  <div class="cert-modal-inner">
-    <div class="cert-modal-header">
-      <span id="certModalTitle" class="cert-modal-title"></span>
-      <button class="cert-modal-close" onclick="closeCert()" aria-label="Close certificate viewer">✕</button>
-    </div>
-    <iframe id="certModalFrame" class="cert-modal-frame" src="" title="Certificate preview"></iframe>
-  </div>
-</div>
 
 <hr class="section-hr"/>
 
@@ -973,22 +975,6 @@ function renderProjs(){
   g.innerHTML=list.map(p=>`<div class="proj-card"><div class="proj-dot"></div><div><div class="proj-name">${p.n}</div><div class="proj-type">${p.t}</div></div></div>`).join('');
 }
 renderProjs();
-
-/* ── CERT MODAL ── */
-function openCert(src,title){
-  const modal=document.getElementById('certModal');
-  document.getElementById('certModalFrame').src=src;
-  document.getElementById('certModalTitle').textContent=title;
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closeCert(){
-  const modal=document.getElementById('certModal');
-  modal.classList.remove('open');
-  document.getElementById('certModalFrame').src='';
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCert();});
 
 /* ── CONTACT FORM ── */
 async function sendContactForm(e){
