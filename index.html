@@ -423,7 +423,7 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 }
 </style>
 </head>
-<body>
+<body class="day-mode">
 
 <div id="cursor"><div id="cursor-dot"></div><div id="cursor-ring"></div></div>
 
@@ -466,10 +466,9 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
       <a href="#contact" class="nav-link" data-en="Contact" data-ar="تواصل">Contact</a>
     </div>
     <div class="nav-right">
-      <div class="nav-status"><div class="nav-status-dot"></div><span data-en="Open to Work" data-ar="متاح للعمل">Open to Work</span></div>
       <a href="https://wa.me/201030715866" target="_blank" class="wa-btn" aria-label="Contact via WhatsApp"><div class="wa-pulse"></div>💬</a>
       <button class="lang-toggle" onclick="toggleLang()" id="langBtn" aria-label="Switch language to Arabic">AR</button>
-      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle dark/light theme"><span id="themeIcon">🌙</span></button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle dark/light theme"><span id="themeIcon">☀️</span></button>
       <a href="Ziad_Anter_CV.pdf" download class="btn-cta"><span data-en="⬇ Download CV" data-ar="⬇ تحميل السيفي">⬇ Download CV</span></a>
     </div>
   </div>
@@ -526,7 +525,6 @@ footer{background:var(--bg2);border-top:1px solid var(--border);position:relativ
 <!-- LIVE DASH -->
 <div class="live-dash">
   <div class="live-dash-inner">
-    <div class="live-item"><div class="live-dot green"></div><span data-en="Status:" data-ar="الحالة:">Status:</span> <span class="live-val" data-en="Open to Work" data-ar="متاح للعمل">Open to Work</span></div>
     <div class="live-item"><div class="live-dot cyan"></div><span data-en="Location:" data-ar="الموقع:">Location:</span> <span class="live-val">Cairo, Egypt</span></div>
     <div class="live-item"><div class="live-dot purple"></div><span data-en="BimzTools:" data-ar="بيمز تولز:">BimzTools:</span> <span class="live-val" data-en="11 Tools · Revit 2020–2027" data-ar="11 أداة · ريفيت 2020–2027">11 Tools · Revit 2020–2027</span></div>
     <div class="live-item"><div class="live-dot orange"></div><span data-en="Projects Delivered:" data-ar="المشاريع المنجزة:">Projects Delivered:</span> <span class="live-val">25+</span></div>
@@ -1073,7 +1071,12 @@ function toggleTheme(){
   document.getElementById('themeIcon').textContent=document.body.classList.contains('day-mode')?'☀️':'🌙';
   localStorage.setItem('za-theme',document.body.classList.contains('day-mode')?'day':'night');
 }
-(()=>{if(localStorage.getItem('za-theme')==='day'){document.body.classList.add('day-mode');document.getElementById('themeIcon').textContent='☀️';}})();
+(()=>{
+  if(localStorage.getItem('za-theme')==='night'){
+    document.body.classList.remove('day-mode');
+    document.getElementById('themeIcon').textContent='🌙';
+  }
+})();
 
 /* ── LANG ── */
 let lang='en';
