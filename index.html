@@ -1710,6 +1710,46 @@ const obs=new IntersectionObserver(entries=>{
   });
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* ── BACKGROUND MUSIC (autoplay + always looping while visitor is on the site) ── */
+(()=>{
+  const audio = document.createElement('audio');
+  audio.id = 'bgMusic';
+  audio.src = 'MUSIC.mp3';
+  audio.loop = true;
+  audio.preload = 'auto';
+  audio.volume = 1;
+  document.body.appendChild(audio);
+
+  function tryPlay(){
+    const p = audio.play();
+    if(p !== undefined){
+      p.catch(()=>{ armUnlockListeners(); });
+    }
+  }
+
+  function armUnlockListeners(){
+    const events = ['click','touchstart','keydown','scroll','mousemove'];
+    const unlock = ()=>{
+      audio.play().catch(()=>{});
+      events.forEach(ev=>document.removeEventListener(ev, unlock));
+    };
+    events.forEach(ev=>document.addEventListener(ev, unlock, {once:true, passive:true}));
+  }
+
+  // Keep it playing no matter what: if it ever stops/pauses/ends
+  // (loop should prevent 'ended', but this covers any edge case),
+  // and if the tab regains visibility, make sure it's still going.
+  audio.addEventListener('ended', ()=>{ audio.currentTime = 0; audio.play().catch(()=>{}); });
+  audio.addEventListener('pause', ()=>{
+    if(!document.hidden){ audio.play().catch(()=>{}); }
+  });
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden && audio.paused){ audio.play().catch(()=>{}); }
+  });
+
+  tryPlay();
+})();
 </script>
 </body>
 </html>
