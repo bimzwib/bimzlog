@@ -345,23 +345,6 @@ body.day-mode nav.scrolled .nav-inner{background:rgba(238,243,250,.92);}
 .py-item{display:flex;align-items:center;gap:.75rem;padding:.55rem .9rem;background:rgba(26,86,219,.03);border:1px solid var(--border);border-radius:var(--rs);font-family:var(--mono);font-size:.72rem;color:var(--t2);}
 .py-item .py-icon{color:#facc15;}
 
-/* CERTS */
-.certs-list{display:flex;flex-direction:column;gap:2.5rem;}
-.cert-block{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color .3s;}
-.cert-block:hover{border-color:var(--border2);}
-.cert-block-header{padding:1.75rem 1.75rem 1.5rem;border-bottom:1px solid var(--border);}
-.cert-issuer{font-family:var(--mono);font-size:.65rem;color:var(--cyan);text-transform:uppercase;letter-spacing:.15em;margin-bottom:.6rem;}
-.cert-name{font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--t1);line-height:1.4;margin-bottom:.5rem;}
-.cert-date{font-family:var(--mono);font-size:.7rem;color:var(--t3);margin-bottom:1rem;}
-.cert-desc{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem;}
-.cert-desc li{font-size:.85rem;color:var(--t2);line-height:1.65;padding-inline-start:1.1rem;position:relative;}
-.cert-desc li::before{content:'—';position:absolute;left:0;color:var(--cyan);}
-html[dir="rtl"] .cert-desc li::before{left:auto;right:0;}
-html[dir="rtl"] .cert-desc li{padding-inline-start:0;padding-inline-end:1.1rem;}
-.cert-embed{display:block;width:100%;height:80vh;border:none;background:#fff;}
-@media(max-width:640px){.cert-embed{height:60vh;}.cert-block-header{padding:1.25rem;}}
-
-
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;}
 .contact-links{display:flex;flex-direction:column;gap:.75rem;}
@@ -599,8 +582,6 @@ body.fx-scrolled .nav-inner{box-shadow:0 10px 30px rgba(10,31,68,.12)}
 .exp-li,.contact-link-item,.footer-col-links a{transition:translate .3s,color .3s,border-color .3s,background .3s,box-shadow .3s}
 .exp-li:hover,.contact-link-item:hover{translate:6px 0}
 .footer-col-links a{display:inline-block}.footer-col-links a:hover{translate:5px 0}
-.cert-block{transition:border-color .3s,transform .35s,box-shadow .35s}
-.cert-block:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(26,86,219,.16)}
 .social-btn-lg{transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s}
 .social-btn-lg:hover{transform:translateY(-5px) scale(1.06);box-shadow:0 12px 26px rgba(10,31,68,.2)}
 .ftag,.badge{transition:transform .25s,background .25s,color .25s}.ftag:hover,.badge:hover{transform:translateY(-2px) scale(1.05)}
@@ -622,6 +603,67 @@ body.loaded #bim3d{opacity:1}
 .b3-legend i{width:8px;height:8px;border-radius:2px;background:var(--c);margin-left:.4rem}
 @keyframes b3Live{70%{box-shadow:0 0 0 8px rgba(5,150,105,0)}100%{box-shadow:0 0 0 0 rgba(5,150,105,0)}}
 @media(max-width:900px){#bim3d{opacity:.55!important}.b3-legend{display:none}#bim3d::before{left:50%;top:30%;width:420px;height:420px}}
+
+/* BCF CONVERTER – converter palette */
+#bcfconverter .bcf-grad{display:inline-block;background:linear-gradient(110deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0891b2,#1a56db);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:bcfsh 6s linear infinite}
+@keyframes bcfsh{to{background-position:300% center}}
+#bcfconverter .bim-terminal{background:#0a1f44;border:1px solid #c5d8ef;box-shadow:0 14px 36px rgba(10,31,68,.18)}
+#bcfconverter .bim-terminal .out-green{color:#059669}
+#bcfconverter .bcf-card{position:relative;overflow:hidden;border-left:3px solid var(--c);box-shadow:0 14px 36px rgba(10,31,68,.08);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 6%,#fff),#fff 60%)}
+#bcfconverter .bcf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0d9488)}
+#bcfconverter .bcf-card:hover{border-color:var(--c);box-shadow:0 18px 40px color-mix(in srgb,var(--c) 28%,transparent)}
+#bcfconverter .bcf-ic{background:color-mix(in srgb,var(--c) 10%,#fff);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+#bcfconverter .bcf-badge{background:color-mix(in srgb,var(--c) 12%,#fff);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
+#bcfconverter .bcf-card .tc-compat span{color:var(--c)}
+#bcfconverter .bcf-card .tc-bar{background:var(--c)}
+#bcfconverter .bcf-btn{background:linear-gradient(120deg,#1a56db,#6d28d9,#db2777);background-size:200% auto;color:#fff;border:0;transition:.3s}
+#bcfconverter .bcf-btn:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 14px 30px rgba(219,39,119,.35)}
+
+/* ===== SITE-WIDE PALETTE — matches BCF Converter ===== */
+:root{--pink:#db2777;--teal:#0d9488;--indigo:#4f46e5;--yellow:#ca8a04;
+--rb:linear-gradient(90deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0d9488);
+--g3:linear-gradient(135deg,#1a56db,#6d28d9,#db2777);
+--rbt:linear-gradient(110deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0891b2,#1a56db);}
+::-webkit-scrollbar-thumb{background:linear-gradient(#1a56db,#6d28d9,#db2777);}
+/* gradient accents: blue → purple → pink */
+.logo-mark{background:linear-gradient(135deg,rgba(26,86,219,.15),rgba(109,40,217,.15),rgba(219,39,119,.15));}
+.logo-mark::after{background:var(--g3);}
+.logo-mark span,.loader-logo-text,.logo-name .logo-z{background:var(--g3);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hc-bignum{background:linear-gradient(135deg,#1a56db,#6d28d9,#db2777);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.h1-main{background:var(--rbt);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shimmer 6s linear infinite;}
+.section-title span[style*="var(--cyan)"]{background:var(--rbt);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:bcfsh 6s linear infinite}
+.loader-bar,.tc-bar,.skill-bar-fill,.video-title::after,.big-card::before,.cm-c.cm-gt{background:linear-gradient(90deg,#1a56db,#6d28d9,#db2777);}
+.cm-c.cm-gt{background:linear-gradient(135deg,#1a56db,#6d28d9,#db2777);}
+#fx-progress{background:var(--rb);}
+.holo-card::before{background:linear-gradient(90deg,transparent,#1a56db,#6d28d9,#db2777,transparent);}
+.holo-scan{background:linear-gradient(90deg,transparent,rgba(219,39,119,.6),transparent);}
+.hero-r::before{background:radial-gradient(circle,rgba(26,86,219,.14),rgba(219,39,119,.08) 40%,transparent 70%);}
+.live-dash{background:linear-gradient(90deg,rgba(26,86,219,.03),rgba(219,39,119,.04),rgba(26,86,219,.03));}
+/* buttons */
+.btn-primary,.btn-cta,.cf-submit,.ig-num{background:linear-gradient(120deg,#1a56db,#6d28d9,#db2777);background-size:200% auto;border-color:transparent;}
+.btn-primary:hover,.btn-cta:hover,.cf-submit:hover{background-position:100% 0;box-shadow:0 14px 30px rgba(219,39,119,.35);}
+.btn-primary::before{background:linear-gradient(120deg,#6d28d9,#db2777);}
+.btn-secondary{border-color:var(--navy);}
+/* cards: rainbow top bar */
+.tool-card::after,.exp-card::before,.cm-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--rb);z-index:2;pointer-events:none;}
+.exp-card::after{background:linear-gradient(180deg,#1a56db,#6d28d9,#db2777);}
+.tool-card,.exp-card,.cm-card{box-shadow:0 14px 36px rgba(10,31,68,.08);}
+.tool-card:hover{border-color:rgba(109,40,217,.45);box-shadow:0 20px 50px rgba(109,40,217,.16);}
+.proj-dot{background:var(--pink);}
+.proj-card:nth-child(4n+1) .proj-dot{background:#1a56db}.proj-card:nth-child(4n+2) .proj-dot{background:#db2777}.proj-card:nth-child(4n+3) .proj-dot{background:#059669}.proj-card:nth-child(4n) .proj-dot{background:#d97706}
+.section-hr{background:linear-gradient(90deg,transparent,#1a56db,#6d28d9,#db2777,transparent);height:2px;opacity:.35;}
+/* per-section accent colour (like the converter's // labels) */
+#about{--c:#1a56db}#bimztools{--c:#db2777}#lisp{--c:#d97706}#navistools{--c:#059669}#clashmatrix{--c:#6d28d9}
+#bcfconverter{--c:#db2777}#templates{--c:#0d9488}#tutorials{--c:#dc2626}#experience{--c:#1a56db}#contact{--c:#6d28d9}
+.section .section-label{color:var(--c,#1a56db);}
+.section .section-label::after{background:linear-gradient(90deg,var(--c,#1a56db),transparent);}
+.exp-company,.skill-pct,.nav-link:hover,.nav-link.active{color:var(--c,#1a56db);}
+.nav-link::after{background:linear-gradient(90deg,#1a56db,#db2777);box-shadow:none;}
+.nav-link:hover,.nav-link.active{color:#6d28d9;}
+.skill-row:nth-child(5n+2) .skill-bar-fill{background:linear-gradient(90deg,#6d28d9,#db2777)}
+.skill-row:nth-child(5n+3) .skill-bar-fill{background:linear-gradient(90deg,#db2777,#d97706)}
+.skill-row:nth-child(5n+4) .skill-bar-fill{background:linear-gradient(90deg,#059669,#0d9488)}
+.skill-row:nth-child(5n) .skill-bar-fill{background:linear-gradient(90deg,#d97706,#059669)}
 </style>
 </head>
 <body class="day-mode">
@@ -662,6 +704,7 @@ body.loaded #bim3d{opacity:1}
       <a href="#bimztools" class="nav-link" data-en="Revit BimzTools" data-hi="रिविट बिमज़ टूल्स">Revit BimzTools</a>
       <a href="#navistools" class="nav-link" data-en="Navis BimzTools" data-hi="नेविस बिमज़ टूल्स">Navis BimzTools</a>
       <a href="#clashmatrix" class="nav-link" data-en="Clash Matrix" data-hi="क्लैश मैट्रिक्स">Clash Matrix</a>
+      <a href="#bcfconverter" class="nav-link" data-en="BCF Converter" data-hi="BCF कन्वर्टर">BCF Converter</a>
       <a href="#lisp" class="nav-link" data-en="AutoCAD LISP" data-hi="ऑटोकैड लिस्प">AutoCAD LISP</a>
       <a href="#templates" class="nav-link" data-en="Templates" data-hi="टेम्प्लेट्स">Templates</a>
       <a href="#tutorials" class="nav-link" data-en="Tutorials" data-hi="ट्यूटोरियल">Tutorials</a>
@@ -1355,6 +1398,62 @@ body.loaded #bim3d{opacity:1}
 
 <hr class="section-hr"/>
 
+<!-- BIMZ BCF CONVERTER -->
+<section class="section" id="bcfconverter" style="background:var(--bg2);">
+  <div class="section-inner">
+    <div class="section-label reveal" style="color:var(--pink,#db2777)">BIMZ BCF Converter</div>
+    <h2 class="section-title reveal"><span style="color:var(--navy)" data-en="BIMZ BCF CONVERTER" data-hi="BIMZ BCF कन्वर्टर">BIMZ BCF CONVERTER</span><br><span class="bcf-grad" data-en="ACC Issues &#8594; Navisworks Viewpoints" data-hi="ACC इश्यूज़ &#8594; Navisworks व्यूपॉइंट्स">ACC Issues &#8594; Navisworks Viewpoints</span></h2>
+    <p class="section-desc reveal" data-en="A web tool that takes the BCF files exported from Autodesk Construction Cloud (ACC) and converts them into Navisworks XML. Import the XML into Navisworks and every ACC issue becomes a Saved Viewpoint, named after the issue &#8212; with its camera, comments and issue details. Built by ZIAD ANTER." data-hi="यह एक वेब टूल है जो Autodesk Construction Cloud (ACC) से निकाली गई BCF फ़ाइलों को Navisworks XML में बदलता है। XML को Navisworks में इम्पोर्ट करें और हर ACC इश्यू उसी के नाम से एक Saved Viewpoint बन जाता है।">A web tool that takes the BCF files exported from Autodesk Construction Cloud (ACC) and converts them into Navisworks XML. Import the XML into Navisworks and every ACC issue becomes a Saved Viewpoint, named after the issue &#8212; with its camera, comments and issue details. Built by ZIAD ANTER.</p>
+
+    <!-- BCF TERMINAL -->
+    <div class="bim-terminal reveal">
+      <div class="bim-terminal-header">
+        <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
+        <div class="term-title">BimzViewpoints &#8212; console</div>
+      </div>
+      <div class="bim-terminal-body">
+        <div class="term-line" style="animation-delay:.1s"><span class="prompt">$</span><span class="cmd">BimzViewpoints.exe --init</span></div>
+        <div class="term-line" style="animation-delay:.35s"><span class="prompt">&#10003;</span><span class="out-green">BCF reader (2.x / 3.0) ............. loaded</span></div>
+        <div class="term-line" style="animation-delay:.6s"><span class="prompt">&#10003;</span><span class="out-green">Camera &#8594; quaternion converter ..... loaded</span></div>
+        <div class="term-line" style="animation-delay:.85s"><span class="prompt">&#10003;</span><span class="out-green">Comments &amp; issue details ........... loaded</span></div>
+        <div class="term-line" style="animation-delay:1.1s"><span class="prompt">&#10003;</span><span class="out-green">Ready &#183; waiting for .bcf files</span></div>
+        <div class="term-line" style="animation-delay:1.35s"><span class="prompt">$</span><span class="cmd"><span class="term-cursor"></span></span></div>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card bcf-card reveal" style="--c:#1a56db" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#128193;</div><div class="tc-badges"><span class="badge bcf-badge">Step 1</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Upload BCF</div>
+        <div class="tc-desc">Drop one or many .bcf files exported from ACC straight into the page. Supports BCF 2.x and 3.0 &#8212; no install, everything runs in your browser.</div>
+        <div class="tc-compat">ACC Export &#183; <span>Multiple Files</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card bcf-card reveal" style="--c:#db2777" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#9889;</div><div class="tc-badges"><span class="badge bcf-badge">Step 2</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Convert to XML</div>
+        <div class="tc-desc">Camera position, direction and FOV are converted for Navisworks. Set model units, X/Y/Z offsets, far plane and the viewpoint naming format (e.g. Number &#8211; Title), and optionally add the issue details as the first comment.</div>
+        <div class="tc-compat">Camera &#8594; Quaternion &#183; <span>Offsets &amp; Units</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card bcf-card reveal" style="--c:#059669" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#127919;</div><div class="tc-badges"><span class="badge bcf-badge">Step 3</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Viewpoints in Navisworks</div>
+        <div class="tc-desc">Import the downloaded XML into Navisworks and each ACC issue appears as a Saved Viewpoint named after the issue. One folder per BCF file keeps everything organised, ordered by issue number.</div>
+        <div class="tc-compat">Navisworks &#183; <span>Saved Viewpoints</span></div>
+        <div class="tc-bar"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;" class="reveal">
+      <a href="https://bcf-converter.vercel.app/" target="_blank" rel="noopener" class="btn-primary bcf-btn"><span>&#8599;</span><span data-en="Open BIMZ BCF Converter" data-hi="BIMZ BCF Converter खोलें">Open BIMZ BCF Converter</span></a>
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);">bcf-converter.vercel.app &#183; ACC &#8594; Navisworks &#183; ZIAD ANTER</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-hr"/>
+
 <!-- PORTFOLIO -->
 <!-- PROJECT TEMPLATES -->
 <section class="section" id="templates">
@@ -1553,53 +1652,6 @@ body.loaded #bim3d{opacity:1}
           </div>
           <div style="margin-top:1.5rem;font-family:var(--mono);font-size:.65rem;color:var(--t3);letter-spacing:.12em;text-transform:uppercase;">MEP BIM · Coordination · Automation · LOD 100 TO 500</div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="section-hr"/>
-
-<!-- CERTS -->
-<section class="section" id="certs" style="background:var(--bg2);">
-  <div class="section-inner">
-    <div class="section-label reveal" data-en="Certifications" data-hi="प्रमाणपत्र">Certifications</div>
-    <h2 class="section-title reveal" data-en="Certified &amp; Trained" data-hi="प्रमाणित और प्रशिक्षित">Certified &amp; Trained</h2>
-    <div class="certs-list">
-      <div class="cert-block reveal">
-        <div class="cert-block-header">
-          <div class="cert-issuer">Autodesk Authorized Training Center — CAD Masters Training & Solutions</div>
-          <div class="cert-name" data-en="Autodesk Revit MEP Professional (Revit 2024)" data-hi="ऑटोडेस्क रिविट एमईपी प्रोफेशनल (रिविट 2024)">Autodesk Revit MEP Professional (Revit 2024)</div>
-          <div class="cert-date">September 2025 · 25–32 Hours</div>
-          <ul class="cert-desc">
-            <li data-en="Includes Revit Family Creation & Parametric Modeling." data-hi="इसमें रिविट फ़ैमिली क्रिएशन और पैरामेट्रिक मॉडलिंग शामिल है।">Includes Revit Family Creation & Parametric Modeling.</li>
-          </ul>
-        </div>
-        <iframe class="cert-embed" src="cert-autodesk-revit-mep.pdf" title="Autodesk Revit MEP Professional Certificate"></iframe>
-      </div>
-
-      <div class="cert-block reveal">
-        <div class="cert-block-header">
-          <div class="cert-issuer">Dubai Future Foundation — Dubai Centre for Artificial Intelligence</div>
-          <div class="cert-name" data-en="Prompt Engineering Certification — One Million Prompters Initiative" data-hi="प्रॉम्प्ट इंजीनियरिंग सर्टिफिकेशन — वन मिलियन प्रॉम्प्टर्स इनिशिएटिव">Prompt Engineering Certification — One Million Prompters Initiative</div>
-          <div class="cert-date">January 2025</div>
-          <ul class="cert-desc">
-            <li data-en="Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence." data-hi="सरकार-मान्यता प्राप्त एआई पहल, जो प्रॉम्प्ट इंजीनियरिंग सिद्धांतों और एआई भाषा मॉडल्स के साथ प्रभावी संपर्क पर केंद्रित है, दुबई यूनिवर्सल ब्लूप्रिंट फ़ॉर आर्टिफिशियल इंटेलिजेंस के अनुरूप।">Government-accredited AI initiative focused on Prompt Engineering principles and effective interaction with AI language models, in alignment with the Dubai Universal Blueprint for Artificial Intelligence.</li>
-          </ul>
-        </div>
-        <iframe class="cert-embed" src="cert-prompt-engineering.pdf" title="Prompt Engineering Certificate"></iframe>
-      </div>
-
-      <div class="cert-block reveal">
-        <div class="cert-block-header">
-          <div class="cert-issuer">M3aarf Education Platform</div>
-          <div class="cert-name" data-en="Professional Development Diploma — Digital, AI & Design Tools" data-hi="प्रोफेशनल डेवलपमेंट डिप्लोमा — डिजिटल, एआई और डिज़ाइन टूल्स">Professional Development Diploma — Digital, AI & Design Tools</div>
-          <div class="cert-date">January 2024 – April 2026 · 8 Courses · 87 Total Hours</div>
-          <ul class="cert-desc">
-            <li data-en="Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design." data-hi="संरचित मल्टी-कोर्स ट्रैक जिसमें शामिल है: एआई-संचालित प्रेज़ेंटेशन (पावरपॉइंट और गूगल स्लाइड्स); लोगो और ब्रांडिंग डिज़ाइन; ऑटोकैड 2D/3D ड्राफ्टिंग; माइक्रोसॉफ्ट वर्ड डॉक्यूमेंट डिज़ाइन; एआई-संचालित अरबी/अंग्रेज़ी लेखन; प्रोडक्टिविटी और कंटेंट क्रिएशन के लिए ChatGPT; एआई-संचालित वेब डिज़ाइन (UI/UX और स्मार्ट फीचर्स); और एआई इमेज/वीडियो जनरेशन व डिज़ाइन।">Structured multi-course track covering: AI-powered presentations (PowerPoint & Google Slides); Logo & Branding Design; AutoCAD 2D/3D Drafting; Microsoft Word document design; AI-powered Arabic/English article writing; ChatGPT for productivity & content creation; AI-powered web design (UI/UX & smart features); and AI image/video generation & design.</li>
-          </ul>
-        </div>
-        <iframe class="cert-embed" src="cert-m3aarf-diploma.pdf" title="Professional Development Diploma Certificate"></iframe>
       </div>
     </div>
   </div>
@@ -2061,7 +2113,7 @@ document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
   // extra reveal targets (always-visible blocks only)
-  document.querySelectorAll('.exp-li,.cert-block,.contact-link-item,.skill-row,.footer-top>div').forEach((el,i)=>{
+  document.querySelectorAll('.exp-li,.contact-link-item,.skill-row,.footer-top>div').forEach((el,i)=>{
     if(!el.classList.contains('reveal')){el.classList.add('reveal');el.style.setProperty('--d',((i%5)*90)+'ms');}
     new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.disconnect();}}),{threshold:.1}).observe(el);
   });
