@@ -619,6 +619,21 @@ body.loaded #bim3d{opacity:1}
 #bcfconverter .bcf-btn{background:linear-gradient(120deg,#1a56db,#6d28d9,#db2777);background-size:200% auto;color:#fff;border:0;transition:.3s}
 #bcfconverter .bcf-btn:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 14px 30px rgba(219,39,119,.35)}
 
+/* HTML → XML CONVERTER – same palette as BCF converter */
+#htmlconverter .bcf-grad{display:inline-block;background:linear-gradient(110deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0891b2,#1a56db);background-size:300% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:bcfsh 6s linear infinite}
+#htmlconverter .bim-terminal{background:#0a1f44;border:1px solid #c5d8ef;box-shadow:0 14px 36px rgba(10,31,68,.18)}
+#htmlconverter .bim-terminal .out-green{color:#059669}
+#htmlconverter .bcf-card{position:relative;overflow:hidden;border-left:3px solid var(--c);box-shadow:0 14px 36px rgba(10,31,68,.08);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 6%,#fff),#fff 60%)}
+#htmlconverter .bcf-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0d9488)}
+#htmlconverter .bcf-card:hover{border-color:var(--c);box-shadow:0 18px 40px color-mix(in srgb,var(--c) 28%,transparent)}
+#htmlconverter .bcf-ic{background:color-mix(in srgb,var(--c) 10%,#fff);border:1px solid color-mix(in srgb,var(--c) 30%,transparent)}
+#htmlconverter .bcf-badge{background:color-mix(in srgb,var(--c) 12%,#fff);color:var(--c);border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
+#htmlconverter .bcf-card .tc-compat span{color:var(--c)}
+#htmlconverter .bcf-card .tc-bar{background:var(--c)}
+#htmlconverter .bcf-btn{background:linear-gradient(120deg,#1a56db,#6d28d9,#db2777);background-size:200% auto;color:#fff;border:0;transition:.3s}
+#htmlconverter .bcf-btn:hover{background-position:100% 0;transform:translateY(-2px);box-shadow:0 14px 30px rgba(219,39,119,.35)}
+@media(max-width:1350px){.nav-link{padding:7px 9px;letter-spacing:.12em}}
+
 /* ===== SITE-WIDE PALETTE — matches BCF Converter ===== */
 :root{--pink:#db2777;--teal:#0d9488;--indigo:#4f46e5;--yellow:#ca8a04;
 --rb:linear-gradient(90deg,#1a56db,#6d28d9,#db2777,#d97706,#059669,#0d9488);
@@ -654,7 +669,7 @@ body.loaded #bim3d{opacity:1}
 .section-hr{background:linear-gradient(90deg,transparent,#1a56db,#6d28d9,#db2777,transparent);height:2px;opacity:.35;}
 /* per-section accent colour (like the converter's // labels) */
 #about{--c:#1a56db}#bimztools{--c:#db2777}#lisp{--c:#d97706}#navistools{--c:#059669}#clashmatrix{--c:#6d28d9}
-#bcfconverter{--c:#db2777}#templates{--c:#0d9488}#tutorials{--c:#dc2626}#experience{--c:#1a56db}#contact{--c:#6d28d9}
+#bcfconverter{--c:#db2777}#templates{--c:#0d9488}#tutorials{--c:#dc2626}#experience{--c:#1a56db}#contact{--c:#6d28d9}#htmlconverter{--c:#4f46e5}
 .section .section-label{color:var(--c,#1a56db);}
 .section .section-label::after{background:linear-gradient(90deg,var(--c,#1a56db),transparent);}
 .exp-company,.skill-pct,.nav-link:hover,.nav-link.active{color:var(--c,#1a56db);}
@@ -705,6 +720,7 @@ body.loaded #bim3d{opacity:1}
       <a href="#navistools" class="nav-link" data-en="Navis BimzTools" data-hi="नेविस बिमज़ टूल्स">Navis BimzTools</a>
       <a href="#clashmatrix" class="nav-link" data-en="Clash Matrix" data-hi="क्लैश मैट्रिक्स">Clash Matrix</a>
       <a href="#bcfconverter" class="nav-link" data-en="BCF Converter" data-hi="BCF कन्वर्टर">BCF Converter</a>
+      <a href="#htmlconverter" class="nav-link" data-en="HTML → XML" data-hi="HTML → XML">HTML → XML</a>
       <a href="#lisp" class="nav-link" data-en="AutoCAD LISP" data-hi="ऑटोकैड लिस्प">AutoCAD LISP</a>
       <a href="#templates" class="nav-link" data-en="Templates" data-hi="टेम्प्लेट्स">Templates</a>
       <a href="#tutorials" class="nav-link" data-en="Tutorials" data-hi="ट्यूटोरियल">Tutorials</a>
@@ -1454,6 +1470,62 @@ body.loaded #bim3d{opacity:1}
 
 <hr class="section-hr"/>
 
+<!-- HTML → XML CONVERTER -->
+<section class="section" id="htmlconverter" style="background:var(--bg);">
+  <div class="section-inner">
+    <div class="section-label reveal" style="color:#4f46e5">BIMZ HTML Converter</div>
+    <h2 class="section-title reveal"><span style="color:var(--navy)" data-en="BIMZ HTML CONVERTER" data-hi="BIMZ HTML कन्वर्टर">BIMZ HTML CONVERTER</span><br><span class="bcf-grad" data-en="Navisworks HTML &#8594; XML" data-hi="Navisworks HTML &#8594; XML">Navisworks HTML &#8594; XML</span></h2>
+    <p class="section-desc reveal" data-en="A web tool that takes the Clash Detective report exported from Navisworks as HTML (Tabular) and converts it into XML &#8212; in the same structure Navisworks itself exports. Every column in the HTML is carried into the XML, one XML per test. Everything runs in your browser, nothing is uploaded. Built by ZIAD ANTER." data-hi="यह एक वेब टूल है जो Navisworks से HTML (Tabular) के रूप में निकाली गई Clash Detective रिपोर्ट को XML में बदलता है &#8212; ठीक उसी संरचना में जिसमें Navisworks खुद एक्सपोर्ट करता है। HTML का हर कॉलम XML में आता है। सब कुछ आपके ब्राउज़र में चलता है, कुछ भी अपलोड नहीं होता।">A web tool that takes the Clash Detective report exported from Navisworks as HTML (Tabular) and converts it into XML &#8212; in the same structure Navisworks itself exports. Every column in the HTML is carried into the XML, one XML per test. Everything runs in your browser, nothing is uploaded. Built by ZIAD ANTER.</p>
+
+    <!-- HTML CONVERTER TERMINAL -->
+    <div class="bim-terminal reveal">
+      <div class="bim-terminal-header">
+        <div class="term-dot r"></div><div class="term-dot y"></div><div class="term-dot g"></div>
+        <div class="term-title">BimzHtmlToXml &#8212; console</div>
+      </div>
+      <div class="bim-terminal-body">
+        <div class="term-line" style="animation-delay:.1s"><span class="prompt">$</span><span class="cmd">BimzHtmlToXml.exe --init</span></div>
+        <div class="term-line" style="animation-delay:.35s"><span class="prompt">&#10003;</span><span class="out-green">Clash Detective HTML reader ......... loaded</span></div>
+        <div class="term-line" style="animation-delay:.6s"><span class="prompt">&#10003;</span><span class="out-green">Column mapper (all columns) ......... loaded</span></div>
+        <div class="term-line" style="animation-delay:.85s"><span class="prompt">&#10003;</span><span class="out-green">Navisworks XML writer ............... loaded</span></div>
+        <div class="term-line" style="animation-delay:1.1s"><span class="prompt">&#10003;</span><span class="out-green">Ready &#183; waiting for .html reports</span></div>
+        <div class="term-line" style="animation-delay:1.35s"><span class="prompt">$</span><span class="cmd"><span class="term-cursor"></span></span></div>
+      </div>
+    </div>
+
+    <div class="tools-grid">
+      <div class="tool-card bcf-card reveal" style="--c:#1a56db" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#128196;</div><div class="tc-badges"><span class="badge bcf-badge">Step 1</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Upload HTML</div>
+        <div class="tc-desc">Drop one or many Clash Detective reports exported from Navisworks as HTML (Tabular), or paste the HTML source. Multiple files become multiple tests &#8212; no install, everything runs in your browser.</div>
+        <div class="tc-compat">Navisworks Export &#183; <span>Multiple Files</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card bcf-card reveal" style="--c:#d97706" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#9889;</div><div class="tc-badges"><span class="badge bcf-badge">Step 2</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">Convert to XML</div>
+        <div class="tc-desc">Every column found in the HTML is mapped and carried into the XML. Choose the model units (m, mm, cm, ft, in) and the test type &#8212; auto-detected from the description, or hard / clearance / duplicate.</div>
+        <div class="tc-compat">All Columns &#183; <span>Units &amp; Test Type</span></div>
+        <div class="tc-bar"></div>
+      </div>
+      <div class="tool-card bcf-card reveal" style="--c:#059669" onmousemove="cardGlow(event,this)">
+        <div class="tc-top"><div class="tc-icon bcf-ic">&#127919;</div><div class="tc-badges"><span class="badge bcf-badge">Step 3</span><span class="badge b-free">Free</span></div></div>
+        <div class="tc-name">XML like Navisworks</div>
+        <div class="tc-desc">Get an XML file in the same structure Navisworks exports. Download every test as its own XML, grab a ZIP with one XML per test, or copy the XML straight from the page.</div>
+        <div class="tc-compat">Navisworks XML &#183; <span>XML &#183; ZIP &#183; Copy</span></div>
+        <div class="tc-bar"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;" class="reveal">
+      <a href="https://htmlconverter-mocha.vercel.app/" target="_blank" rel="noopener" class="btn-primary bcf-btn"><span>&#8599;</span><span data-en="Open BIMZ HTML Converter" data-hi="BIMZ HTML Converter खोलें">Open BIMZ HTML Converter</span></a>
+      <span style="font-family:var(--mono);font-size:.72rem;color:var(--t3);">htmlconverter-mocha.vercel.app &#183; Navisworks HTML &#8594; XML &#183; ZIAD ANTER</span>
+    </div>
+  </div>
+</section>
+
+<hr class="section-hr"/>
+
 <!-- PORTFOLIO -->
 <!-- PROJECT TEMPLATES -->
 <section class="section" id="templates">
@@ -1721,6 +1793,7 @@ body.loaded #bim3d{opacity:1}
           <li><a href="#bimztools" data-en="Revit BimzTools" data-hi="रिविट बिमज़ टूल्स">Revit BimzTools</a></li>
           <li><a href="#navistools" data-en="Navis BimzTools" data-hi="नेविस बिमज़ टूल्स">Navis BimzTools</a></li>
           <li><a href="#clashmatrix" data-en="Clash Matrix" data-hi="क्लैश मैट्रिक्स">Clash Matrix</a></li>
+          <li><a href="#htmlconverter" data-en="HTML → XML" data-hi="HTML → XML">HTML → XML</a></li>
           <li><a href="#templates" data-en="Templates" data-hi="टेम्प्लेट्स">Templates</a></li>
           <li><a href="#tutorials" data-en="Tutorials" data-hi="ट्यूटोरियल">Tutorials</a></li>
           <li><a href="#experience" data-en="Experience" data-hi="अनुभव">Experience</a></li>
